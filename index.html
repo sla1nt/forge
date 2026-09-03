@@ -464,16 +464,31 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .choice .pic{width:52px; height:52px}
 .choice .nm{display:flex; flex-direction:column; align-items:center; gap:1px; min-width:0; width:100%}
 .choice .en{font-size:9.5px; color:var(--dim); letter-spacing:.02em}
-/* Что даёт пассивка — третьей строкой в плитке. Мельче названия, но
-   читаемо: по нему и выбирают. */
-.choice .what{
-  display:block; margin-top:4px; font-size:10.5px; line-height:1.32;
-  color:var(--muted); letter-spacing:0; text-transform:none; font-weight:400;
-  /* Плитка узкая, а слова в описаниях длинные: без переноса «восстанавливаются»
-     уезжает за край и обрезается на полуслове. */
-  overflow-wrap:anywhere; hyphens:auto; max-width:100%;
+
+/* Всплывающее окошко: название вещи и её свойства. Живёт поверх всего,
+   поэтому у него свой слой и никаких границ у родителя оно не знает. */
+.tip{
+  position:fixed; z-index:60; max-width:290px; pointer-events:none;
+  padding:10px 12px 11px; border:1px solid var(--line);
+  border-left:2px solid var(--gold-dim); border-radius:3px;
+  background:linear-gradient(180deg,#1c1417,#120c0e);
+  box-shadow:0 14px 34px -12px #000, 0 0 0 1px rgba(0,0,0,.5);
+  font-size:12.5px; line-height:1.45; color:var(--muted);
 }
-.choice[aria-pressed="true"] .what{color:var(--text)}
+.tip b{
+  display:block; font-family:Cinzel,Georgia,serif; font-weight:700;
+  font-size:13.5px; color:var(--gold); letter-spacing:.02em;
+}
+.tip .en{display:block; font-size:10px; color:var(--dim); margin-top:1px}
+.tip .sub{display:block; font-size:10.5px; color:var(--muted); margin-top:3px;
+          letter-spacing:.05em; text-transform:uppercase}
+.tip ul{margin:8px 0 0; padding:0; list-style:none}
+.tip li{position:relative; padding-left:13px; color:var(--text); margin-bottom:2px}
+.tip li::before{
+  content:"\25C6"; position:absolute; left:0; top:2px;
+  font-size:7px; color:var(--accent-lit);
+}
+.tip p{margin:8px 0 0; color:var(--muted); font-size:11.5px}
 
 /* ---- свойства крови ---- */
 .fx{display:flex; flex-direction:column; gap:5px}
@@ -800,30 +815,42 @@ const AMULETS = [
    прямо: 8% у Жажды крови и у Подавления. Остальное описано словами —
    врать числом хуже, чем не назвать его. */
 const PASSIVES = [
-  {i:'Ability_Bastion',           ru:'Бастион',            en:'Bastion',
-   s:'frost',    t:'здоровье',        d:'Больше максимального здоровья.'},
-  {i:'Ability_DarkEnchantment',   ru:'Тёмное зачарование', en:'Dark Enchantment',
-   s:'frost',    t:'снижение урона',  d:'Весь входящий урон приходит слабее.'},
-  {i:'Ability_EmbraceMayhem',     ru:'Объятия хаоса',      en:'Embrace Mayhem',
-   s:'unholy',   t:'ультимейт',       d:'Ультимейт восстанавливается быстрее и расходуется выгоднее.'},
-  {i:'Ability_FeralHaste',        ru:'Звериная прыть',     en:'Feral Haste',
-   s:'illusion', t:'скорость',        d:'Скорость передвижения, в том числе в облике зверя.'},
-  {i:'Ability_HungerforBlood',    ru:'Жажда крови',        en:'Hunger for Blood',
-   s:'blood',    t:'урон по V-крови', d:'+8% урона по носителям V-крови и вампиризм обычной атаки.'},
-  {i:'Ability_HungerforPower',    ru:'Жажда силы',         en:'Hunger for Power',
-   s:'storm',    t:'вампиризм магии', d:'Заклинания возвращают часть урона здоровьем.'},
-  {i:'Ability_LethalStrikes',     ru:'Смертельные удары',  en:'Lethal Strikes',
-   s:'unholy',   t:'урон крита',      d:'Физический крит бьёт сильнее.'},
-  {i:'Ability_Overpower',         ru:'Подавление',         en:'Overpower',
-   s:'chaos',    t:'перезарядка оружия', d:'Приёмы оружия восстанавливаются быстрее, +8% шанс не потратить приём.'},
-  {i:'Ability_Rampage',           ru:'Неистовство',        en:'Rampage',
-   s:'blood',    t:'шанс крита',      d:'Выше шанс физического крита.'},
-  {i:'Ability_RavenousStrikes',   ru:'Ненасытные удары',   en:'Ravenous Strikes',
-   s:'chaos',    t:'сила приёмов',    d:'Приёмы оружия сильнее и возвращают здоровье.'},
-  {i:'Ability_TurbulentVelocity', ru:'Бурная скорость',    en:'Turbulent Velocity',
-   s:'storm',    t:'скорость',        d:'Выше скорость передвижения.'},
-  {i:'Ability_WickedPower',       ru:'Злая мощь',          en:'Wicked Power',
-   s:'illusion', t:'шанс маг. крита', d:'Выше шанс магического крита.'},
+  {i:'Ability_Bastion',           ru:'Бастион',              en:'Bastion',
+   s:'frost',    t:'здоровье',
+   d:'Максимальное здоровье +8%. Если на вас действует эффект контроля, получаемый урон сокращается на 25%.'},
+  {i:'Ability_DarkEnchantment',   ru:'Тёмные чары',          en:'Dark Enchantment',
+   s:'frost',    t:'снижение урона',
+   d:'Снижение урона +4%. Получив больше 30% здоровья урона за 2 секунды, даёт щит на 250% силы магии на 4 секунды — не чаще раза в 40 секунд.'},
+  {i:'Ability_EmbraceMayhem',     ru:'Объятия хаоса',        en:'Embrace Mayhem',
+   s:'unholy',   t:'ультимейт',
+   d:'Скорость перезарядки ультимейта +14%, высшая сила +10%.'},
+  {i:'Ability_FeralHaste',        ru:'Дикая спешка',         en:'Feral Haste',
+   s:'illusion', t:'скорость',
+   d:'Скорость передвижения +4%, а в облике зверя +15%.'},
+  {i:'Ability_HungerforBlood',    ru:'Кровавый голод',       en:'Hunger for Blood',
+   s:'blood',    t:'вампиризм атаки',
+   d:'Вампиризм основной атаки +5%, урон по крови группы V +8%.'},
+  {i:'Ability_HungerforPower',    ru:'Стремление к власти',  en:'Hunger for Power',
+   s:'storm',    t:'вампиризм магии',
+   d:'Вампиризм заклинаний +4%. После шести заклинаний подряд урон +20%, а скорость +10% на 6 секунд.'},
+  {i:'Ability_LethalStrikes',     ru:'Смертоносные удары',   en:'Lethal Strikes',
+   s:'unholy',   t:'урон крита',
+   d:'Урон физического крита +8%. Врагам ниже 30% здоровья — ещё +12% физического урона.'},
+  {i:'Ability_Overpower',         ru:'Пересиливание',        en:'Overpower',
+   s:'chaos',    t:'перезарядка оружия',
+   d:'Скорость перезарядки оружия +7%, скорость заряда оружия +8%.'},
+  {i:'Ability_Rampage',           ru:'Свирепость',           en:'Rampage',
+   s:'blood',    t:'шанс крита',
+   d:'Шанс физического крита +8%. Крит даёт +12% скорости атаки на 4 секунды.'},
+  {i:'Ability_RavenousStrikes',   ru:'Зверские удары',       en:'Ravenous Strikes',
+   s:'chaos',    t:'сила приёмов',
+   d:'Сила навыков оружия +9%, вампиризм навыков оружия +5%.'},
+  {i:'Ability_TurbulentVelocity', ru:'Бешеная скорость',     en:'Turbulent Velocity',
+   s:'storm',    t:'скорость',
+   d:'Скорость движения +4%. Нанеся урон врагу, ещё +4% на 4 секунды.'},
+  {i:'Ability_WickedPower',       ru:'Дурная сила',          en:'Wicked Power',
+   s:'illusion', t:'шанс маг. крита',
+   d:'Шанс магического крита +8%. С вероятностью 50% удар накладывает случайное направление магии.'},
 ];
 const ULTIMATES = [
   {i:'Ability_CrimsonBeam',      ru:'Багровый луч',        en:'Crimson Beam',      s:'blood'},
@@ -1215,6 +1242,7 @@ function drawSlots(){
     const v = slotView(id);
     b.setAttribute('aria-pressed', bdActive === id);
     b.classList.toggle('over', !!v.over);
+    b.__tip = tipForSlot(id);
     // Цвет школы уходит в саму плитку: рамка иконки, свечение и уголки
     // берут его оттуда. Пустая ячейка остаётся нейтральной.
     b.style.setProperty('--tile', v.hue || 'var(--line)');
@@ -1236,10 +1264,11 @@ function choiceGrid(items, isOn, onPick){
     b.setAttribute('aria-pressed', isOn(it));
     b.style.setProperty('--tile', it.hue || hueOf(it.i) || 'var(--line)');
     b.innerHTML = img(it.icon) + `<span class="nm">${it.ru}`
-      + (it.en ? `<span class="en">${it.en}</span>` : '')
-      // Что даёт — прямо в плитке. Пассивку по названию не угадать,
-      // а лезть в справочник посреди сборки никто не станет.
-      + (it.d ? `<span class="what">${it.d}</span>` : '') + '</span>';
+      + (it.en ? `<span class="en">${it.en}</span>` : '') + '</span>';
+
+    // Что даёт вещь — не в плитке, а во всплывающем окошке при наведении.
+    // В плитке текст ломался на пять строк и топил собой сам выбор.
+    b.__tip = tipOf(it.i);
     b.addEventListener('click', () => onPick(it));
     g.appendChild(b);
   });
@@ -1276,6 +1305,7 @@ function pillRow(items, isOn, onPick){
     b.type = 'button';
     b.innerHTML = img(it.icon, 'tiny') + it.ru;
     b.setAttribute('aria-pressed', isOn(it));
+    b.__tip = it.tip || null;
     b.addEventListener('click', () => onPick(it));
     row.appendChild(b);
   });
@@ -1302,6 +1332,7 @@ function modGrid(items, chosen, limit, onFull){
     b.className = 'mod'; b.type = 'button';
     b.setAttribute('aria-pressed', chosen.includes(i));
     b.innerHTML = it.html;
+    b.__tip = it.tip || null;
     b.addEventListener('click', () => {
       const was = chosen.length;
       const at = chosen.indexOf(i);
@@ -1543,7 +1574,8 @@ function drawEditor(){
   bdEditor.appendChild(hintEl(
     `Свойства оружия — <b>ровно три</b>. Выбрано: <b>${arm.stats.length}</b> из 3`));
   bdEditor.appendChild(modGrid(DATA.stats.map((name, i) => ({
-    html:`<span class="idx">${hex(i+1)}</span>${DATA.statsRu[name] || name}<span class="en">${name}</span>`
+    html:`<span class="idx">${hex(i+1)}</span>${DATA.statsRu[name] || name}<span class="en">${name}</span>`,
+    tip:tipStat(name)
   })), arm.stats, 3, () => { bdActive = nextEmptyArm(ai); }));
 }
 
@@ -1633,6 +1665,175 @@ function nextEmptyAny(from){
   const at = ids.indexOf(from);
   return ids.slice(at + 1).find(id => !bdFilled(id)) || null;
 }
+
+/* ---- всплывающая подсказка ------------------------------------------------
+   Раньше описания жили строкой внутри плитки выбора. Плитка узкая, текст
+   в ней ломался на пять строк и топил собой сам выбор; а в ячейках сборки
+   места нет вовсе. Игра решает это иначе: навёл — вылезло окошко с
+   названием и свойствами. Так и сделано.
+
+   Числа берутся оттуда же, откуда их берёт панель характеристик, — из
+   данных, снятых с сервера. Ноль в наборе означает «нет», а не «плюс ноль»:
+   у арбалета сила приёмов обнулена, и показывать «+0%» было бы враньём,
+   поэтому нули пропускаются.
+--------------------------------------------------------------------------- */
+const tipBox = document.createElement('div');
+tipBox.className = 'tip';
+tipBox.hidden = true;
+document.body.appendChild(tipBox);
+
+const tipPct = v => (v > 0 ? '+' : '') + (v * 100).toFixed(v * 100 % 1 ? 1 : 0) + '%';
+const tipNum = v => (v > 0 ? '+' : '')
+  + (Math.round(v * 100) / 100).toString().replace('.', ',');
+
+function tipStatLines(block){
+  const out = [];
+  for (const k in block || {}){
+    const v = block[k];
+    if (!v) continue;
+    const m = ST_META[k];
+    // Число показываем ровно так же, как в панели характеристик:
+    // «+811», а не «+811,32». Две записи одного и того же сбивают.
+    const shown = m && m.pct ? tipPct(v)
+      : (v > 0 ? '+' : '') + (m ? stNum(k, v) : tipNum(v));
+    out.push(`${m ? m.ru : k} ${shown}`);
+  }
+  return out;
+}
+
+/** Что показать про одно свойство оружия. */
+function tipStat(name){
+  return {ru:DATA.statsRu[name] || name, en:name,
+          lines:tipStatLines(ST_STATMOD[name])};
+}
+
+/** Что показать про вещь. Ключ — тот же, каким она зовётся в списках. */
+function tipOf(key){
+  if (!key) return null;
+
+  if (key.startsWith('l:')){
+    const w = key.slice(2);
+    return {ru:DATA.weaponsRu[w] || w, en:cap(w), sub:'Легендарка',
+            lines:tipStatLines(Object.assign({}, ST_WEAPON_ANY, ST_WEAPON[w] || {}))};
+  }
+
+  if (key.startsWith('art:')){
+    const a = artByKey(key.slice(4));
+    return a && {ru:a.ru, en:a.n, sub:`${a.t} · артефакт`,
+                 lines:tipStatLines(ST_WEAPON_ANY),
+                 note:'Своё умение и вшитая инфузия — школа не выбирается.'};
+  }
+
+  const armor = byKey(ARMORS, key);
+  if (armor) return {ru:`Сет «${armor.ru}»`, en:armor.en,
+                     lines:tipStatLines(ST_ARMOR[key]), note:ST_ARMOR_NOTE[key]};
+
+  const amulet = byKey(AMULETS, key);
+  if (amulet) return {ru:amulet.ru, en:amulet.en,
+                      lines:tipStatLines(ST_AMULET_ANY),
+                      note:'Школа амулета решает, какой у бойца ультимейт.'};
+
+  const pass = byKey(PASSIVES, key);
+  if (pass) return {ru:pass.ru, en:pass.en, note:pass.d};
+
+  const coat = byKey(COATINGS, key);
+  if (coat) return {ru:coat.ru, en:coat.en,
+                    note:'Покрытие живёт час и переживает смерть.'};
+
+  const elixir = byKey(ELIXIRS, key);
+  if (elixir) return {ru:elixir.ru, en:elixir.en, sub:'Эликсир формы'};
+
+  const ult = byKey(ULTIMATES, key);
+  if (ult) return {ru:ult.ru, en:ult.en, sub:`Ультимейт · ${SCHOOL_RU[ult.s] || ult.s}`};
+
+  return null;
+}
+
+/** Что показать про ячейку сборки — по тому, что в ней сейчас лежит. */
+function tipForSlot(id){
+  if (id === 'armor')   return tipOf(bd.armor);
+  if (id === 'amulet')  return tipOf(bd.amulet);
+  if (id === 'coating') return tipOf(bd.coating);
+  if (id === 'elixir')  return tipOf(bd.elixir);
+  if (id === 'ult')     return tipOf(bd.ult);
+
+  const pi = passIndex(id);
+  if (pi >= 0) return tipOf(bd.passives[pi]);
+
+  const ci = coatIndex(id);
+  if (ci >= 0) return tipOf(bd.coatings[ci]);
+
+  const ai = armIndex(id);
+  if (ai >= 0){
+    const arm = bd.arms[ai];
+    if (!arm.k) return null;
+
+    const tip = tipOf(`${arm.kind}:${arm.k}`);
+    if (!tip) return null;
+
+    // Выбранные свойства дописываем к общим: в ячейке их не видно,
+    // а именно они отличают одно оружие сборки от другого.
+    if (arm.stats.length)
+      tip.lines = (tip.lines || []).concat(
+        arm.stats.map(i => DATA.statsRu[DATA.stats[i]] || DATA.stats[i]));
+
+    return tip;
+  }
+
+  const sl = spellSlot(id);
+  if (sl){
+    const sp = spellByKey(bd[id].k);
+    return sp && {ru:sp.ru, en:sp.n, sub:`Школа: ${SCHOOL_RU[sp.s] || sp.s}`};
+  }
+
+  return null;
+}
+
+function tipShow(el){
+  const t = el.__tip;
+  if (!t) return;
+
+  tipBox.innerHTML = `<b>${t.ru}</b>`
+    + (t.en ? `<span class="en">${t.en}</span>` : '')
+    + (t.sub ? `<span class="sub">${t.sub}</span>` : '')
+    + (t.lines && t.lines.length
+        ? '<ul>' + t.lines.map(l => `<li>${l}</li>`).join('') + '</ul>' : '')
+    + (t.note ? `<p>${t.note}</p>` : '');
+
+  tipBox.hidden = false;
+  tipPlace(el);
+}
+
+/** Поставить окошко под вещью, а если внизу не помещается — над ней. */
+function tipPlace(el){
+  const r = el.getBoundingClientRect();
+  const box = tipBox.getBoundingClientRect();
+
+  let left = r.left + r.width / 2 - box.width / 2;
+  left = Math.max(8, Math.min(left, innerWidth - box.width - 8));
+
+  const below = r.bottom + 10;
+  const top = below + box.height < innerHeight - 8 ? below : r.top - box.height - 10;
+
+  tipBox.style.left = Math.round(left) + 'px';
+  tipBox.style.top = Math.round(Math.max(8, top)) + 'px';
+}
+
+const tipHide = () => { tipBox.hidden = true; };
+
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('.slot, .choice, .mod, .schools button');
+  if (!el || !el.__tip) { tipHide(); return; }
+  tipShow(el);
+});
+document.addEventListener('mouseout', e => {
+  if (!e.relatedTarget || !e.relatedTarget.closest('.slot, .choice, .mod, .schools button')) tipHide();
+});
+// Страница перерисовывается на каждый щелчок, и старое окошко зависало бы
+// над уже несуществующей плиткой.
+document.addEventListener('click', tipHide, true);
+addEventListener('scroll', tipHide, true);
+
 
 /* ---- одна команда ---- *
    Первый живой тест показал главное: игровой чат режет строку примерно
@@ -1962,6 +2163,8 @@ const ST_META = {
   HolyResistance:               {ru:'Стойкость к святому', box:'def'},
 
   WeaponSkillPower:             {ru:'Сила приёмов оружия',     box:'phys', pct:1},
+  PrimaryLifeLeech:             {ru:'Вампиризм основной атаки', box:'phys', pct:1},
+  UltimateCooldownRecoveryRate: {ru:'Перезарядка ультимейта',   box:'spell', pct:1},
   BonusPhysicalPower:           {ru:'Физическая сила сверх',   box:'phys', pct:1},
   BonusSpellPower:              {ru:'Сила магии сверх',        box:'spell', pct:1},
   SpellCriticalStrikeDamage:    {ru:'Урон магического крита',  box:'spell', pct:1},
@@ -1969,6 +2172,32 @@ const ST_META = {
   BonusMovementSpeed:           {ru:'Скорость сверх',          box:'misc', pct:1},
   ReducedBloodDrain:            {ru:'Расход крови ниже',       box:'misc', pct:1},
   ResourceYield:                {ru:'Добыча ресурсов', box:'misc', pct:1},
+};
+
+/* Что пассивки дают постоянно.
+   ---------------------------------------------------------------------------
+   Числа сняты с подсказок самой игры (скриншоты 3 сентября), а не выведены
+   из справочников.
+
+   В счёт идёт только то, что действует всегда. У доброй половины пассивок
+   вторая половина — с условием: щит Тёмных чар после сильного удара, разгон
+   Свирепости после крита, урон Кровавого голода по крови группы V. Ставить
+   их в постоянные характеристики значило бы обманывать: в бою этих процентов
+   может не быть вовсе. Условное живёт в подсказке при наведении, полностью
+   и словами игры. */
+const ST_PASSIVE = {
+  Ability_Bastion:           {BonusMaxHealth:0.08},
+  Ability_DarkEnchantment:   {DamageReduction:0.04},
+  Ability_EmbraceMayhem:     {UltimateCooldownRecoveryRate:0.14},
+  Ability_FeralHaste:        {BonusMovementSpeed:0.04},
+  Ability_HungerforBlood:    {PrimaryLifeLeech:0.05},
+  Ability_HungerforPower:    {SpellLifeLeech:0.04},
+  Ability_LethalStrikes:     {PhysicalCriticalStrikeDamage:0.08},
+  Ability_Overpower:         {WeaponCooldownRecoveryRate:0.07},
+  Ability_Rampage:           {PhysicalCriticalStrikeChance:0.08},
+  Ability_RavenousStrikes:   {WeaponSkillPower:0.09},
+  Ability_TurbulentVelocity: {BonusMovementSpeed:0.04},
+  Ability_WickedPower:       {SpellCriticalStrikeChance:0.08},
 };
 
 /* Скорость передвижения — доля от основы, а не прибавка числом. */
@@ -2007,6 +2236,9 @@ function stGather(withBuild){
     // с игрой только потому, что оружие без свойств ничего и не даёт.
     (hand.stats || []).forEach(i => stAdd(sum, ST_STATMOD[DATA.stats[i]]));
   }
+
+  // Пять пассивок. Считаем постоянную часть каждой — см. ST_PASSIVE.
+  bd.passives.forEach(key => stAdd(sum, ST_PASSIVE[key]));
 
   return sum;
 }
@@ -2093,6 +2325,19 @@ function stCeilings(){
 
       const sum = Object.assign({}, base);
       gain.forEach(x => stAdd(sum, ST_STATMOD[DATA.stats[x.i]]));
+
+      // И пять лучших пассивок по этой же характеристике: без них потолок
+      // занижен, и полоска показывала бы больше набранного, чем есть.
+      Object.keys(ST_PASSIVE)
+        .map(k => {
+          const one = Object.assign({}, sum);
+          stAdd(one, ST_PASSIVE[k]);
+          return {k, up:(stTotals(one)[key] || 0) - (stTotals(sum)[key] || 0)};
+        })
+        .sort((a, b) => b.up - a.up)
+        .slice(0, PASSIVE_SLOTS)
+        .filter(x => x.up > 0.00001)
+        .forEach(x => stAdd(sum, ST_PASSIVE[x.k]));
 
       const v = stTotals(sum)[key] || 0;
       if (v > best) best = v;
@@ -2221,6 +2466,8 @@ function drawStats(){
     : 'Плащ и сумка учтены — их выдаёт кит.')
     + ' Полоска показывает, сколько набрано из возможного в Кузнице:'
     + ' полная — выжато всё, что страница умеет дать по этой характеристике.'
+    + ' У пассивок считается только постоянная часть; то, что работает'
+    + ' по условию, написано в подсказке при наведении.'
     + (note ? ' ' + note : '');
 }
 
