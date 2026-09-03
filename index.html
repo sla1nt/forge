@@ -1808,6 +1808,31 @@ function tipForSlot(id){
     return tip;
   }
 
+  if (id === 'blood' || id === 'blood2'){
+    const type = bd[id];
+    if (!type) return null;
+
+    const fx = BLOOD_FX[type] || [];
+    const quality = stQuality();
+
+    // У смеси берётся одно выбранное свойство из первых трёх плюс
+    // четвёртое — показываем ровно то, что достанется.
+    const take = id === 'blood2'
+      ? [Math.min(3, Math.max(1, bd.bloodBuff || 1)) - 1, 3]
+      : [0, 1, 2, 3];
+
+    return {
+      ru:RU_BLOOD[type] || type,
+      sub:id === 'blood2' ? `Смесь · эффект ${bd.bloodBuff}` : 'Основная кровь',
+      lines:take
+        .filter(i => fx[i] && quality >= ST_BLOOD_STEPS[i])
+        .map(i => fx[i].d),
+      note:take.some(i => fx[i] && quality < ST_BLOOD_STEPS[i])
+        ? `При качестве ${quality}% часть свойств ещё не работает.`
+        : null,
+    };
+  }
+
   const sl = spellSlot(id);
   if (sl){
     const sp = spellByKey(bd[id].k);
@@ -2043,7 +2068,9 @@ document.getElementById('bd-copy').addEventListener('click', async () => {
   catch { btn.textContent = 'Выдели и скопируй'; }
   setTimeout(() => { btn.textContent = 'Копировать всё'; }, 1600);
 });
-document.getElementById('bd-bq').addEventListener('input', drawCommands);
+// Качество меняет свойства крови, а значит и характеристики: перерисовываем
+// всю сборку, а не одну строку команды.
+document.getElementById('bd-bq').addEventListener('input', drawBuild);
 
 let lastActive = null;
 
@@ -2228,6 +2255,93 @@ const ST_PASSIVE = {
   Ability_WickedPower:       {SpellCriticalStrikeChance:0.08},
 };
 
+/* Что кровь даёт числами.
+   ---------------------------------------------------------------------------
+   Четыре свойства у каждого типа, по одному на порог качества 0/30/60/90 —
+   те же самые, что расписаны словами в BLOOD_FX выше. Здесь взято только
+   то, что действует всегда и ложится в наши строки характеристик.
+
+   Чего здесь нет и почему:
+
+   — Условное. «Укус лечит», «после Завесы крит +100%», парирование Зверя,
+     вскрытие брони Разбойника — в бою этого может не быть вовсе, и в
+     постоянных характеристиках ему не место. Всё это по-прежнему написано
+     словами при выборе крови.
+   — То, для чего у нас нет строки: восстановление здоровья, эффективность
+     щитов, высшая сила, накопление зарядов, урон приспешников, добыча
+     ресурсов сверх сбора, езда верхом.
+   — Общее пятое свойство (со 100% качества) — «все свойства выше сильнее
+     на 20%». Не применяю: из его описания не видно, множит ли оно уже
+     набранное или поднимает потолок. Проверим `.unitstats` в игре и
+     допишем, а врать числом хуже, чем недосчитать.
+
+   Порядок в списке — строго по порогам, потому что смесь берёт свойство
+   по номеру: одно из первых трёх на выбор плюс четвёртое всегда. */
+const ST_BLOOD = {
+  creature: [
+    {BonusMaxHealth:0.16},
+    {BonusMovementSpeed:0.08},
+    {SunResistance:20, GarlicResistance:20, SilverResistance:20,
+     FireResistance:20, HolyResistance:20},
+    {},
+  ],
+  warrior: [
+    {BonusPhysicalPower:0.10},
+    {WeaponCooldownRecoveryRate:0.14},
+    {WeaponSkillPower:0.18},
+    {},
+  ],
+  rogue: [
+    {PhysicalCriticalStrikeChance:0.16, PhysicalCriticalStrikeDamage:0.08},
+    {BonusMovementSpeed:0.08},
+    {TravelCooldownRecoveryRate:0.14},
+    {},
+  ],
+  brute: [
+    {PrimaryAttackSpeed:0.14, BonusPhysicalPower:0.05},
+    {PrimaryLifeLeech:0.10, DamageReduction:0.04},
+    {BonusMaxHealth:0.16},
+    {},
+  ],
+  scholar: [
+    {BonusSpellPower:0.12},
+    {SpellCooldownRecoveryRate:0.12},
+    {},
+    {},
+  ],
+  worker: [
+    {ResourceYield:0.24},
+    {},
+    {},
+    {},
+  ],
+  mutant: [
+    {BonusSpellPower:0.14},
+    {UltimateCooldownRecoveryRate:0.28},
+    {},
+    {TravelCooldownRecoveryRate:0.07},
+  ],
+  draculin: [
+    {BonusSpellPower:0.12, SpellCriticalStrikeDamage:0.08},
+    {SpellCriticalStrikeChance:0.16},
+    {SpellLifeLeech:0.08},
+    {},
+  ],
+  corruption: [
+    {PrimaryLifeLeech:0.05},
+    {},
+    {BonusMovementSpeed:0.12, PrimaryAttackSpeed:0.14},
+    {},
+  ],
+};
+
+/* Пороги качества у свойств крови — те же, что в самой игре. */
+const ST_BLOOD_STEPS = [0, 30, 60, 90];
+
+/** Качество крови, как его понимает страница. */
+const stQuality = () =>
+  Math.max(1, Math.min(100, +document.getElementById('bd-bq').value || 100));
+
 /* Скорость передвижения — доля от основы, а не прибавка числом. */
 const ST_SPEED = 'MovementSpeed';
 
@@ -2267,6 +2381,24 @@ function stGather(withBuild){
 
   // Пять пассивок. Считаем постоянную часть каждой — см. ST_PASSIVE.
   bd.passives.forEach(key => stAdd(sum, ST_PASSIVE[key]));
+
+  // Кровь. Основная даёт все четыре свойства, каждое со своего порога
+  // качества; смесь — одно выбранное из первых трёх плюс четвёртое,
+  // которое работает всегда. Ровно так это устроено в игре.
+  const quality = stQuality();
+  const own = ST_BLOOD[bd.blood];
+
+  if (own)
+    own.forEach((block, i) => {
+      if (quality >= ST_BLOOD_STEPS[i]) stAdd(sum, block);
+    });
+
+  const mix = ST_BLOOD[bd.blood2];
+  if (mix){
+    const pick = Math.min(3, Math.max(1, bd.bloodBuff || 1)) - 1;
+    if (quality >= ST_BLOOD_STEPS[pick]) stAdd(sum, mix[pick]);
+    if (quality >= ST_BLOOD_STEPS[3]) stAdd(sum, mix[3]);
+  }
 
   return sum;
 }
@@ -2366,6 +2498,22 @@ function stCeilings(){
         .slice(0, PASSIVE_SLOTS)
         .filter(x => x.up > 0.00001)
         .forEach(x => stAdd(sum, ST_PASSIVE[x.k]));
+
+      // И кровь: та, что даёт по этой характеристике больше всех, целиком,
+      // плюс лучшее, что можно взять смесью — одно из первых трёх свойств
+      // второй крови и её четвёртое.
+      let bestBlood = null;
+      let bestUp = 0;
+
+      Object.keys(ST_BLOOD).forEach(type => {
+        const one = Object.assign({}, sum);
+        ST_BLOOD[type].forEach(block => stAdd(one, block));
+
+        const up = (stTotals(one)[key] || 0) - (stTotals(sum)[key] || 0);
+        if (up > bestUp){ bestUp = up; bestBlood = type; }
+      });
+
+      if (bestBlood) ST_BLOOD[bestBlood].forEach(block => stAdd(sum, block));
 
       const v = stTotals(sum)[key] || 0;
       if (v > best) best = v;
