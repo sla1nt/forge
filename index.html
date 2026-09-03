@@ -461,6 +461,12 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
   border-color:var(--gold-dim); box-shadow:inset 0 0 20px -10px var(--gold);
 }
 .choice:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+/* Недоступная плитка: видно, что вещь есть, но взять её нельзя. */
+.choice.off{
+  opacity:.3; cursor:not-allowed; filter:grayscale(.7);
+  background:linear-gradient(180deg,#161012,#100b0d);
+}
+.choice.off:hover{background:linear-gradient(180deg,#161012,#100b0d); color:var(--muted)}
 .choice .pic{width:52px; height:52px}
 .choice .nm{display:flex; flex-direction:column; align-items:center; gap:1px; min-width:0; width:100%}
 .choice .en{font-size:9.5px; color:var(--dim); letter-spacing:.02em}
@@ -1262,6 +1268,14 @@ function choiceGrid(items, isOn, onPick){
     const b = document.createElement('button');
     b.className = 'choice'; b.type = 'button';
     b.setAttribute('aria-pressed', isOn(it));
+
+    // Недоступное гасим и не даём нажать. Ругаться после выбора хуже,
+    // чем не пустить: игрок уже потратил щелчок и внимание.
+    if (it.off){
+      b.disabled = true;
+      b.classList.add('off');
+      b.title = it.off;
+    }
     b.style.setProperty('--tile', it.hue || hueOf(it.i) || 'var(--line)');
     b.innerHTML = img(it.icon) + `<span class="nm">${it.ru}`
       + (it.en ? `<span class="en">${it.en}</span>` : '') + '</span>';
@@ -1524,9 +1538,18 @@ function drawEditor(){
   // менялся под выбранную. Получалось два шага там, где нужен один: игрок
   // и так знает, что хочет взять. Артефакты идут первыми: их пятнадцать
   // и они приметнее, легендарки следом.
+  // Сколько золотых уже занято другими слотами. Свой слот не считаем:
+  // менять артефакт на артефакт можно всегда.
+  const artsElsewhere = bd.arms
+    .filter((a, n) => a.kind === 'art' && a.k && n !== ai).length;
+
+  const artsFull = artsElsewhere >= MAX_ARTIFACTS;
+  const whyOff = `Золотых артефактов уже ${MAX_ARTIFACTS} — больше игра в руках не держит`;
+
   const list = DATA.artifacts
     .map(a => ({i:`art:${a.k}`, kind:'art', k:a.k,
-                icon:ART_ICON[a.k], ru:a.ru, en:a.t}))
+                icon:ART_ICON[a.k], ru:a.ru, en:a.t,
+                off:artsFull ? whyOff : null}))
     .concat(DATA.weapons
       .map(w => ({i:`l:${w}`, kind:'l', k:w,
                   icon:WEAPON_ICON[w], ru:DATA.weaponsRu[w], en:cap(w)})));
@@ -1540,6 +1563,11 @@ function drawEditor(){
       () => { armListOpen[id] = true; drawBuild(); }));
   }
   else {
+    if (artsFull)
+      bdEditor.appendChild(hintEl(
+        `Золотые артефакты набраны: <b>${MAX_ARTIFACTS}</b> из ${MAX_ARTIFACTS}. `
+        + 'Больше игра в руках не держит — выбирай легендарку.'));
+
     bdEditor.appendChild(choiceGrid(list,
       it => arm.kind === it.kind && arm.k === it.k,
       it => {
