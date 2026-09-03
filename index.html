@@ -886,15 +886,28 @@ const COATINGS = [
   {i:'Item_StormCoating',    ru:'Покрытие шторма',   en:'Storm Coating'},
   {i:'Item_UnholyCoating',   ru:'Покрытие нежити',   en:'Unholy Coating'},
 ];
+/* Эликсиры. Поле game — имя из игры: наши короткие подписи местами
+   расходятся с ним («Хищник» в игре зовётся мародёрами, «Извращённый» —
+   аномальными), и игрок должен узнать вещь по обоим. Проверено по файлу
+   локализации клиента, а не на слух: «Ворон» и «Ворона» — разные эликсиры,
+   и перепутать их проще простого. */
 const ELIXIRS = [
-  {i:'Item_ElixiroftheBat',         ru:'Летучая мышь', en:'Elixir of the Bat'},
-  {i:'Item_ElixiroftheBeast',       ru:'Зверь',        en:'Elixir of the Beast'},
-  {i:'Item_ElixiroftheBlasphemous', ru:'Богохульник',  en:'Elixir of the Blasphemous'},
-  {i:'Item_ElixiroftheCrow',        ru:'Ворона',       en:'Elixir of the Crow'},
-  {i:'Item_ElixiroftheProwler',     ru:'Хищник',       en:'Elixir of the Prowler'},
-  {i:'Item_ElixiroftheRaven',       ru:'Ворон',        en:'Elixir of the Raven'},
-  {i:'Item_ElixiroftheTwisted',     ru:'Извращённый',  en:'Elixir of the Twisted'},
-  {i:'Item_ElixiroftheWerewolf',    ru:'Оборотень',    en:'Elixir of the Werewolf'},
+  {i:'Item_ElixiroftheBat',         ru:'Летучая мышь', en:'Elixir of the Bat',
+   game:'Эликсир нетопыря'},
+  {i:'Item_ElixiroftheBeast',       ru:'Зверь',        en:'Elixir of the Beast',
+   game:'Эликсир зверя'},
+  {i:'Item_ElixiroftheBlasphemous', ru:'Богохульник',  en:'Elixir of the Blasphemous',
+   game:'Эликсир богохульников'},
+  {i:'Item_ElixiroftheCrow',        ru:'Ворона',       en:'Elixir of the Crow',
+   game:'Эликсир вороны'},
+  {i:'Item_ElixiroftheProwler',     ru:'Хищник',       en:'Elixir of the Prowler',
+   game:'Эликсир мародёров'},
+  {i:'Item_ElixiroftheRaven',       ru:'Ворон',        en:'Elixir of the Raven',
+   game:'Эликсир ворона'},
+  {i:'Item_ElixiroftheTwisted',     ru:'Извращённый',  en:'Elixir of the Twisted',
+   game:'Эликсир аномальных'},
+  {i:'Item_ElixiroftheWerewolf',    ru:'Оборотень',    en:'Elixir of the Werewolf',
+   game:'Эликсир оборотня'},
 ];
 
 /* ---- иконки по ключам данных ---- */
@@ -1077,7 +1090,7 @@ const BLOOD_FX = {
     {q:90, d:'3% шанс мгновенно разрушить ресурс и резко ускориться'},
   ],
   mutant: [
-    {q:0,  d:'14% к силе магии и 10% к скорости передвижения в облике'},
+    {q:0,  d:'12% к силе магии и 10% к скорости передвижения в облике'},
     {q:30, d:'28% к перезарядке ультимейта, ультимейт призывает двух крыс-мутантов'},
     {q:60, d:'20% к высшей силе и 12% к урону приспешников'},
     {q:90, d:'7% к перезарядке «Завесы», попадание «Завесой» снимает 7 с с перезарядки ультимейта'},
@@ -1795,11 +1808,20 @@ function tipOf(key){
   if (pass) return {ru:pass.ru, en:pass.en, note:pass.d};
 
   const coat = byKey(COATINGS, key);
-  if (coat) return {ru:coat.ru, en:coat.en,
-                    note:'Покрытие живёт час и переживает смерть.'};
+  if (coat) return {ru:coat.ru, en:coat.en, sub:'Покрытие оружия',
+                    lines:COAT_FX[key] ? [COAT_FX[key]] : [],
+                    note:'Перезаряжается 12 с, пропитка держится 60 мин'
+                      + ' и переживает смерть.'};
 
   const elixir = byKey(ELIXIRS, key);
-  if (elixir) return {ru:elixir.ru, en:elixir.en, sub:'Эликсир формы'};
+  if (elixir){
+    const lines = tipStatLines(ST_ELIXIR[key]);
+    if (ST_ELIXIR_NOTE[key]) lines.push(ST_ELIXIR_NOTE[key]);
+
+    return {ru:elixir.ru, en:elixir.game || elixir.en, sub:'Эликсир', lines,
+            note:'Одновременно действует только один эликсир.'
+              + ' Держится 60 мин и переживает смерть.'};
+  }
 
   const ult = byKey(ULTIMATES, key);
   if (ult) return {ru:ult.ru, en:ult.en, sub:`Ультимейт · ${SCHOOL_RU[ult.s] || ult.s}`};
@@ -1842,7 +1864,11 @@ function tipBlood(type, where){
       quality >= ST_BLOOD_STEPS[i] ? fx[i].d : `${fx[i].d} — с ${ST_BLOOD_STEPS[i]}%`),
     note:asleep.length
       ? `При качестве ${quality}% часть свойств ещё не работает.`
-      : 'Пятое свойство со 100% качества усиливает все прочие на 20%.',
+      : quality >= ST_BLOOD_FULL
+        ? 'Пятое свойство: при 100% качества всё выше сильнее на 20%.'
+          + ' В характеристиках это учтено.'
+        : `Пятое свойство включится со ${ST_BLOOD_FULL}% качества: всё выше`
+          + ' станет сильнее на 20%.',
   };
 }
 
@@ -2295,6 +2321,7 @@ const ST_META = {
   SpellCooldownRecoveryRate:    {ru:'Перезарядка заклинаний', box:'spell', pct:1},
 
   DamageReduction:              {ru:'Снижение урона',   box:'def', pct:1},
+  HealingReceived:              {ru:'Получаемое лечение', box:'def', pct:1},
   SunResistance:                {ru:'Стойкость к солнцу',  box:'def'},
   GarlicResistance:             {ru:'Стойкость к чесноку', box:'def'},
   SilverResistance:             {ru:'Стойкость к серебру', box:'def'},
@@ -2303,7 +2330,9 @@ const ST_META = {
 
   WeaponSkillPower:             {ru:'Сила приёмов оружия',     box:'phys', pct:1},
   PrimaryLifeLeech:             {ru:'Вампиризм основной атаки', box:'phys', pct:1},
+  WeaponSkillLeech:             {ru:'Вампиризм приёмов оружия', box:'phys', pct:1},
   UltimateCooldownRecoveryRate: {ru:'Перезарядка ультимейта',   box:'spell', pct:1},
+  UltimatePower:                {ru:'Высшая сила',              box:'spell', pct:1},
   BonusPhysicalPower:           {ru:'Физическая сила сверх',   box:'phys', pct:1},
   BonusSpellPower:              {ru:'Сила магии сверх',        box:'spell', pct:1},
   SpellCriticalStrikeDamage:    {ru:'Урон магического крита',  box:'spell', pct:1},
@@ -2327,14 +2356,14 @@ const ST_META = {
 const ST_PASSIVE = {
   Ability_Bastion:           {BonusMaxHealth:0.08},
   Ability_DarkEnchantment:   {DamageReduction:0.04},
-  Ability_EmbraceMayhem:     {UltimateCooldownRecoveryRate:0.14},
+  Ability_EmbraceMayhem:     {UltimateCooldownRecoveryRate:0.14, UltimatePower:0.10},
   Ability_FeralHaste:        {BonusMovementSpeed:0.04},
   Ability_HungerforBlood:    {PrimaryLifeLeech:0.05},
   Ability_HungerforPower:    {SpellLifeLeech:0.04},
   Ability_LethalStrikes:     {PhysicalCriticalStrikeDamage:0.08},
   Ability_Overpower:         {WeaponCooldownRecoveryRate:0.07},
   Ability_Rampage:           {PhysicalCriticalStrikeChance:0.08},
-  Ability_RavenousStrikes:   {WeaponSkillPower:0.09},
+  Ability_RavenousStrikes:   {WeaponSkillPower:0.09, WeaponSkillLeech:0.05},
   Ability_TurbulentVelocity: {BonusMovementSpeed:0.04},
   Ability_WickedPower:       {SpellCriticalStrikeChance:0.08},
 };
@@ -2354,10 +2383,15 @@ const ST_PASSIVE = {
    — То, для чего у нас нет строки: восстановление здоровья, эффективность
      щитов, высшая сила, накопление зарядов, урон приспешников, добыча
      ресурсов сверх сбора, езда верхом.
-   — Общее пятое свойство (со 100% качества) — «все свойства выше сильнее
-     на 20%». Не применяю: из его описания не видно, множит ли оно уже
-     набранное или поднимает потолок. Проверим `.unitstats` в игре и
-     допишем, а врать числом хуже, чем недосчитать.
+   Общее пятое свойство (со 100% качества) — «все указанные выше эффекты
+   и максимальный уровень кровавых эффектов повышаются на 20%» — считается:
+   при 100% качества всё, что дала кровь, множится на 1,2.
+
+   Оговорка на будущее. Одно наше измерение на живом сервере этому
+   противоречит: кровь Твари при 100% дала здоровье 671,63 → 779,10, то
+   есть ровно +16%, а не 19,2%. Скорее всего в тот раз пятый бафф просто
+   не был выдан. Если однажды числа в панели разойдутся с листом персонажа
+   на эти самые двадцать процентов — начинать надо отсюда.
 
    Порядок в списке — строго по порогам, потому что смесь берёт свойство
    по номеру: одно из первых трёх на выбор плюс четвёртое всегда. */
@@ -2365,13 +2399,13 @@ const ST_BLOOD = {
   creature: [
     {BonusMaxHealth:0.16},
     {BonusMovementSpeed:0.08},
-    {SunResistance:20, GarlicResistance:20, SilverResistance:20,
-     FireResistance:20, HolyResistance:20},
+    {HealingReceived:0.24, SunResistance:20, GarlicResistance:20,
+     SilverResistance:20, FireResistance:20, HolyResistance:20},
     {},
   ],
   warrior: [
     {BonusPhysicalPower:0.10},
-    {WeaponCooldownRecoveryRate:0.14},
+    {WeaponCooldownRecoveryRate:0.14, WeaponSkillLeech:0.05},
     {WeaponSkillPower:0.18},
     {},
   ],
@@ -2390,7 +2424,7 @@ const ST_BLOOD = {
   scholar: [
     {BonusSpellPower:0.12},
     {SpellCooldownRecoveryRate:0.12},
-    {},
+    {UltimatePower:0.20},
     {},
   ],
   worker: [
@@ -2400,9 +2434,11 @@ const ST_BLOOD = {
     {},
   ],
   mutant: [
-    {BonusSpellPower:0.14},
+    // Было 14% — ошибка нашей старой записи. Панель крови в игре
+    // показывает 12%, и это же число у трёх других «магических» кровей.
+    {BonusSpellPower:0.12},
     {UltimateCooldownRecoveryRate:0.28},
-    {},
+    {UltimatePower:0.20},
     {TravelCooldownRecoveryRate:0.07},
   ],
   draculin: [
@@ -2412,15 +2448,68 @@ const ST_BLOOD = {
     {},
   ],
   corruption: [
-    {PrimaryLifeLeech:0.05},
+    // Порча — единственная кровь, которая не только даёт, но и отнимает:
+    // весь прочий урон приходит на 10% сильнее. Это постоянно, значит
+    // и в счёт идёт, со знаком минус.
+    {PrimaryLifeLeech:0.05, DamageReduction:-0.10},
     {},
     {BonusMovementSpeed:0.12, PrimaryAttackSpeed:0.14},
     {},
   ],
 };
 
+/* Эликсиры. Числа с подсказок игры (3 сентября). Одновременно действует
+   ровно один, держится час и переживает смерть — потому и считается как
+   постоянная часть сборки, а не как случайность боя.
+
+   «Ворон» и «Ворона» — разные эликсиры, и перепутать их проще простого.
+   Сверено по картинкам: у ворона синий кристалл (Raven), у вороны
+   бирюзовый (Crow). */
+const ST_ELIXIR = {
+  Item_ElixiroftheBat:         {SpellLifeLeech:0.04, SpellCooldownRecoveryRate:0.06},
+  Item_ElixiroftheBeast:       {BonusMaxHealth:0.08, HealingReceived:0.12},
+  Item_ElixiroftheBlasphemous: {UltimateCooldownRecoveryRate:0.14, UltimatePower:0.10},
+  Item_ElixiroftheCrow:        {PhysicalLifeLeech:0.05, WeaponCooldownRecoveryRate:0.07},
+  Item_ElixiroftheProwler:     {BonusMovementSpeed:0.04, TravelCooldownRecoveryRate:0.07},
+  Item_ElixiroftheRaven:       {PhysicalCriticalStrikeChance:0.08, PhysicalCriticalStrikeDamage:0.08},
+  Item_ElixiroftheTwisted:     {SpellCriticalStrikeChance:0.08, SpellCriticalStrikeDamage:0.08},
+  Item_ElixiroftheWerewolf:    {PrimaryAttackSpeed:0.07, WeaponSkillPower:0.09},
+};
+
+/* Что у эликсира не ложится в наши строки. Пока пусто: всё, что дают
+   восемь эликсиров, теперь считается. */
+const ST_ELIXIR_NOTE = {};
+
+/* Покрытия — не числа, а удар. Держатся час, переживают смерть,
+   перезаряжаются 12 секунд. Слова игры, сокращённые до сути. */
+const COAT_FX = {
+  Item_BloodCoating:
+    'Следующая основная атака накладывает Высасывание жизни и Вампирское'
+    + ' проклятье: 50% магического урона через 2 с и Кровавая сфера.',
+  Item_ChaosCoating:
+    'Следующая основная атака — Хаотический взрыв: 40% магического урона'
+    + ' по области и Воспламенение.',
+  Item_FrostCoating:
+    'Следующая основная атака — Морозная волна: 30% магического урона'
+    + ' по области и Охлаждение.',
+  Item_IllusionCoating:
+    'Следующая основная атака — Вспышка энергии: 30% магического урона'
+    + ' по области, Ослабление и 4 уровня Фантазма.',
+  Item_StormCoating:
+    'Следующая основная атака наносит 40% дополнительного магического'
+    + ' урона и вызывает Цепь молний.',
+  Item_UnholyCoating:
+    'Следующая основная атака наносит 40% дополнительного магического'
+    + ' урона, накладывает Кару и призывает костяного духа: 50% урона'
+    + ' и Кара всем, кого он заденет.',
+};
+
 /* Пороги качества у свойств крови — те же, что в самой игре. */
 const ST_BLOOD_STEPS = [0, 30, 60, 90];
+
+/* Пятое свойство: со 100% качества все свойства крови сильнее на 20%. */
+const ST_BLOOD_FULL = 100;
+const ST_BLOOD_BOOST = 1.2;
 
 /** Качество крови, как его понимает страница. */
 const stQuality = () =>
@@ -2469,23 +2558,33 @@ function stGather(withBuild){
   // Пять пассивок. Считаем постоянную часть каждой — см. ST_PASSIVE.
   bd.passives.forEach(key => stAdd(sum, ST_PASSIVE[key]));
 
+  // Эликсир. Он один, держится час и переживает смерть — считаем.
+  stAdd(sum, ST_ELIXIR[bd.elixir]);
+
   // Кровь. Основная даёт все четыре свойства, каждое со своего порога
   // качества; смесь — одно выбранное из первых трёх плюс четвёртое,
   // которое работает всегда. Ровно так это устроено в игре.
   const quality = stQuality();
+
+  // Кровь собираем отдельно: при полном качестве всё её добро множится
+  // на 1,2 пятым свойством, и множить надо именно кровь, а не сборку.
+  const blood = {};
   const own = ST_BLOOD[bd.blood];
 
   if (own)
     own.forEach((block, i) => {
-      if (quality >= ST_BLOOD_STEPS[i]) stAdd(sum, block);
+      if (quality >= ST_BLOOD_STEPS[i]) stAdd(blood, block);
     });
 
   const mix = ST_BLOOD[bd.blood2];
   if (mix){
     const pick = Math.min(3, Math.max(1, bd.bloodBuff || 1)) - 1;
-    if (quality >= ST_BLOOD_STEPS[pick]) stAdd(sum, mix[pick]);
-    if (quality >= ST_BLOOD_STEPS[3]) stAdd(sum, mix[3]);
+    if (quality >= ST_BLOOD_STEPS[pick]) stAdd(blood, mix[pick]);
+    if (quality >= ST_BLOOD_STEPS[3]) stAdd(blood, mix[3]);
   }
+
+  const boost = quality >= ST_BLOOD_FULL ? ST_BLOOD_BOOST : 1;
+  for (const k in blood) stAdd(sum, {[k]:blood[k] * boost});
 
   return sum;
 }
@@ -2572,6 +2671,20 @@ function stCeilings(){
       });
 
       if (bestAmulet) stAdd(base, ST_AMULET[bestAmulet]);
+
+      // Эликсир тоже один на выбор — берём лучший по этой характеристике.
+      let bestElixir = null;
+      let elixirUp = 0;
+
+      Object.keys(ST_ELIXIR).forEach(e => {
+        const one = Object.assign({}, base);
+        stAdd(one, ST_ELIXIR[e]);
+
+        const up = (stTotals(one)[key] || 0) - (stTotals(base)[key] || 0);
+        if (up > elixirUp){ elixirUp = up; bestElixir = e; }
+      });
+
+      if (bestElixir) stAdd(base, ST_ELIXIR[bestElixir]);
       stAdd(base, Object.assign({}, ST_WEAPON_ANY, ST_WEAPON[kd]));
 
       const plain = stTotals(base)[key] || 0;
@@ -2615,7 +2728,11 @@ function stCeilings(){
         if (up > bestUp){ bestUp = up; bestBlood = type; }
       });
 
-      if (bestBlood) ST_BLOOD[bestBlood].forEach(block => stAdd(sum, block));
+      if (bestBlood){
+        const blood = {};
+        ST_BLOOD[bestBlood].forEach(block => stAdd(blood, block));
+        for (const k in blood) stAdd(sum, {[k]:blood[k] * ST_BLOOD_BOOST});
+      }
 
       const v = stTotals(sum)[key] || 0;
       if (v > best) best = v;
