@@ -342,9 +342,30 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .stats > h2::before{content:"\25C6"; color:var(--gold-dim); font-size:9px}
 .stats .core{padding:6px 0 10px}
 .stats .row{
-  display:flex; align-items:baseline; gap:10px;
-  padding:5px 16px; font-size:13px;
+  display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  padding:5px 16px 7px; font-size:13px;
 }
+/* Потолок — сразу за числом, тем же шрифтом, но тише: это шкала,
+   а не второе значение. */
+.stats .row .cap{
+  font-family:"JetBrains Mono",monospace; font-variant-numeric:tabular-nums;
+  color:var(--dim); font-size:11px; margin-left:-6px;
+}
+/* Полоска во всю ширину строки. Смысл — доля от того, что вообще можно
+   набрать в Кузнице; пустая дорожка видна всегда, чтобы было понятно,
+   что шкала есть. */
+.stats .row .bar{
+  flex-basis:100%; height:3px; margin-top:5px; border-radius:2px;
+  background:var(--line-soft); overflow:hidden;
+}
+.stats .row .bar > i{
+  display:block; height:100%; border-radius:2px;
+  background:linear-gradient(90deg,var(--gold-dim),var(--gold));
+  transition:width .28s ease;
+}
+.stats .row .bar > i.up{background:linear-gradient(90deg,#5c3b3f,var(--accent-lit))}
+.stats .row .bar.flat{background:transparent}
+.stats .row.big .bar{height:4px}
 .stats .row .name{color:var(--muted); flex:1; overflow-wrap:anywhere}
 .stats .row .num{
   font-family:"JetBrains Mono",monospace; font-variant-numeric:tabular-nums;
@@ -443,6 +464,16 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .choice .pic{width:52px; height:52px}
 .choice .nm{display:flex; flex-direction:column; align-items:center; gap:1px; min-width:0; width:100%}
 .choice .en{font-size:9.5px; color:var(--dim); letter-spacing:.02em}
+/* Что даёт пассивка — третьей строкой в плитке. Мельче названия, но
+   читаемо: по нему и выбирают. */
+.choice .what{
+  display:block; margin-top:4px; font-size:10.5px; line-height:1.32;
+  color:var(--muted); letter-spacing:0; text-transform:none; font-weight:400;
+  /* Плитка узкая, а слова в описаниях длинные: без переноса «восстанавливаются»
+     уезжает за край и обрезается на полуслове. */
+  overflow-wrap:anywhere; hyphens:auto; max-width:100%;
+}
+.choice[aria-pressed="true"] .what{color:var(--text)}
 
 /* ---- свойства крови ---- */
 .fx{display:flex; flex-direction:column; gap:5px}
@@ -496,6 +527,18 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
   font-size:13px; color:var(--muted); margin:0;
 }
 .notice b{color:var(--text); font-weight:600}
+/* Список замечаний под командой. Пункт с классом stop — тот, из-за
+   которого команда не соберётся вовсе. */
+.trouble{margin:0; padding:0 0 0 16px; list-style:none}
+.trouble li{position:relative; margin:0 0 5px; line-height:1.45}
+.trouble li:last-child{margin-bottom:0}
+.trouble li::before{
+  content:"\25C6"; position:absolute; left:-14px; top:1px;
+  font-size:7px; color:var(--gold-dim);
+}
+.trouble li.stop::before{color:var(--accent-lit)}
+.trouble li b{color:var(--text)}
+.trouble li.stop b{color:#ffbcc1}
 .notice.bad{border-left-color:var(--accent-lit); color:#e79ba2}
 .notice.bad b{color:#ffbcc1}
 
@@ -748,19 +791,39 @@ const AMULETS = [
   {i:'storm',    icon:'Jewelry_AmuletoftheBlademaster',      ru:'Амулет шторма',   en:'Storm'},
   {i:'unholy',   icon:'Jewelry_AmuletoftheUnyieldingCharger',ru:'Амулет нежити',   en:'Unholy'},
 ];
+/* Пассивки. Поле d — что пассивка делает, t — то же одним словом для ячейки.
+
+   Числа не выдуманы и не взяты из руководств: список характеристик снят
+   с самого сервера командой .statdump — там видно, какую характеристику
+   правит каждая пассивка. Величины игра подставляет сама и в данных лежат
+   нулями, поэтому проценты здесь стоят только там, где сервер их назвал
+   прямо: 8% у Жажды крови и у Подавления. Остальное описано словами —
+   врать числом хуже, чем не назвать его. */
 const PASSIVES = [
-  {i:'Ability_Bastion',           ru:'Бастион',            en:'Bastion'},
-  {i:'Ability_DarkEnchantment',   ru:'Тёмное зачарование', en:'Dark Enchantment'},
-  {i:'Ability_EmbraceMayhem',     ru:'Объятия хаоса',      en:'Embrace Mayhem'},
-  {i:'Ability_FeralHaste',        ru:'Звериная прыть',     en:'Feral Haste'},
-  {i:'Ability_HungerforBlood',    ru:'Жажда крови',        en:'Hunger for Blood'},
-  {i:'Ability_HungerforPower',    ru:'Жажда силы',         en:'Hunger for Power'},
-  {i:'Ability_LethalStrikes',     ru:'Смертельные удары',  en:'Lethal Strikes'},
-  {i:'Ability_Overpower',         ru:'Подавление',         en:'Overpower'},
-  {i:'Ability_Rampage',           ru:'Неистовство',        en:'Rampage'},
-  {i:'Ability_RavenousStrikes',   ru:'Ненасытные удары',   en:'Ravenous Strikes'},
-  {i:'Ability_TurbulentVelocity', ru:'Бурная скорость',    en:'Turbulent Velocity'},
-  {i:'Ability_WickedPower',       ru:'Злая мощь',          en:'Wicked Power'},
+  {i:'Ability_Bastion',           ru:'Бастион',            en:'Bastion',
+   s:'frost',    t:'здоровье',        d:'Больше максимального здоровья.'},
+  {i:'Ability_DarkEnchantment',   ru:'Тёмное зачарование', en:'Dark Enchantment',
+   s:'frost',    t:'снижение урона',  d:'Весь входящий урон приходит слабее.'},
+  {i:'Ability_EmbraceMayhem',     ru:'Объятия хаоса',      en:'Embrace Mayhem',
+   s:'unholy',   t:'ультимейт',       d:'Ультимейт восстанавливается быстрее и расходуется выгоднее.'},
+  {i:'Ability_FeralHaste',        ru:'Звериная прыть',     en:'Feral Haste',
+   s:'illusion', t:'скорость',        d:'Скорость передвижения, в том числе в облике зверя.'},
+  {i:'Ability_HungerforBlood',    ru:'Жажда крови',        en:'Hunger for Blood',
+   s:'blood',    t:'урон по V-крови', d:'+8% урона по носителям V-крови и вампиризм обычной атаки.'},
+  {i:'Ability_HungerforPower',    ru:'Жажда силы',         en:'Hunger for Power',
+   s:'storm',    t:'вампиризм магии', d:'Заклинания возвращают часть урона здоровьем.'},
+  {i:'Ability_LethalStrikes',     ru:'Смертельные удары',  en:'Lethal Strikes',
+   s:'unholy',   t:'урон крита',      d:'Физический крит бьёт сильнее.'},
+  {i:'Ability_Overpower',         ru:'Подавление',         en:'Overpower',
+   s:'chaos',    t:'перезарядка оружия', d:'Приёмы оружия восстанавливаются быстрее, +8% шанс не потратить приём.'},
+  {i:'Ability_Rampage',           ru:'Неистовство',        en:'Rampage',
+   s:'blood',    t:'шанс крита',      d:'Выше шанс физического крита.'},
+  {i:'Ability_RavenousStrikes',   ru:'Ненасытные удары',   en:'Ravenous Strikes',
+   s:'chaos',    t:'сила приёмов',    d:'Приёмы оружия сильнее и возвращают здоровье.'},
+  {i:'Ability_TurbulentVelocity', ru:'Бурная скорость',    en:'Turbulent Velocity',
+   s:'storm',    t:'скорость',        d:'Выше скорость передвижения.'},
+  {i:'Ability_WickedPower',       ru:'Злая мощь',          en:'Wicked Power',
+   s:'illusion', t:'шанс маг. крита', d:'Выше шанс магического крита.'},
 ];
 const ULTIMATES = [
   {i:'Ability_CrimsonBeam',      ru:'Багровый луч',        en:'Crimson Beam',      s:'blood'},
@@ -1113,7 +1176,7 @@ function slotView(id){
   const pi = passIndex(id);
   if (pi >= 0){
     const it = byKey(PASSIVES, bd.passives[pi]);
-    return it ? {icon:it.i, text:it.ru} : {};
+    return it ? {icon:it.i, text:it.ru, tag:it.t, hue:it.s ? `var(${HUE[it.s]})` : undefined} : {};
   }
   const sl = spellSlot(id);
   if (sl){
@@ -1173,7 +1236,10 @@ function choiceGrid(items, isOn, onPick){
     b.setAttribute('aria-pressed', isOn(it));
     b.style.setProperty('--tile', it.hue || hueOf(it.i) || 'var(--line)');
     b.innerHTML = img(it.icon) + `<span class="nm">${it.ru}`
-      + (it.en ? `<span class="en">${it.en}</span>` : '') + '</span>';
+      + (it.en ? `<span class="en">${it.en}</span>` : '')
+      // Что даёт — прямо в плитке. Пассивку по названию не угадать,
+      // а лезть в справочник посреди сборки никто не станет.
+      + (it.d ? `<span class="what">${it.d}</span>` : '') + '</span>';
     b.addEventListener('click', () => onPick(it));
     g.appendChild(b);
   });
@@ -1285,7 +1351,7 @@ function drawEditor(){
       it => {
         const off = get() === it.i;
         set(off ? null : it.i);
-        if (!off) bdActive = null;
+        if (!off) bdActive = nextEmptyAny(id);
         drawBuild();
       }));
   };
@@ -1357,7 +1423,7 @@ function drawEditor(){
       // закрывается само. Так же ведут себя камни после четвёртого
       // свойства и оружие после третьего.
       bdEditor.appendChild(fxList(bd.blood2, bd.bloodBuff,
-        n => { bd.bloodBuff = n; bdActive = null; drawBuild(); }));
+        n => { bd.bloodBuff = n; bdActive = nextEmptyAny('blood2'); drawBuild(); }));
     }
     return;
   }
@@ -1502,13 +1568,70 @@ function nextEmptySpell(from){
   const ring = ids.slice(at + 1).concat(ids.slice(0, at + 1));
   // Годится и пустая ячейка: набрав камень для «Завесы», человек идёт
   // выбирать первый спелл, а не искать глазами, куда щёлкнуть.
-  return ring.find(id => !bd[id].k || bd[id].mods.length < 4) || null;
+  return ring.find(id => !bd[id].k || bd[id].mods.length < 4) || nextEmptyAny(from);
 }
 
 function nextEmptyPassive(from){
   for (let n = from + 1; n < PASSIVE_SLOTS; n++) if (!bd.passives[n]) return `pass${n}`;
   for (let n = 0; n < PASSIVE_SLOTS; n++) if (!bd.passives[n]) return `pass${n}`;
-  return null;
+  return nextEmptyAny(`pass${from}`);
+}
+
+/* ---- «дальше» для всей страницы ----------------------------------------
+   Раньше переход умели только оружие, камни и пассивки. Броня, амулет,
+   ультимейт, эликсир, покрытие и кровь просто закрывали список, и человек
+   искал следующую ячейку глазами — а их на странице под тридцать.
+
+   Теперь порядок один на всё и совпадает с тем, как страница читается
+   сверху вниз: снаряжение, заклинания, пассивки, оружие, покрытия, бафы,
+   кровь. Выбрал — страница сама встала на первую незаполненную ячейку
+   и подвела к ней взгляд.
+------------------------------------------------------------------------- */
+function bdCellOrder(){
+  const ids = ['armor', 'amulet'];
+  SPELL_SLOTS.forEach(sl => ids.push(sl.id));
+  ids.push('ult');
+  for (let n = 0; n < PASSIVE_SLOTS; n++) ids.push(`pass${n}`);
+  for (let n = 0; n < ARMS; n++) ids.push(`arm${n}`);
+  if (bd.advCoat) for (let n = 0; n < ARMS; n++) ids.push(`coat${n}`);
+  else ids.push('coating');
+  ids.push('elixir', 'blood', 'blood2');
+  return ids;
+}
+
+/** Заполнена ли ячейка настолько, чтобы идти дальше. */
+function bdFilled(id){
+  if (id === 'armor')  return !!bd.armor;
+  if (id === 'amulet') return !!bd.amulet;
+  if (id === 'ult')    return !!bd.ult;
+  if (id === 'elixir') return !!bd.elixir;
+  if (id === 'coating')return !!bd.coating;
+  if (id === 'blood')  return !!bd.blood;
+  // Смесь не обязательна: пока нет основной крови, к смеси и вести незачем.
+  if (id === 'blood2') return !bd.blood || !!bd.blood2;
+
+  const sl = spellSlot(id);
+  if (sl) return !!bd[id].k && bd[id].mods.length >= 4;
+
+  const pi = passIndex(id);
+  if (pi >= 0) return !!bd.passives[pi];
+
+  const ci = coatIndex(id);
+  if (ci >= 0) return !bd.arms[ci].k || !!bd.coatings[ci];
+
+  const ai = armIndex(id);
+  if (ai >= 0) return !!bd.arms[ai].k && bd.arms[ai].stats.length >= 3;
+
+  return true;
+}
+
+/* Только вперёд. Возвращаться к началу страница не должна: человек
+   заполняет сверху вниз, и прыжок снизу вверх читается как сбой, а не
+   как помощь. Дошли до низа — список просто закрывается. */
+function nextEmptyAny(from){
+  const ids = bdCellOrder();
+  const at = ids.indexOf(from);
+  return ids.slice(at + 1).find(id => !bdFilled(id)) || null;
 }
 
 /* ---- одна команда ---- *
@@ -1600,8 +1723,50 @@ function bdHasAnything(){
 }
 
 function bdCommands(){
-  if (artifactCount() > MAX_ARTIFACTS) return [];
+  if (bdProblems().some(p => p.stop)) return [];
   return bdHasAnything() ? [`.build ${bdCode()}`] : [];
+}
+
+/* ---- что со сборкой не так -----------------------------------------------
+   Раньше страница говорила об одной беде — лишних артефактах, — а про
+   остальное молчала: слот оружия с двумя свойствами просто не попадал
+   в команду, и человек искал пропажу в игре.
+
+   Теперь все замечания собираются в одном месте и в одном виде: что
+   не так, сколько и чем это грозит. Поле stop означает «команда не
+   соберётся вовсе» — таких причин ровно одна, и она про артефакты.
+--------------------------------------------------------------------------- */
+function bdProblems(){
+  const out = [];
+
+  const arts = artifactCount();
+  if (arts > MAX_ARTIFACTS)
+    out.push({stop:true,
+      t:`Артефактов ${arts}, а можно ${MAX_ARTIFACTS}`,
+      d:'Больше трёх золотых игра в руках не держит. Лишние помечены словом «лишний» — убери их, и команда соберётся.'});
+
+  const armsHalf = bd.arms.filter(a => a.k && a.stats.length !== 3).length;
+  if (armsHalf)
+    out.push({t:`Оружие без трёх свойств: ${armsHalf}`,
+      d:'Такой слот в команду не попадёт — игре нужны все три свойства.'});
+
+  const spellsHalf = SPELL_SLOTS.filter(sl => bd[sl.id].k && bd[sl.id].mods.length < 4).length;
+  if (spellsHalf)
+    out.push({t:`Камни без четырёх свойств: ${spellsHalf}`,
+      d:'Заклинание встанет, но камень выдастся неполным.'});
+
+  const coatLost = bd.advCoat
+    ? bd.coatings.filter((c, n) => c && !bd.arms[n].k).length
+    : 0;
+  if (coatLost)
+    out.push({t:`Покрытий на пустых слотах: ${coatLost}`,
+      d:'Лить не на что — эти покрытия пропадут.'});
+
+  if (bd.blood2 && !bd.blood)
+    out.push({t:'Смесь без основной крови',
+      d:'Сначала выбери основную кровь — смесь идёт второй.'});
+
+  return out;
 }
 
 function drawCommands(){
@@ -1609,10 +1774,12 @@ function drawCommands(){
   const box = document.getElementById('bd-cmds');
   box.innerHTML = '';
 
+  const stop = bdProblems().find(p => p.stop);
+
   if (!cmds.length){
     const c = document.createElement('code');
-    c.textContent = artifactCount() > MAX_ARTIFACTS
-      ? 'команда не соберётся: артефактов больше трёх'
+    c.textContent = stop
+      ? 'команда не соберётся: ' + stop.t.toLowerCase()
       : 'выбери камни, оружие или кровь — команда соберётся сама';
     box.appendChild(c);
   } else cmds.forEach((cmd, i) => {
@@ -1622,19 +1789,17 @@ function drawCommands(){
     box.appendChild(c);
   });
 
-  const arts = artifactCount();
-  const half = bd.arms.filter(a => a.k && a.stats.length !== 3).length;
+  const trouble = bdProblems();
   const note = document.getElementById('bd-note');
 
-  note.classList.toggle('bad', arts > MAX_ARTIFACTS);
-  note.innerHTML = arts > MAX_ARTIFACTS
-    ? `Нельзя использовать больше <b>${MAX_ARTIFACTS}</b> золотых артефактов. `
-      + `Сейчас выбрано ${arts} — убери лишние, и команда соберётся.`
-    : half
-      ? `В <b>${half}</b> слотах оружия выбрано меньше трёх свойств — такие слоты в код не попадают.`
-      : 'Одна команда меняет бойца целиком: снаряжение, заклинания, пассивки, '
-        + 'оружие с инфузией и покрытием, эликсир и кровь. Плащ и сумка остаются '
-        + 'на месте — их сборка не трогает.';
+  note.classList.toggle('bad', trouble.some(p => p.stop));
+
+  note.innerHTML = trouble.length
+    ? '<ul class="trouble">' + trouble.map(p =>
+        `<li${p.stop ? ' class="stop"' : ''}><b>${p.t}.</b> ${p.d}</li>`).join('') + '</ul>'
+    : 'Одна команда меняет бойца целиком: снаряжение, заклинания, пассивки, '
+      + 'оружие с инфузией и покрытием, эликсир и кровь. Плащ и сумка остаются '
+      + 'на месте — их сборка не трогает.';
 
   const btn = document.getElementById('bd-copy');
   btn.disabled = !cmds.length;
@@ -1883,7 +2048,63 @@ function stNum(key, value){
   return Math.round(value).toString();
 }
 
-function stRow(key, value, delta, big){
+/* ---- потолок характеристики ----------------------------------------------
+   Полоска без шкалы — украшение. Шкалу можно было взять из игры, но
+   настоящих её потолков у нас нет: в данных предметов на этом месте нули,
+   игра подставляет числа сама. Выдумывать их я не стал.
+
+   Поэтому шкала честная и своя: сколько по этой характеристике вообще
+   можно набрать здесь, в Кузнице. Считается перебором — лучший сет, амулет,
+   лучший вид оружия и те три его свойства, что дают по этой характеристике
+   больше всего. Полная полоска значит «выжато всё, что страница умеет».
+
+   Считаем один раз при первом показе: перебор небольшой, но и его незачем
+   гонять на каждый щелчок.
+--------------------------------------------------------------------------- */
+let stCeilCache = null;
+
+function stCeilings(){
+  if (stCeilCache) return stCeilCache;
+
+  stCeilCache = {};
+  const armors = Object.keys(ST_ARMOR);
+  const kinds = Object.keys(ST_WEAPON);
+
+  Object.keys(ST_META).forEach(key => {
+    let best = 0;
+
+    armors.forEach(ar => kinds.forEach(kd => {
+      const base = {};
+      ST_KIT.forEach(it => stAdd(base, it.s));
+      stAdd(base, ST_ARMOR[ar]);
+      stAdd(base, ST_AMULET_ANY);
+      stAdd(base, Object.assign({}, ST_WEAPON_ANY, ST_WEAPON[kd]));
+
+      const plain = stTotals(base)[key] || 0;
+
+      // Что каждое свойство оружия даёт именно этой характеристике.
+      // Меряем прибавкой, а не заглядыванием в таблицу: свойства вроде
+      // «здоровье сверх» действуют множителем, и в таблице их не видно.
+      const gain = DATA.stats.map((n, i) => {
+        const one = Object.assign({}, base);
+        stAdd(one, ST_STATMOD[n]);
+        return {i, up:(stTotals(one)[key] || 0) - plain};
+      }).sort((a, b) => b.up - a.up).slice(0, 3).filter(x => x.up > 0.00001);
+
+      const sum = Object.assign({}, base);
+      gain.forEach(x => stAdd(sum, ST_STATMOD[DATA.stats[x.i]]));
+
+      const v = stTotals(sum)[key] || 0;
+      if (v > best) best = v;
+    }));
+
+    stCeilCache[key] = best;
+  });
+
+  return stCeilCache;
+}
+
+function stRow(key, value, delta, big, bare){
   const m = ST_META[key] || {ru:key};
   const el = document.createElement('div');
   el.className = 'row' + (big ? ' big' : '');
@@ -1894,11 +2115,42 @@ function stRow(key, value, delta, big){
   const num = document.createElement('span');
   num.className = 'num'; num.textContent = stNum(key, value);
 
+  const cap = stCeilings()[key] || 0;
+
+  const lim = document.createElement('span');
+  lim.className = 'cap';
+  lim.textContent = cap > value + 0.00001 ? ' / ' + stNum(key, cap) : '';
+
   const d = document.createElement('span');
   d.className = 'delta';
   d.textContent = delta ? '+' + stNum(key, delta).replace('+','') : '';
 
-  el.append(name, num, d);
+  const bar = document.createElement('span');
+  bar.className = 'bar';
+
+  // Шкала идёт не от нуля, а от голого бойца до потолка.
+  //
+  // От нуля полоска врёт: у скорости передвижения основа 4,0 при потолке
+  // 4,5, и полоска стояла бы почти полной всегда, что бы игрок ни надел.
+  // От основы же видно ровно то, ради чего она нужна: насколько сборка
+  // сдвинула характеристику и сколько ещё можно выжать.
+  const floor = bare || 0;
+  const room = cap - floor;
+
+  const fill = document.createElement('i');
+  const share = room > 0.00001 ? Math.max(0, Math.min(1, (value - floor) / room)) : 0;
+  fill.style.width = (share * 100).toFixed(1) + '%';
+
+  // Характеристика, на которую сборка повлиять не может, — без дорожки:
+  // пустая полоска рядом с числом читается как «ничего не набрано».
+  if (room <= 0.00001) bar.classList.add('flat');
+
+  // Тем же цветом, что и прибавка: видно, что полоска выросла от сборки,
+  // а не была такой всегда.
+  if (delta > 0) fill.classList.add('up');
+
+  bar.appendChild(fill);
+  el.append(name, num, lim, d, bar);
   return el;
 }
 
@@ -1930,7 +2182,7 @@ function drawStats(){
     if (m.box !== 'core' && !value) return;
 
     const delta = Math.abs(value - was) > 0.0001 ? value - was : 0;
-    boxes[m.box].appendChild(stRow(key, value, delta, m.box === 'core'));
+    boxes[m.box].appendChild(stRow(key, value, delta, m.box === 'core', was));
     seen[m.box]++;
   });
 
@@ -1966,7 +2218,9 @@ function drawStats(){
 
   foot.textContent = (parts.length
     ? 'Не выбрано: ' + parts.join(', ') + '. Плащ и сумка учтены — их выдаёт кит.'
-    : 'Плащ и сумка учтены — их выдаёт кит. Зелёным показано, что прибавила сборка.')
+    : 'Плащ и сумка учтены — их выдаёт кит.')
+    + ' Полоска показывает, сколько набрано из возможного в Кузнице:'
+    + ' полная — выжато всё, что страница умеет дать по этой характеристике.'
     + (note ? ' ' + note : '');
 }
 
