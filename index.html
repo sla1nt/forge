@@ -1282,7 +1282,9 @@ function choiceGrid(items, isOn, onPick){
 
     // Что даёт вещь — не в плитке, а во всплывающем окошке при наведении.
     // В плитке текст ломался на пять строк и топил собой сам выбор.
-    b.__tip = tipOf(it.i);
+    // Своя подсказка важнее общей: у крови и брони ключи совпадают,
+    // и общий поиск по ключу выдал бы кровь за сет.
+    b.__tip = it.tip || tipOf(it.i);
     b.addEventListener('click', () => onPick(it));
     g.appendChild(b);
   });
@@ -1433,7 +1435,8 @@ function drawEditor(){
     // Поэтому кровь, уже занятую в другой половине, из списка убираем.
     const taken = id === 'blood' ? bd.blood2 : bd.blood;
     const list = DATA.bloods.filter(b => b !== taken).map(b =>
-      ({i:b, icon:BLOOD_ICON[b], ru:RU_BLOOD[b] || b, en:cap(b), hue:BLOOD_HUE}));
+      ({i:b, icon:BLOOD_ICON[b], ru:RU_BLOOD[b] || b, en:cap(b), hue:BLOOD_HUE,
+        tip:tipBlood(b, id)}));
     bdEditor.appendChild(choiceGrid(list,
       it => bd[id] === it.i,
       it => {
@@ -1753,8 +1756,20 @@ function tipOf(key){
   }
 
   const armor = byKey(ARMORS, key);
-  if (armor) return {ru:`Сет «${armor.ru}»`, en:armor.en,
-                     lines:tipStatLines(ST_ARMOR[key]), note:ST_ARMOR_NOTE[key]};
+  if (armor){
+    const own = ST_ARMOR[key] || {};
+
+    // У трёх сетов из четырёх мы знаем пока только здоровье. Молчать об
+    // этом нельзя: пустая подсказка читается как «сет ничего не даёт»,
+    // хотя на деле это мы ещё не выверили числа.
+    const thin = Object.keys(own).length <= 1;
+
+    return {ru:`Сет «${armor.ru}»`, en:armor.en,
+            lines:tipStatLines(own),
+            note:ST_ARMOR_NOTE[key]
+              || (thin ? 'Остальные свойства сета ещё не выверены по игре —'
+                       + ' в характеристиках их пока нет.' : null)};
+  }
 
   const amulet = byKey(AMULETS, key);
   if (amulet) return {ru:amulet.ru, en:amulet.en,
@@ -1775,6 +1790,45 @@ function tipOf(key){
   if (ult) return {ru:ult.ru, en:ult.en, sub:`Ультимейт · ${SCHOOL_RU[ult.s] || ult.s}`};
 
   return null;
+}
+
+/**
+ * Что показать про кровь.
+ *
+ * Отдельно от tipOf, и это не прихоть: ключи типов крови и сетов брони
+ * совпадают — warrior, rogue, brute, scholar есть и там и там. Поиск по
+ * одному ключу первым делом натыкался на броню, и над кровью Воина
+ * всплывал сет Воина. Поэтому кровь спрашивается прямо.
+ *
+ * @param where 'blood' — основная, 'blood2' — смесь, ничего — весь список
+ *              свойств, как в списке выбора.
+ */
+function tipBlood(type, where){
+  if (!type) return null;
+
+  const fx = BLOOD_FX[type] || [];
+  const quality = stQuality();
+
+  // У смеси достаётся одно выбранное свойство из первых трёх плюс
+  // четвёртое — показываем ровно то, что боец получит.
+  const take = where === 'blood2'
+    ? [Math.min(3, Math.max(1, bd.bloodBuff || 1)) - 1, 3]
+    : [0, 1, 2, 3];
+
+  const asleep = take.filter(i => fx[i] && quality < ST_BLOOD_STEPS[i]);
+
+  return {
+    ru:RU_BLOOD[type] || type,
+    sub:where === 'blood2' ? `Смесь · эффект ${bd.bloodBuff}`
+      : where === 'blood' ? 'Основная кровь' : 'Кровь',
+    // Спящие свойства показываем тоже, но с порогом: иначе непонятно,
+    // почему у крови «пропало» свойство.
+    lines:take.filter(i => fx[i]).map(i =>
+      quality >= ST_BLOOD_STEPS[i] ? fx[i].d : `${fx[i].d} — с ${ST_BLOOD_STEPS[i]}%`),
+    note:asleep.length
+      ? `При качестве ${quality}% часть свойств ещё не работает.`
+      : 'Пятое свойство со 100% качества усиливает все прочие на 20%.',
+  };
 }
 
 /** Что показать про ячейку сборки — по тому, что в ней сейчас лежит. */
@@ -1808,30 +1862,7 @@ function tipForSlot(id){
     return tip;
   }
 
-  if (id === 'blood' || id === 'blood2'){
-    const type = bd[id];
-    if (!type) return null;
-
-    const fx = BLOOD_FX[type] || [];
-    const quality = stQuality();
-
-    // У смеси берётся одно выбранное свойство из первых трёх плюс
-    // четвёртое — показываем ровно то, что достанется.
-    const take = id === 'blood2'
-      ? [Math.min(3, Math.max(1, bd.bloodBuff || 1)) - 1, 3]
-      : [0, 1, 2, 3];
-
-    return {
-      ru:RU_BLOOD[type] || type,
-      sub:id === 'blood2' ? `Смесь · эффект ${bd.bloodBuff}` : 'Основная кровь',
-      lines:take
-        .filter(i => fx[i] && quality >= ST_BLOOD_STEPS[i])
-        .map(i => fx[i].d),
-      note:take.some(i => fx[i] && quality < ST_BLOOD_STEPS[i])
-        ? `При качестве ${quality}% часть свойств ещё не работает.`
-        : null,
-    };
-  }
+  if (id === 'blood' || id === 'blood2') return tipBlood(bd[id], id);
 
   const sl = spellSlot(id);
   if (sl){
@@ -2103,31 +2134,44 @@ const ST_KIT = [
 /* Сет Дракулы целиком, все четыре части.
 
    Здоровье — 811,32 на четверых; вместе с плащом и сумкой лист персонажа
-   показывает 1 002. Раньше я писал 812 и получал на единицу больше:
-   игра считает по настоящей сумме, а не по круглому числу из справочника.
+   показывает 1 002. Раньше я писал 812 и получал на единицу больше: игра
+   считает по настоящей сумме, а не по круглому числу из справочника.
 
-   Сверх здоровья сет даёт прибавку долей к своей силе. В данных предмета
-   на этом месте ноль — игра подставляет число сама, — но лист персонажа
-   выдал его с точностью: с сетом учёного сила магии выходит 46,7 вместо
-   44,03, то есть ровно плюс шесть процентов, по полтора за часть.
+   Остальные числа — с подсказок самой игры (скриншоты 3 сентября), и они
+   складываются из двух разных мест:
 
-   У остальных трёх сетов такая же прибавка должна быть к своему: воину
-   к физической силе, разбойнику к криту, зверю к скорости атаки. Но это
-   пока не проверено в игре, и выдумывать я не стану — у них здесь только
-   здоровье. Проверим листом персонажа и допишем. */
+   1. Своя прибавка каждой части. У нагрудника Учёного «+1,5% к доп. силе
+      магии»; частей четыре, значит сет даёт 6%. Это и есть та самая
+      шестёрка, что мы сняли с живого бойца — 44,03 превращались в 48,7.
+      Сходится, поэтому так же посчитаны и остальные три сета.
+   2. Бонусы комплекта за 2 и 3 части. Они срабатывают оба, раз сет полный.
+
+   Бонус за 4 части у всех сетов условный — «после Завесы», — и в постоянные
+   характеристики не идёт. Он написан словами в ST_ARMOR_NOTE и виден в
+   подсказке при наведении.
+
+   Проверка сходится: боец без ничего — 125 здоровья, с плащом и сумкой 191,
+   с полным сетом 1003. Ровно те числа, что видно в игре. */
 const ST_ARMOR = {
   scholar:{MaxHealth:811.32, BonusSpellPower:0.06,
            SpellCooldownRecoveryRate:0.06, SpellLifeLeech:0.04},
-  warrior:{MaxHealth:811.32},
-  rogue:  {MaxHealth:811.32},
-  brute:  {MaxHealth:811.32},
+  warrior:{MaxHealth:811.32, BonusPhysicalPower:0.048,
+           WeaponSkillPower:0.09, WeaponCooldownRecoveryRate:0.07},
+  rogue:  {MaxHealth:811.32, PhysicalCriticalStrikeChance:0.08,
+           BonusMovementSpeed:0.04, TravelCooldownRecoveryRate:0.07},
+  brute:  {MaxHealth:811.32, PrimaryAttackSpeed:0.072,
+           PrimaryLifeLeech:0.05, DamageReduction:0.04},
 };
 
 /* Что сет даёт не числом, а условием: показать словами, а не строкой
    в столбце. Пятнадцать процентов крита «после Завесы» в постоянной
    характеристике были бы обманом. */
 const ST_ARMOR_NOTE = {
-  scholar:'Сет учёного: после «Завесы» ещё 15% к магическому криту на 4 с.',
+  scholar:'После «Завесы» ещё 15% к магическому криту на 4 с.',
+  warrior:'Атаки из-за «Завесы» наносят на 30% больше урона.',
+  rogue:  'После «Завесы» на 4 с: +12% к физическому криту и +6% к скорости.',
+  brute:  'После «Завесы» атаки восстанавливают 1% максимального здоровья,'
+          + ' скорость атаки +10% на 4 с.',
 };
 
 /* Амулеты. Сила магии одна на всех, и это ровно то, что видно в игре:
@@ -2852,7 +2896,8 @@ let bMix = null;
 let bEffect = 1;
 
 function drawBlood(){
-  const list = DATA.bloods.map(b => ({i:b, icon:BLOOD_ICON[b], ru:RU_BLOOD[b] || b, en:cap(b)}));
+  const list = DATA.bloods.map(b =>
+    ({i:b, icon:BLOOD_ICON[b], ru:RU_BLOOD[b] || b, en:cap(b), tip:tipBlood(b)}));
 
   document.getElementById('b-primary').replaceChildren(...choiceGrid(list,
     it => bPri === it.i,
