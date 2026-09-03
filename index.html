@@ -805,12 +805,18 @@ const ARMORS = [
 //   Blademaster        — жёлтая звезда    → шторм
 //   Unyielding Charger — зелёный          → нежить
 const AMULETS = [
-  {i:'blood',    icon:'Jewelry_AmuletoftheCrimsonCommander', ru:'Амулет крови',    en:'Blood'},
-  {i:'chaos',    icon:'Jewelry_AmuletoftheWickedProphet',    ru:'Амулет хаоса',    en:'Chaos'},
-  {i:'frost',    icon:'Jewelry_AmuletoftheArch-Warlock',     ru:'Амулет льда',     en:'Frost'},
-  {i:'illusion', icon:'Jewelry_AmuletoftheMasterSpellweaver',ru:'Амулет иллюзии',  en:'Illusion'},
-  {i:'storm',    icon:'Jewelry_AmuletoftheBlademaster',      ru:'Амулет шторма',   en:'Storm'},
-  {i:'unholy',   icon:'Jewelry_AmuletoftheUnyieldingCharger',ru:'Амулет нежити',   en:'Unholy'},
+  {i:'blood',    icon:'Jewelry_AmuletoftheCrimsonCommander', ru:'Амулет крови',    en:'Blood',
+   game:'Амулет Багрового командира'},
+  {i:'chaos',    icon:'Jewelry_AmuletoftheWickedProphet',    ru:'Амулет хаоса',    en:'Chaos',
+   game:'Амулет нечестивого пророка'},
+  {i:'frost',    icon:'Jewelry_AmuletoftheArch-Warlock',     ru:'Амулет льда',     en:'Frost',
+   game:'Амулет Архичернокнижника'},
+  {i:'illusion', icon:'Jewelry_AmuletoftheMasterSpellweaver',ru:'Амулет иллюзии',  en:'Illusion',
+   game:'Амулет верховной чародейки'},
+  {i:'storm',    icon:'Jewelry_AmuletoftheBlademaster',      ru:'Амулет шторма',   en:'Storm',
+   game:'Амулет Мастера клинка'},
+  {i:'unholy',   icon:'Jewelry_AmuletoftheUnyieldingCharger',ru:'Амулет нежити',   en:'Unholy',
+   game:'Амулет Непреклонного бойца'},
 ];
 /* Пассивки. Поле d — что пассивка делает, t — то же одним словом для ячейки.
 
@@ -1772,9 +1778,18 @@ function tipOf(key){
   }
 
   const amulet = byKey(AMULETS, key);
-  if (amulet) return {ru:amulet.ru, en:amulet.en,
-                      lines:tipStatLines(ST_AMULET_ANY),
-                      note:'Школа амулета решает, какой у бойца ультимейт.'};
+  if (amulet){
+    const lines = tipStatLines(Object.assign({}, ST_AMULET_ANY, ST_AMULET[key]));
+
+    // Четвёртое свойство — не число, а случай: с вероятностью 10% основной
+    // удар вешает свой бафф. В характеристики оно не идёт, но игроку это
+    // такое же свойство, как остальные, — значит и строкой должно стоять
+    // рядом, а не мелким примечанием внизу.
+    if (ST_AMULET_NOTE[key]) lines.push(ST_AMULET_NOTE[key]);
+
+    return {ru:amulet.ru, en:amulet.game || amulet.en, lines,
+            note:'Школа амулета решает, какой у бойца ультимейт.'};
+  }
 
   const pass = byKey(PASSIVES, key);
   if (pass) return {ru:pass.ru, en:pass.en, note:pass.d};
@@ -2179,6 +2194,31 @@ const ST_ARMOR_NOTE = {
    не характеристикой, а своим действием, поэтому в числах её нет. */
 const ST_AMULET_ANY = {SpellPower:34.03, ReducedBloodDrain:0.15};
 
+/* Третье свойство у каждого амулета своё — с подсказок игры (3 сентября).
+   Имена в игре обманывают, и мы на этом уже обжигались: Архичернокнижник
+   звучит как нежить, а это лёд. Поэтому ключи здесь — школы, как и везде
+   на странице, а игровое имя лежит рядом, в AMULETS.game. */
+const ST_AMULET = {
+  blood:    {WeaponSkillPower:0.09},
+  chaos:    {SpellLifeLeech:0.04},
+  frost:    {SpellCriticalStrikeChance:0.08},
+  illusion: {SpellCooldownRecoveryRate:0.06},
+  storm:    {PrimaryAttackSpeed:0.07},
+  unholy:   {BonusMovementSpeed:0.04},
+};
+
+/* Что амулет делает не числом: с вероятностью 10% основной удар вешает
+   на бойца свой малый бафф, не чаще раза в 10 секунд. В постоянные
+   характеристики это не идёт. */
+const ST_AMULET_NOTE = {
+  blood:    '10% при основном ударе — Малая кровавая ярость (раз в 10 с).',
+  chaos:    '10% при основном ударе — Малый всплеск мощности (раз в 10 с).',
+  frost:    '10% при основном ударе — Хладнокровие (раз в 10 с).',
+  illusion: '10% при основном ударе — Малая фантомная защита (раз в 10 с).',
+  storm:    '10% при основном ударе — Малый щит бури (раз в 10 с).',
+  unholy:   '10% при основном ударе — призыв скелета-воина (раз в 10 с).',
+};
+
 /* Оружие в руках. Первая строка — общее для всех T08, дальше особенности
    по видам. Числа сняты с сервера в миг надевания: это то, что игра
    действительно кладёт на бойца, а не то, что написано в префабе.
@@ -2403,7 +2443,10 @@ function stGather(withBuild){
   if (!withBuild) return sum;
 
   stAdd(sum, ST_ARMOR[bd.armor]);
-  if (bd.amulet) stAdd(sum, ST_AMULET_ANY);
+  if (bd.amulet){
+    stAdd(sum, ST_AMULET_ANY);
+    stAdd(sum, ST_AMULET[bd.amulet]);
+  }
   // Особенности вида оружия не прибавляются к общему, а заменяют его:
   // у арбалета, например, нет силы приёмов вовсе, и ноль здесь означает
   // «нет», а не «плюс ноль».
@@ -2514,6 +2557,21 @@ function stCeilings(){
       ST_KIT.forEach(it => stAdd(base, it.s));
       stAdd(base, ST_ARMOR[ar]);
       stAdd(base, ST_AMULET_ANY);
+
+      // Амулет тоже выбирается: берём тот, что даёт по этой характеристике
+      // больше всех, иначе потолок занижен и полоска переполняется.
+      let bestAmulet = null;
+      let amuletUp = 0;
+
+      Object.keys(ST_AMULET).forEach(sc => {
+        const one = Object.assign({}, base);
+        stAdd(one, ST_AMULET[sc]);
+
+        const up = (stTotals(one)[key] || 0) - (stTotals(base)[key] || 0);
+        if (up > amuletUp){ amuletUp = up; bestAmulet = sc; }
+      });
+
+      if (bestAmulet) stAdd(base, ST_AMULET[bestAmulet]);
       stAdd(base, Object.assign({}, ST_WEAPON_ANY, ST_WEAPON[kd]));
 
       const plain = stTotals(base)[key] || 0;
