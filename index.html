@@ -87,6 +87,50 @@ h1{
 }
 .sub{color:var(--muted); font-size:14px; margin:0}
 
+/* Две кнопки под названием. Набраны тем же шрифтом, что и заголовки:
+   это часть герба страницы, а не вставленные чужие виджеты. Разные они
+   только цветом — красная зовёт к своим, золотая просит о помощи. */
+.cta{
+  display:flex; justify-content:center; flex-wrap:wrap;
+  gap:12px; margin:26px 0 2px;
+}
+.cta a{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:11px 22px; border-radius:var(--r);
+  font-family:Cinzel,Georgia,serif; font-size:11.5px; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; text-decoration:none;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--surface2),var(--surface));
+  transition:border-color .18s, color .18s, box-shadow .18s, transform .18s;
+}
+.cta a svg{width:15px; height:15px; flex:none; opacity:.9}
+.cta a:hover{transform:translateY(-1px)}
+.cta a:hover svg{opacity:1}
+
+/* Дискорд — главная кнопка: тот же кровавый цвет, что и на странице
+   slaintarena.ru/discord, чтобы одно и то же действие всюду выглядело
+   одинаково. Поддержка стоит рядом тихо и загорается золотом только под
+   мышкой: просить о деньгах громче, чем звать к своим, неправильно. */
+.cta .discord{
+  border-color:#7d2b30; color:#f0e2da;
+  background:linear-gradient(180deg,#3a1418,#22090c);
+}
+.cta .discord:hover{
+  border-color:var(--accent-lit); color:#fff;
+  background:linear-gradient(180deg,#4d1a20,#2c0d10);
+  box-shadow:0 0 26px rgba(168,32,42,.32);
+}
+.cta .donate{border-color:var(--line); color:var(--muted)}
+.cta .donate:hover{
+  border-color:var(--gold-dim); color:#e8d9b6;
+  box-shadow:0 0 22px rgba(201,162,39,.16);
+}
+
+@media (max-width:420px){
+  .cta{gap:9px}
+  .cta a{padding:10px 16px; font-size:10.5px; letter-spacing:.14em}
+}
+
 /* ---- вкладки ---- */
 nav{display:flex; gap:3px; border-bottom:1px solid var(--line)}
 nav button{
@@ -401,12 +445,19 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
   color:var(--dim); font-size:11px; line-height:1.5;
 }
 @media (min-width:1180px){
+  /* Отступы между строками — полями самих блоков, а не gap сетки.
+     Характеристики растянуты на двести строк нарочно: столбец должен
+     тянуться вдоль любого числа глав, сколько бы их ни добавилось. Но
+     сетка честно ставила отступ и между пустыми строками тоже — сто
+     девяносто с лишним отступов по 18 пикселей давали три с половиной
+     тысячи пустоты под страницей, и скролл уезжал в никуда. */
   #p-build{
     display:grid; grid-template-columns:minmax(0,1fr) 320px;
-    gap:18px; align-items:start;
+    column-gap:18px; row-gap:0; align-items:start;
   }
-  #p-build > .notice{grid-column:1 / -1}
-  #p-build > .block, #p-build > .editor{grid-column:1}
+  #p-build > .notice{grid-column:1 / -1; margin-bottom:18px}
+  #p-build > .block, #p-build > .editor{grid-column:1; margin-bottom:18px}
+  #p-build > .block:last-child{margin-bottom:0}
   #bd-stats{grid-column:2; grid-row:2 / span 200; position:sticky; top:12px}
 }
 
@@ -565,6 +616,14 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 
 footer{margin-top:28px; color:var(--dim); font-size:13px; line-height:1.7; position:relative; z-index:1}
 footer b{color:var(--muted); font-weight:600}
+/* Нижняя строка — та самая, что стоит внизу у всех сайтов. Отделена
+   чертой, набрана мельче: это подпись страницы, а не её содержание. */
+footer .rule{
+  margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+  font-size:12px; letter-spacing:.04em; color:var(--dim);
+}
+footer .rule a{color:var(--gold-dim); text-decoration:none; border-bottom:1px solid transparent}
+footer .rule a:hover{border-bottom-color:var(--gold-dim)}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
@@ -587,6 +646,19 @@ footer b{color:var(--muted); font-weight:600}
   <h1>Кузница Слейнта</h1>
   <div class="orn" aria-hidden="true"><span></span></div>
   <p class="sub">Собери предмет, скопируй команду, вставь в чат на сервере</p>
+
+  <!-- Обе ссылки открываются в новой вкладке нарочно: собранный билд
+       живёт в самой странице, и уход по ссылке стёр бы работу. -->
+  <div class="cta">
+    <a class="discord" href="/discord" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.2.4a13.4 13.4 0 0 1 4.3 2.2 18.6 18.6 0 0 0-15 0A13.5 13.5 0 0 1 8.8 3.4L8.6 3a19.8 19.8 0 0 0-4.9 1.4C.6 9-.4 13.4.1 17.8a19.9 19.9 0 0 0 6 3l1.2-1.7c-1-.4-1.9-.9-2.7-1.4l.7-.5a14.2 14.2 0 0 0 12.4 0l.7.5c-.9.5-1.8 1-2.8 1.4l1.3 1.7a19.8 19.8 0 0 0 6-3c.6-5.1-1-9.5-3.6-13.4zM8.1 15.1c-1.2 0-2.1-1.1-2.1-2.4S6.9 10.3 8 10.3s2.2 1.1 2.1 2.4-.9 2.4-2 2.4zm7.8 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.1 1.1 2.1 2.4-.9 2.4-2.1 2.4z"/></svg>
+      Дискорд
+    </a>
+    <a class="donate" href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.7-9.4-9A5.3 5.3 0 0 1 12 6.6 5.3 5.3 0 0 1 21.4 12c-1.9 4.3-9.4 9-9.4 9z"/></svg>
+      Поддержать проект
+    </a>
+  </div>
 </header>
 
 <nav role="tablist">
@@ -718,6 +790,7 @@ footer b{color:var(--muted); font-weight:600}
   <p><b>Цифры в команде — это номера свойств</b> из списка выше, они подписаны справа в каждой кнопке. Порядок нумерации на странице и в моде общий, поэтому команда читается сервером однозначно.</p>
   <p>Названия даны по-русски, английский оригинал — мелким шрифтом рядом: команда уходит на сервер на английском, и так видно, что именно вставляется.</p>
   <p>Свойства помечены словом «общий», если встречаются у нескольких заклинаний, а не только у этого.</p>
+  <p class="rule">© <span id="year">2026</span> Арена Слейнта · сервер «Матрёшка» · <a href="/discord">дискорд</a></p>
 </footer>
 </div>
 
@@ -3149,6 +3222,9 @@ copyBtn.addEventListener('click', async () => {
   catch { copyBtn.textContent = 'Выдели и скопируй'; }
   setTimeout(() => { copyBtn.textContent = 'Копировать'; }, 1600);
 });
+
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 drawBuild();
 drawPickers();
