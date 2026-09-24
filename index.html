@@ -508,6 +508,65 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .field::placeholder{color:var(--dim)}
 .field:focus{outline:none; border-color:var(--gold-dim); box-shadow:inset 0 0 20px -12px var(--gold)}
 
+/* ---- вкладка «Рейд замка» ---- */
+/* Порядок действий человек должен видеть до того, как начнёт нажимать:
+   рейд — не сборка предмета, тут два игрока и время на ответ. Поэтому
+   список шагов идёт первым блоком и оформлен как ступени, а не как
+   обычный маркированный список. */
+.steps{
+  counter-reset:step; list-style:none; margin:0; padding:0;
+  display:flex; flex-direction:column; gap:9px;
+}
+.steps li{
+  counter-increment:step; position:relative; padding-left:34px;
+  font-size:13.5px; line-height:1.55; color:var(--muted);
+}
+.steps li b{color:var(--text); font-weight:600}
+.steps li::before{
+  content:counter(step); position:absolute; left:0; top:0;
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--gold-dim);
+  border:1px solid var(--line); border-radius:2px; background:#120d0f;
+}
+.steps code, .cheats code{
+  font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text);
+  background:#070506; border:1px solid var(--line); border-radius:2px; padding:1px 6px;
+}
+
+/* Отбор по группам — та же плитка, только мельче: выбор здесь
+   вспомогательный и не должен спорить с самим списком слуг. */
+.chips{display:flex; flex-wrap:wrap; gap:5px}
+.chip{
+  background:linear-gradient(180deg,#191214,#120d0f);
+  border:1px solid var(--line-soft); border-radius:var(--r);
+  color:var(--muted); font:inherit; font-size:12px; letter-spacing:.04em;
+  padding:6px 12px; cursor:pointer; transition:color .15s, border-color .15s, background .15s;
+}
+.chip:hover{color:var(--text); background:var(--raised)}
+.chip[aria-pressed="true"]{color:var(--text); border-color:var(--gold-dim); background:#221a1d}
+.chip:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+
+.rowbar{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+button.ghost{
+  background:none; border:1px solid var(--line); border-radius:var(--r);
+  color:var(--muted); font:inherit; font-size:12px; padding:6px 12px; cursor:pointer;
+  transition:color .15s, border-color .15s;
+}
+button.ghost:hover{color:var(--text); border-color:var(--gold-dim)}
+button.ghost:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
+
+/* Шпаргалка на время боя: в матче команды арены молчат, и человек должен
+   видеть, что ему вообще доступно, не выходя из игры. */
+.cheats{margin-top:22px; padding-top:18px; border-top:1px solid var(--line-soft)}
+.cheats dl{margin:0; display:flex; flex-direction:column; gap:10px}
+.cheats dt{margin:0}
+.cheats dd{margin:4px 0 0; font-size:13px; line-height:1.5; color:var(--muted)}
+
+/* Гробов ровно восемь, и они должны читаться как замок, а не как лента:
+   четыре в ряд — два ряда, и ни одного одинокого гроба на третьей
+   строке, как выходило при автоподборе ширины. */
+#r-coffins{grid-template-columns:repeat(4,1fr)}
+
 .choices{display:grid; grid-template-columns:repeat(auto-fill,minmax(84px,1fr)); gap:6px}
 .choice{
   --tile:var(--line);
@@ -646,7 +705,11 @@ footer .rule a:hover{border-bottom-color:var(--gold-dim)}
   .pic{width:52px; height:52px}
   .choices{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
   .panel{padding:18px 14px}
-  nav button{font-size:10.5px; letter-spacing:.1em; padding:13px 4px 11px}
+  /* Шесть вкладок в один ряд на телефоне не помещаются: «Рейд замка»
+     ломался пополам и съезжал. Пусть лягут в два ряда по три. */
+  nav{flex-wrap:wrap}
+  nav button{flex:1 0 30%; font-size:10.5px; letter-spacing:.1em; padding:13px 4px 11px}
+  #r-coffins{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 <div class="wrap">
@@ -711,8 +774,25 @@ footer .rule a:hover{border-bottom-color:var(--gold-dim)}
 <!-- Рейд замка. Две стороны — две разные команды, как у V Arena: тот, кто
      нападает, зовёт противника на замок; тот, кто защищает, набирает слуг
      по гробам. Страница ничего не знает о сервере: она только собирает
-     строку, которую человек вставит в игровой чат. -->
+     строку, которую человек вставит в игровой чат.
+
+     Порядок блоков — порядок дела. Сперва человек читает, как вообще идёт
+     рейд (иначе непонятно, зачем тут осколок и кого звать), потом выбирает
+     сторону, потом собирает свою команду, а внизу — шпаргалка на время
+     самого боя. -->
 <section class="panel" id="p-r" role="tabpanel" aria-labelledby="t-r" hidden>
+  <div class="block">
+    <h2>Как идёт рейд</h2>
+    <ol class="steps">
+      <li><b>Зов.</b> Нападающий выбирает противника, замок, время и осколок — и вставляет команду в игровой чат.</li>
+      <li><b>Ответ.</b> У защитника есть минута: <code>.raid accept</code> — играем, <code>.raid decline</code> — не сейчас.</li>
+      <li><b>Перенос.</b> Нападающих ставит к высадке, где стоит буфет с осадными големами и ключами; защитников — в замок.</li>
+      <li><b>Бой.</b> Идёт выбранное время. Закончить раньше — <code>.gg</code>.</li>
+      <li><b>Разбор.</b> В конце таблица урона, а потом арена — и своя сборка обратно, та же, что была.</li>
+    </ol>
+    <p class="hint">В матче работают только команды рейда, в сумке — три бесконечные лечилки, а замок после боя чинится сам. Облик волка доступен, но обычный: без ускорения арены и без неуязвимости.</p>
+  </div>
+
   <div class="block">
     <h2>Сторона</h2>
     <div class="choices" id="r-side"></div>
@@ -739,21 +819,49 @@ footer .rule a:hover{border-bottom-color:var(--gold-dim)}
       <h2>Гробы</h2>
       <p class="hint">Восемь гробов — восемь мест. Нажми на слугу, чтобы посадить его в первый свободный; нажми на гроб, чтобы освободить.</p>
       <div class="slots wide" id="r-coffins"></div>
+      <div class="rowbar">
+        <span class="hint">Набрано: <b id="r-count">0</b> из 8</span>
+        <button type="button" class="ghost" id="r-clear">Освободить все</button>
+      </div>
     </div>
 
     <div class="block">
       <h2>Кого сажаем</h2>
-      <p class="hint">Набрано: <b id="r-count">0</b> из 8. Имена как на странице V Arena — коды у наборов общие.</p>
+      <p class="hint">Имена как на странице V Arena — коды у наборов общие, так что чужой набор вставляется сюда как есть. Группы A–E там для порядка, по силе; никаких ограничений за ними нет.</p>
+      <div class="chips" id="r-groups"></div>
       <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
       <div class="grid" id="r-servants"></div>
+      <p class="hint" id="r-empty" hidden>Никто не подошёл. Сотри поиск или возьми другую группу.</p>
     </div>
   </div>
 
   <div class="buildbar">
+    <p class="hint" id="r-plain">выбери сторону</p>
     <div class="cmdrow">
       <code id="r-code" class="empty">выбери сторону</code>
       <button class="copy" id="r-copy" disabled>Копировать</button>
     </div>
+  </div>
+
+  <div class="block cheats">
+    <h2>Команды рейда</h2>
+    <dl>
+      <dt><code>.raid invite имя замок минуты осколок</code></dt>
+      <dd>Позвать на рейд. Эту строку и собирает вкладка.</dd>
+
+      <dt><code>.raid accept</code> · <code>.raid decline</code></dt>
+      <dd>Согласиться или отказаться. На ответ даётся минута.</dd>
+
+      <dt><code>.raid</code></dt>
+      <dd>Что сейчас: кто в матче, сколько осталось, какой замок.</dd>
+
+      <dt><code>.servants восемь знаков</code></dt>
+      <dd>Набор слуг для гробов своего замка. Его собирает вкладка «Защита».</dd>
+
+      <dt><code>.gg</code></dt>
+      <dd>Закончить матч досрочно. Считается как сдача.</dd>
+    </dl>
+    <p class="hint">Остальные команды арены в матче молчат — нарочно: рейд не должен лечиться китом и телепортами.</p>
   </div>
 </section>
 
@@ -3441,13 +3549,48 @@ const R_SERVANTS = [
 {c:"*",n:"Bell Ringer",g:"E",p:"CHAR_Militia_BellRinger_Servant"},
 ];
 
-const R_SLOTS = 8;
+const R_SLOTS  = 8;
+const R_GROUPS = ['A', 'B', 'C', 'D', 'E'];
+const R_STORE  = 'slaint.raid.v1';
 
 let rSide    = 'attack';
 let rPlot    = R_PLOTS[0];
 let rTime    = 30;
 let rShard   = 'None';
 let rCoffins = Array(R_SLOTS).fill(null);
+let rGroup   = 'all';
+
+/* Набор не должен пропадать от случайного обновления страницы: восемь
+   гробов собирают не за десять секунд, а вкладка открыта рядом с игрой,
+   где хватает поводов промахнуться мимо окна. Память браузерная и только
+   своя — на сервер отсюда не уходит ничего. */
+function rLoad(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(R_STORE) || '{}');
+
+    if (saved.side === 'attack' || saved.side === 'defend') rSide = saved.side;
+    if (R_PLOTS.includes(saved.plot)) rPlot = saved.plot;
+    if (R_TIMES.includes(saved.time)) rTime = saved.time;
+    if (R_SHARDS.some(s => s.k === saved.shard)) rShard = saved.shard;
+
+    if (Array.isArray(saved.coffins))
+      rCoffins = Array.from({length: R_SLOTS}, (_, i) =>
+        R_SERVANTS.some(s => s.c === saved.coffins[i]) ? saved.coffins[i] : null);
+
+    const foe = document.getElementById('r-foe');
+    if (foe && typeof saved.foe === 'string') foe.value = saved.foe;
+  } catch { /* приватное окно, запрет на хранилище — не беда */ }
+}
+
+function rSave(){
+  try {
+    localStorage.setItem(R_STORE, JSON.stringify({
+      side: rSide, plot: rPlot, time: rTime, shard: rShard,
+      coffins: rCoffins,
+      foe: (document.getElementById('r-foe') || {}).value || '',
+    }));
+  } catch { /* см. выше */ }
+}
 
 const rShort = p => p.replace('CHAR_', '').replace('_Servant', '').replace(/_/g, ' ');
 
@@ -3501,27 +3644,52 @@ function rDrawDefend(){
     coffins.append(b);
   });
 
+  // Отбор по группам. У V Arena они только для порядка, по силе, и
+  // ограничений за ними нет — но с шестьюдесятью девятью именами в
+  // одном списке искать глазами тяжело.
+  const groups = document.getElementById('r-groups');
+  groups.textContent = '';
+  [['all', 'Все'], ...R_GROUPS.map(g => [g, `Группа ${g}`])].forEach(([k, n]) => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.textContent = n;
+    b.setAttribute('aria-pressed', rGroup === k ? 'true' : 'false');
+    b.addEventListener('click', () => { rGroup = k; rDrawRaid(); });
+    groups.append(b);
+  });
+
   const find = document.getElementById('r-find').value.trim().toLowerCase();
   const list = document.getElementById('r-servants');
   list.textContent = '';
 
-  R_SERVANTS
-    .filter(s => !find || s.n.toLowerCase().includes(find) || s.p.toLowerCase().includes(find))
-    .forEach(s => {
-      const b = document.createElement('button');
-      b.className = 'mod';
-      b.type = 'button';
-      b.innerHTML = `${s.n} <span class="en">${rShort(s.p)}</span>`;
-      b.addEventListener('click', () => {
-        const free = rCoffins.indexOf(null);
-        if (free < 0) return;
-        rCoffins[free] = s.c;
-        rDrawRaid();
-      });
-      list.append(b);
-    });
+  const full = rCoffins.every(Boolean);
+  const shown = R_SERVANTS
+    .filter(s => rGroup === 'all' || s.g === rGroup)
+    .filter(s => !find || s.n.toLowerCase().includes(find) || s.p.toLowerCase().includes(find));
 
+  shown.forEach(s => {
+    const taken = rCoffins.filter(c => c === s.c).length;
+
+    const b = document.createElement('button');
+    b.className = 'mod';
+    b.type = 'button';
+    b.disabled = full;
+    b.setAttribute('aria-pressed', taken ? 'true' : 'false');
+    b.innerHTML = `${taken ? `<span class="idx">×${taken}</span>` : ''}${s.n}`
+      + ` <span class="en">${rShort(s.p)}</span>`;
+    b.addEventListener('click', () => {
+      const free = rCoffins.indexOf(null);
+      if (free < 0) return;
+      rCoffins[free] = s.c;
+      rDrawRaid();
+    });
+    list.append(b);
+  });
+
+  document.getElementById('r-empty').hidden = shown.length > 0;
   document.getElementById('r-count').textContent = rCoffins.filter(Boolean).length;
+  document.getElementById('r-clear').disabled = !rCoffins.some(Boolean);
 }
 
 function rCommand(){
@@ -3533,6 +3701,26 @@ function rCommand(){
 
   if (!rCoffins.some(Boolean)) return '';
   return `.servants ${rCoffins.map(c => c || '0').join('')}`;
+}
+
+/* Что команда сделает — словами. Строка из точек и цифр выглядит
+   одинаково и для «позвать на полчаса», и для «на два часа», а ошибаются
+   именно в таком. Пусть человек сверяется по-русски, а не по коду. */
+function rPlain(){
+  if (rSide === 'attack'){
+    const foe = document.getElementById('r-foe').value.trim();
+    if (!foe) return 'впиши имя противника — и команда соберётся';
+
+    const shard = R_SHARDS.find(s => s.k === rShard);
+    return `Позовёшь ${foe} на замок ${rPlot}, бой ${rTime} мин,`
+      + ` осколок — ${shard ? shard.n.toLowerCase() : rShard}.`;
+  }
+
+  const taken = rCoffins.filter(Boolean).length;
+  if (!taken) return 'посади хотя бы одного слугу — и команда соберётся';
+
+  return `Наберёшь ${taken} ${taken === 1 ? 'слугу' : (taken < 5 ? 'слуги' : 'слуг')} из 8:`
+    + ` они встанут у своих гробов, когда начнётся рейд.`;
 }
 
 function rDrawRaid(){
@@ -3549,10 +3737,17 @@ function rDrawRaid(){
 
   code.classList.toggle('empty', !cmd);
   copy.disabled = !cmd;
+  document.getElementById('r-plain').textContent = rPlain();
+
+  rSave();
 }
 
 document.getElementById('r-foe').addEventListener('input', rDrawRaid);
 document.getElementById('r-find').addEventListener('input', rDrawRaid);
+document.getElementById('r-clear').addEventListener('click', () => {
+  rCoffins = Array(R_SLOTS).fill(null);
+  rDrawRaid();
+});
 document.getElementById('r-copy').addEventListener('click', async () => {
   const cmd = rCommand(); if (!cmd) return;
   const btn = document.getElementById('r-copy');
@@ -3560,6 +3755,8 @@ document.getElementById('r-copy').addEventListener('click', async () => {
   catch { btn.textContent = 'Выдели и скопируй'; }
   setTimeout(() => { btn.textContent = 'Копировать'; }, 1600);
 });
+
+rLoad();
 
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
