@@ -547,6 +547,18 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .chip:focus-visible{outline:2px solid var(--gold); outline-offset:1px}
 
 .rowbar{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+
+/* Шаги в блоке «Всё по порядку»: номер слева, дело справа. */
+.step-row{display:flex; gap:12px; align-items:flex-start}
+.step-row + .step-row{margin-top:14px}
+.step-num{
+  flex:none; width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+  font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--gold-dim);
+  border:1px solid var(--line); border-radius:2px; background:#120d0f; margin-top:2px;
+}
+.step-body{flex:1; min-width:0; font-size:13.5px; line-height:1.55; color:var(--muted)}
+.step-body b{color:var(--text); font-weight:600}
+.step-body .cmdrow{margin-top:8px}
 button.ghost{
   background:none; border:1px solid var(--line); border-radius:var(--r);
   color:var(--muted); font:inherit; font-size:12px; padding:6px 12px; cursor:pointer;
@@ -832,6 +844,44 @@ footer .rule a:hover{border-bottom-color:var(--gold-dim)}
       <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
       <div class="grid" id="r-servants"></div>
       <p class="hint" id="r-empty" hidden>Никто не подошёл. Сотри поиск или возьми другую группу.</p>
+    </div>
+  </div>
+
+  <div class="block cheats" id="r-all">
+    <h2>Всё по порядку</h2>
+    <p class="hint">Рейд собирается заранее, а не в бою: в матче команды арены молчат. Эти три строки пишутся до приглашения, каждая — один раз.</p>
+
+    <div class="step-row">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <b>Сборка бойца</b> — с ней ты и будешь драться в рейде, и она же вернётся после матча.
+        <div class="cmdrow">
+          <code id="r-c-build" class="empty">собери во вкладке «Билд»</code>
+          <button class="copy" id="r-copy-build" disabled>Копировать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <b>Слуги замка</b> — только защитнику. Набор запоминается за тобой и сам встанет по гробам, когда начнётся рейд.
+        <div class="cmdrow">
+          <code id="r-c-serv" class="empty">выбери слуг на вкладке «Защита»</code>
+          <button class="copy" id="r-copy-serv" disabled>Копировать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <b>Зов</b> — пишет нападающий. У защитника есть минута, чтобы ответить <code>.raid accept</code>.
+        <div class="cmdrow">
+          <code id="r-c-inv" class="empty">впиши имя противника на вкладке «Нападение»</code>
+          <button class="copy" id="r-copy-inv" disabled>Копировать</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -3739,7 +3789,49 @@ function rDrawRaid(){
   copy.disabled = !cmd;
   document.getElementById('r-plain').textContent = rPlain();
 
+  rDrawAll();
+
   rSave();
+}
+
+/* «Всё по порядку»: три строки, которые пишутся до боя. Сборка берётся
+   с вкладки «Билд», слуги — с «Защиты», зов — с «Нападения». Здесь они
+   просто собраны вместе, чтобы человек не гадал, что и когда набирать. */
+function rRow(codeId, copyId, text, empty){
+  const code = document.getElementById(codeId);
+  const copy = document.getElementById(copyId);
+  if (!code || !copy) return;
+
+  code.textContent = text || empty;
+  code.classList.toggle('empty', !text);
+  copy.disabled = !text;
+  copy.dataset.cmd = text || '';
+}
+
+function rDrawAll(){
+  const build = (typeof bdCommands === 'function' ? bdCommands() : [])[0] || '';
+
+  rRow('r-c-build', 'r-copy-build', build, 'собери во вкладке «Билд»');
+  rRow('r-c-serv', 'r-copy-serv',
+    rCoffins.some(Boolean) ? `.servants ${rCoffins.map(c => c || '0').join('')}` : '',
+    'выбери слуг на вкладке «Защита»');
+
+  const foe = (document.getElementById('r-foe') || {}).value?.trim() || '';
+  rRow('r-c-inv', 'r-copy-inv',
+    foe ? `.raid invite ${foe} ${rPlot} ${rTime} ${rShard}` : '',
+    'впиши имя противника на вкладке «Нападение»');
+}
+
+for (const id of ['r-copy-build', 'r-copy-serv', 'r-copy-inv']){
+  const btn = document.getElementById(id);
+  if (!btn) continue;
+
+  btn.addEventListener('click', async () => {
+    const cmd = btn.dataset.cmd; if (!cmd) return;
+    try { await navigator.clipboard.writeText(cmd); btn.textContent = 'Скопировано'; }
+    catch { btn.textContent = 'Выдели и скопируй'; }
+    setTimeout(() => { btn.textContent = 'Копировать'; }, 1600);
+  });
 }
 
 document.getElementById('r-foe').addEventListener('input', rDrawRaid);
