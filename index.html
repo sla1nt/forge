@@ -559,6 +559,31 @@ button.copy:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .step-body{flex:1; min-width:0; font-size:13.5px; line-height:1.55; color:var(--muted)}
 .step-body b{color:var(--text); font-weight:600}
 .step-body .cmdrow{margin-top:8px}
+
+/* Шаг — отдельная карточка с номером в заголовке. */
+.block.step{
+  border:1px solid var(--line-soft); border-radius:var(--r);
+  padding:16px 16px 18px; background:linear-gradient(180deg,rgba(255,255,255,.015),transparent);
+}
+.block.step + .block.step, #r-attack .block.step, #r-defend .block.step{margin-top:14px}
+.block.step > h2 .step-num{
+  width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;
+  font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--gold);
+  border:1px solid var(--gold-dim); border-radius:2px; margin-right:2px;
+}
+
+/* Ряд выбора: подпись слева, плитки справа — чтобы «замок», «минуты» и
+   «осколок» не расползались на три экрана. */
+.pickrow{display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap}
+.pickrow .picklabel{
+  flex:none; width:118px; padding-top:9px;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-dim);
+}
+.pickrow .choices{flex:1; min-width:220px}
+@media (max-width:560px){
+  .pickrow{flex-direction:column; gap:6px}
+  .pickrow .picklabel{width:auto; padding-top:0}
+}
 button.ghost{
   background:none; border:1px solid var(--line); border-radius:var(--r);
   color:var(--muted); font:inherit; font-size:12px; padding:6px 12px; cursor:pointer;
@@ -783,135 +808,91 @@ footer .rule a:hover{border-bottom-color:var(--gold-dim)}
   </div>
 </section>
 
-<!-- Рейд замка. Две стороны — две разные команды, как у V Arena: тот, кто
-     нападает, зовёт противника на замок; тот, кто защищает, набирает слуг
-     по гробам. Страница ничего не знает о сервере: она только собирает
-     строку, которую человек вставит в игровой чат.
+<!-- Рейд замка. Страница ничего не знает о сервере: она собирает строки,
+     которые человек вставляет в игровой чат.
 
-     Порядок блоков — порядок дела. Сперва человек читает, как вообще идёт
-     рейд (иначе непонятно, зачем тут осколок и кого звать), потом выбирает
-     сторону, потом собирает свою команду, а внизу — шпаргалка на время
-     самого боя. -->
+     Устройство простое нарочно. Сперва человек говорит, кем идёт, — и
+     дальше видит только свои шаги, пронумерованные, с готовой командой в
+     конце каждого. Прежний вид объяснял, «как устроен рейд», и Слейнт
+     сказал прямо: непонятно. Человеку нужно не устройство, а что нажать. -->
 <section class="panel" id="p-r" role="tabpanel" aria-labelledby="t-r" hidden>
   <div class="block">
-    <h2>Как идёт рейд</h2>
-    <ol class="steps">
-      <li><b>Зов.</b> Нападающий выбирает противника, замок, время и осколок — и вставляет команду в игровой чат.</li>
-      <li><b>Ответ.</b> У защитника есть минута: <code>.raid accept</code> — играем, <code>.raid decline</code> — не сейчас.</li>
-      <li><b>Перенос.</b> Нападающих ставит к высадке, где стоит буфет с осадными големами и ключами; защитников — в замок.</li>
-      <li><b>Бой.</b> Идёт выбранное время. Закончить раньше — <code>.gg</code>.</li>
-      <li><b>Разбор.</b> В конце таблица урона, а потом арена — и своя сборка обратно, та же, что была.</li>
-    </ol>
-    <p class="hint">В матче работают только команды рейда, в сумке — три бесконечные лечилки, а замок после боя чинится сам. Облик волка доступен, но обычный: без ускорения арены и без неуязвимости.</p>
-  </div>
-
-  <div class="block">
-    <h2>Сторона</h2>
+    <h2>Кем идёшь</h2>
     <div class="choices" id="r-side"></div>
   </div>
 
-  <div id="r-attack">
-    <div class="block">
-      <h2>Кого зовём</h2>
-      <p class="hint">Имя в игре, как оно написано у противника. Рейд идёт клан на клан: с каждым идут его соклановцы, кто в сети.</p>
-      <input id="r-foe" class="field" type="text" placeholder="Например: valadorik" autocomplete="off" spellcheck="false">
+  <!-- Шаг 1: общий для обеих сторон -->
+  <div class="block step">
+    <h2><span class="step-num">1</span> Сборка бойца</h2>
+    <p class="hint">Собери её во вкладке <b>«Билд»</b> — с ней и будешь драться в рейде. После матча она вернётся сама.</p>
+    <div class="cmdrow">
+      <code id="r-c-build" class="empty">собери во вкладке «Билд»</code>
+      <button class="copy" id="r-copy-build" disabled>Копировать</button>
     </div>
+  </div>
 
-    <div class="block"><h2>Замок</h2><div class="choices" id="r-plot"></div></div>
-    <div class="block"><h2>Сколько минут</h2><div class="choices" id="r-time"></div></div>
-    <div class="block">
-      <h2>Осколок</h2>
-      <p class="hint">Пока мод его только запоминает: что с ним делать в бою — решаем.</p>
-      <div class="choices" id="r-shard"></div>
+  <!-- Шаг 2: у каждой стороны свой -->
+  <div id="r-attack">
+    <div class="block step">
+      <h2><span class="step-num">2</span> Кого зовём</h2>
+      <p class="hint">Имя противника, как оно написано у него в игре. Рейд идёт клан на клан: с каждым идут его соклановцы, кто в сети.</p>
+      <input id="r-foe" class="field" type="text" placeholder="Например: valadorik" autocomplete="off" spellcheck="false">
+
+      <div class="pickrow">
+        <span class="picklabel">Замок</span>
+        <div class="choices" id="r-plot"></div>
+      </div>
+
+      <div class="pickrow">
+        <span class="picklabel">Сколько минут</span>
+        <div class="choices" id="r-time"></div>
+      </div>
+
+      <div class="pickrow">
+        <span class="picklabel">Осколок</span>
+        <div class="choices" id="r-shard"></div>
+      </div>
     </div>
   </div>
 
   <div id="r-defend" hidden>
-    <div class="block">
-      <h2>Гробы</h2>
-      <p class="hint">Восемь гробов — восемь мест. Нажми на слугу, чтобы посадить его в первый свободный; нажми на гроб, чтобы освободить.</p>
+    <div class="block step">
+      <h2><span class="step-num">2</span> Слуги замка</h2>
+      <p class="hint">Восемь гробов. Нажми на слугу — сядет в первый свободный; нажми на гроб — освободится. Набрано: <b id="r-count">0</b> из 8.</p>
       <div class="slots wide" id="r-coffins"></div>
+
       <div class="rowbar">
-        <span class="hint">Набрано: <b id="r-count">0</b> из 8</span>
+        <div class="chips" id="r-groups"></div>
         <button type="button" class="ghost" id="r-clear">Освободить все</button>
       </div>
-    </div>
 
-    <div class="block">
-      <h2>Кого сажаем</h2>
-      <p class="hint">Имена как на странице V Arena — коды у наборов общие, так что чужой набор вставляется сюда как есть. Группы A–E там для порядка, по силе; никаких ограничений за ними нет.</p>
-      <div class="chips" id="r-groups"></div>
       <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
       <div class="grid" id="r-servants"></div>
       <p class="hint" id="r-empty" hidden>Никто не подошёл. Сотри поиск или возьми другую группу.</p>
     </div>
   </div>
 
-  <div class="block cheats" id="r-all">
-    <h2>Всё по порядку</h2>
-    <p class="hint">Рейд собирается заранее, а не в бою: в матче команды арены молчат. Эти три строки пишутся до приглашения, каждая — один раз.</p>
-
-    <div class="step-row">
-      <span class="step-num">1</span>
-      <div class="step-body">
-        <b>Сборка бойца</b> — с ней ты и будешь драться в рейде, и она же вернётся после матча.
-        <div class="cmdrow">
-          <code id="r-c-build" class="empty">собери во вкладке «Билд»</code>
-          <button class="copy" id="r-copy-build" disabled>Копировать</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="step-row">
-      <span class="step-num">2</span>
-      <div class="step-body">
-        <b>Слуги замка</b> — только защитнику. Набор запоминается за тобой и сам встанет по гробам, когда начнётся рейд.
-        <div class="cmdrow">
-          <code id="r-c-serv" class="empty">выбери слуг на вкладке «Защита»</code>
-          <button class="copy" id="r-copy-serv" disabled>Копировать</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="step-row">
-      <span class="step-num">3</span>
-      <div class="step-body">
-        <b>Зов</b> — пишет нападающий. У защитника есть минута, чтобы ответить <code>.raid accept</code>.
-        <div class="cmdrow">
-          <code id="r-c-inv" class="empty">впиши имя противника на вкладке «Нападение»</code>
-          <button class="copy" id="r-copy-inv" disabled>Копировать</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="buildbar">
+  <!-- Шаг 3: то, ради чего страница -->
+  <div class="block step">
+    <h2><span class="step-num">3</span> Вставь в игровой чат</h2>
     <p class="hint" id="r-plain">выбери сторону</p>
     <div class="cmdrow">
       <code id="r-code" class="empty">выбери сторону</code>
       <button class="copy" id="r-copy" disabled>Копировать</button>
     </div>
+    <p class="hint" id="r-after"></p>
   </div>
 
   <div class="block cheats">
-    <h2>Команды рейда</h2>
+    <h2>Что в бою</h2>
     <dl>
-      <dt><code>.raid invite имя замок минуты осколок</code></dt>
-      <dd>Позвать на рейд. Эту строку и собирает вкладка.</dd>
-
-      <dt><code>.raid accept</code> · <code>.raid decline</code></dt>
-      <dd>Согласиться или отказаться. На ответ даётся минута.</dd>
+      <dt><code>.gg</code></dt>
+      <dd>Закончить матч досрочно.</dd>
 
       <dt><code>.raid</code></dt>
-      <dd>Что сейчас: кто в матче, сколько осталось, какой замок.</dd>
-
-      <dt><code>.servants восемь знаков</code></dt>
-      <dd>Набор слуг для гробов своего замка. Его собирает вкладка «Защита».</dd>
-
-      <dt><code>.gg</code></dt>
-      <dd>Закончить матч досрочно. Считается как сдача.</dd>
+      <dd>Что сейчас: кто играет, сколько осталось.</dd>
     </dl>
-    <p class="hint">Остальные команды арены в матче молчат — нарочно: рейд не должен лечиться китом и телепортами.</p>
+    <p class="hint">Остальные команды арены в матче молчат — нарочно. В сумке три бесконечные лечилки, облик волка обычный: без ускорения арены и без неуязвимости. Сломанный замок чинится сам после боя.</p>
   </div>
 </section>
 
@@ -3789,6 +3770,11 @@ function rDrawRaid(){
   copy.disabled = !cmd;
   document.getElementById('r-plain').textContent = rPlain();
 
+  const after = document.getElementById('r-after');
+  if (after) after.textContent = rSide === 'attack'
+    ? 'Дальше ждёшь минуту: согласится — мод перенесёт обе стороны, тебя к буфету с осадными големами.'
+    : 'Эту строку пиши заранее, один раз: слуги встанут сами, когда начнётся рейд. На зов отвечай .raid accept.';
+
   rDrawAll();
 
   rSave();
@@ -3812,17 +3798,9 @@ function rDrawAll(){
   const build = (typeof bdCommands === 'function' ? bdCommands() : [])[0] || '';
 
   rRow('r-c-build', 'r-copy-build', build, 'собери во вкладке «Билд»');
-  rRow('r-c-serv', 'r-copy-serv',
-    rCoffins.some(Boolean) ? `.servants ${rCoffins.map(c => c || '0').join('')}` : '',
-    'выбери слуг на вкладке «Защита»');
-
-  const foe = (document.getElementById('r-foe') || {}).value?.trim() || '';
-  rRow('r-c-inv', 'r-copy-inv',
-    foe ? `.raid invite ${foe} ${rPlot} ${rTime} ${rShard}` : '',
-    'впиши имя противника на вкладке «Нападение»');
 }
 
-for (const id of ['r-copy-build', 'r-copy-serv', 'r-copy-inv']){
+for (const id of ['r-copy-build']){
   const btn = document.getElementById(id);
   if (!btn) continue;
 
