@@ -387,3 +387,14 @@ body.arena .btn.main, .p-arena .btn.main{color:#1a1206}
 @media (max-width: 760px){
   section{padding:56px 0}
 }
+
+/* команды плотнее (06.10): меньше отступы, псевдоним в строку с командой, логистика — строками */
+.cmd{padding:10px 14px}
+.cmd .al{display:inline; margin-left:8px}
+.cmd .d{font-size:14.5px; line-height:1.45}
+.cmd-group.wide{grid-column:1 / -1}
+.cmd-mini{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px 14px}
+.cmd.row{display:flex; gap:12px; align-items:baseline; padding:8px 14px}
+.cmd.row code{flex:none; min-width:112px}
+.cmd.row .d{font-size:14px}
+@media (max-width: 900px){ .cmd-mini{grid-template-columns:1fr} .cmd.row{flex-wrap:wrap} }
