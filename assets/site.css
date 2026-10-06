@@ -271,3 +271,119 @@ section:first-of-type{border-top:0}
   .brand-sub{display:none}
   .brand-name{font-size:15px; letter-spacing:.12em}
 }
+
+/* ===========================================================================
+   Облик v2 (06.10.2026, Алексей: «крутым, современным, не перегруженным»).
+   Скругления вместо фасок, стеклянные карточки без уголков, больше воздуха между
+   разделами, крупный арт босса на первом экране, кнопки-«таблетки» со свечением.
+   Классы прежние — страницы правятся мало.
+=========================================================================== */
+:root{ --r:14px; --glass:rgba(255,255,255,.035); --glass2:rgba(255,255,255,.06); --edge:rgba(255,255,255,.08); }
+
+section{padding:68px 0; border-top:0}
+.sec-head{margin-bottom:32px}
+.sec-head h2{letter-spacing:.005em}
+.kicker{display:inline-flex; align-items:center; gap:10px}
+.kicker::before{content:""; width:22px; height:2px; border-radius:2px; background:var(--hue-lit); box-shadow:0 0 10px var(--hue-lit)}
+
+/* шапка */
+.top{background:rgba(8,6,7,.72); backdrop-filter:blur(14px) saturate(1.2); border-bottom:1px solid var(--edge)}
+.nav a{border-radius:999px; padding:8px 14px}
+.nav a.on{background:var(--glass2); box-shadow:none; color:#fff}
+.nav a.rules-link{color:var(--text); border:1px solid var(--edge)}
+.nav a.rules-link:hover{border-color:var(--hue)}
+
+/* кнопки */
+.btn{border-radius:999px; padding:13px 22px; border-color:var(--edge); background:var(--glass)}
+.btn:hover{background:var(--glass2); border-color:var(--hue)}
+.btn.main{color:#fff; background:linear-gradient(135deg, var(--hue-lit), var(--hue)); border-color:transparent;
+  box-shadow:0 8px 28px color-mix(in srgb, var(--hue) 45%, transparent)}
+.btn.main:hover{filter:brightness(1.1); box-shadow:0 10px 36px color-mix(in srgb, var(--hue) 60%, transparent)}
+body.arena .btn.main, .p-arena .btn.main{color:#1a1206}
+
+/* карточки: стекло, без уголков */
+.card{background:linear-gradient(180deg, var(--glass2), var(--glass)); border:1px solid var(--edge); border-radius:var(--r);
+  transition:border-color .2s, transform .2s, box-shadow .2s}
+.card::before, .card::after{display:none}
+.card:hover{border-color:color-mix(in srgb, var(--hue) 55%, transparent); box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.grid{gap:18px}
+
+/* адрес, цифры, чипы, заметки */
+.addr{border-radius:14px; background:rgba(0,0,0,.35); border-color:var(--edge); padding:10px 10px 10px 16px}
+.copy{border-radius:999px; padding:7px 14px; background:var(--glass2); border-color:var(--edge)}
+.fact{border-radius:var(--r); background:var(--glass); border-color:var(--edge)}
+.chip{border-radius:8px; background:rgba(0,0,0,.3); border-color:var(--edge)}
+.note{border-radius:0 12px 12px 0; background:var(--glass)}
+.badge{border-radius:999px}
+.step::before{border-radius:12px; background:var(--glass)}
+
+/* главный экран с артом босса */
+.hero, .hero2{position:relative; overflow-x:clip}
+.hero-art{position:absolute; z-index:0; pointer-events:none; right:-2%; top:-30px; width:min(46%, 560px); opacity:.6;
+  -webkit-mask-image:radial-gradient(60% 62% at 50% 40%, #000 40%, transparent 78%);
+          mask-image:radial-gradient(60% 62% at 50% 40%, #000 40%, transparent 78%);
+  filter:saturate(1.05) contrast(1.05)}
+.hero > *:not(.hero-art), .hero2 > *:not(.hero-art){position:relative; z-index:1}
+.hero h1{text-shadow:0 4px 30px rgba(0,0,0,.6)}
+
+/* PVP: Дракула фоном в карточке вайпа */
+.wipe{overflow:hidden}
+.wipe-art{position:absolute; right:-40px; top:-30px; height:150%; opacity:.42; pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 45%); mask-image:linear-gradient(90deg, transparent, #000 45%)}
+.wipe > *:not(.wipe-art){position:relative}
+
+/* проекты на главной: арт в карточке */
+.project{border-radius:22px; border-color:var(--edge); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01))}
+.project:hover{box-shadow:0 20px 60px color-mix(in srgb, var(--hue) 25%, transparent)}
+.project .p-art{position:absolute; right:-10px; top:-20px; width:46%; opacity:.4; pointer-events:none; transition:opacity .3s, transform .3s;
+  -webkit-mask-image:radial-gradient(60% 60% at 50% 40%, #000 35%, transparent 78%);
+          mask-image:radial-gradient(60% 60% at 50% 40%, #000 35%, transparent 78%)}
+.project:hover .p-art{opacity:.6; transform:scale(1.03)}
+.big-mark{display:none}
+
+/* команды: две колонки на широком экране, тише */
+.cmds{grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px 18px; align-items:start}
+.cmd-group{display:grid; gap:8px; align-content:start}
+.cmd-group h3{margin:6px 0 4px}
+.cmd{grid-template-columns:1fr; gap:4px; border-radius:12px; background:var(--glass); border-color:var(--edge)}
+.cmd-empty{grid-column:1 / -1}
+.search{border-radius:999px; background:rgba(0,0,0,.35); border-color:var(--edge); padding:12px 18px}
+.filter{border-radius:999px; background:var(--glass); border-color:var(--edge)}
+
+/* подвал */
+.foot{border-top:1px solid var(--edge)}
+
+/* «Все правила →» и прочие ссылки-стрелки */
+.more-link{display:inline-flex; align-items:center; gap:8px; font-weight:800; color:var(--hue-lit)}
+.more-link:hover{gap:12px; text-decoration:none}
+
+/* страница правил */
+.rules-tabs{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 28px}
+.rules-tabs a{padding:9px 16px; border-radius:999px; border:1px solid var(--edge); background:var(--glass); color:var(--muted); font-weight:700; font-size:14px}
+.rules-tabs a:hover{color:#fff; border-color:var(--hue); text-decoration:none}
+.yn{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.yn .card h3{font-family:Manrope,sans-serif; font-size:15px; font-weight:800; letter-spacing:.14em; text-transform:uppercase}
+.yn .yes h3{color:#7ee08a} .yn .no h3{color:#ff6b72}
+.yn .yes{border-color:rgba(126,224,138,.25)} .yn .no{border-color:rgba(255,107,114,.25)}
+.yn ul{list-style:none; padding:0; margin:10px 0 0; display:grid; gap:10px}
+.yn li{display:grid; grid-template-columns:22px 1fr; gap:8px; color:var(--text)}
+.yn .yes li::before{content:"✓"; color:#7ee08a; font-weight:800}
+.yn .no li::before{content:"✕"; color:#ff6b72; font-weight:800}
+.yn li small{display:block; color:var(--muted); font-size:13.5px}
+.draft{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px;
+  border-radius:999px; border:1px dashed var(--line); color:var(--dim)}
+.rule-list{counter-reset:r; display:grid; gap:12px}
+.rule-list .card{display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:start; counter-increment:r}
+.rule-list .card::before{display:grid; content:counter(r); position:static; width:44px; height:44px; place-items:center; border:1px solid var(--edge);
+  border-radius:12px; font:800 18px Manrope,sans-serif; color:var(--hue-lit); background:rgba(0,0,0,.3); opacity:1}
+.rule-list .card h3{font-size:20px}
+
+@media (max-width: 900px){
+  .cmds{grid-template-columns:1fr}
+  .yn{grid-template-columns:1fr}
+  .hero-art{width:70%; right:0; top:-10px; opacity:.3}
+  .project .p-art{width:60%; opacity:.25}
+}
+@media (max-width: 760px){
+  section{padding:56px 0}
+}
