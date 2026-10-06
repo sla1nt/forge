@@ -1,6 +1,24 @@
 /* Матрёшка — общие мелочи: меню на телефоне, «скопировать адрес», ближайший ивент по МСК,
    поиск по командам. Без библиотек. */
 (function () {
+  // Язык страницы: <html lang="en"> — английские подписи (06.10).
+  var EN = document.documentElement.lang === 'en';
+  var L = function (ru, en) { return EN ? en : ru; };
+
+  // Выбор языка: ссылки .lang-pick[data-lang] запоминают выбор; на главной без выбора —
+  // английская версия для браузеров не на русском (и не на языках соседей).
+  document.querySelectorAll('[data-lang]').forEach(function (a) {
+    a.addEventListener('click', function () { try { localStorage.setItem('lang', a.getAttribute('data-lang')); } catch (e) { } });
+  });
+  var home = document.body.classList.contains('home');
+  if (home) {
+    var pick = null; try { pick = localStorage.getItem('lang'); } catch (e) { }
+    var bl = (navigator.language || 'ru').toLowerCase();
+    var want = pick || (/^(ru|uk|be|kk)/.test(bl) ? 'ru' : 'en');
+    if (want === 'en' && !EN) location.replace('en/');
+    else if (want === 'ru' && EN && pick) location.replace('../');
+  }
+
   // меню на телефоне
   var burger = document.querySelector('.burger');
   var nav = document.querySelector('.nav');
@@ -10,7 +28,7 @@
   document.querySelectorAll('.copy[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
       var text = b.getAttribute('data-copy');
-      var done = function () { var t = b.textContent; b.textContent = 'Скопировано'; b.classList.add('done');
+      var done = function () { var t = b.textContent; b.textContent = L('Скопировано', 'Copied'); b.classList.add('done');
         setTimeout(function () { b.textContent = t; b.classList.remove('done'); }, 1600); };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
       else { fallback(text); done(); }
@@ -54,9 +72,9 @@
       var all = best.left + wait;
       var nm = document.getElementById('next-name'), nw = document.getElementById('next-when'), nc = document.getElementById('next-cd');
       if (nm) nm.textContent = best.row.getAttribute('data-name');
-      if (nw) nw.textContent = (wait ? 'первый после открытия · ' : '') + 'в ' + best.t + ' МСК';
+      if (nw) nw.textContent = (wait ? L('первый после открытия · ', 'first after launch · ') : '') + L('в ', 'at ') + best.t + L(' МСК', ' MSK (UTC+3)');
       if (nc) { var d = Math.floor(all / 86400), h = Math.floor(all % 86400 / 3600);
-        nc.textContent = (d ? d + 'д ' : '') + two(h) + ':' + two(Math.floor(all % 3600 / 60)) + ':' + two(all % 60); }
+        nc.textContent = (d ? d + L('д ', 'd ') : '') + two(h) + ':' + two(Math.floor(all % 3600 / 60)) + ':' + two(all % 60); }
     };
     tick(); setInterval(tick, 1000);
   }
@@ -67,9 +85,9 @@
     var at = new Date(cd.getAttribute('data-at')).getTime();
     var upd = function () {
       var s = Math.floor((at - Date.now()) / 1000);
-      if (s <= 0) { cd.textContent = 'Сервер открыт — заходи!'; return; }
+      if (s <= 0) { cd.textContent = L('Сервер открыт — заходи!', 'The server is open — join now!'); return; }
       var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
-      cd.textContent = 'до открытия: ' + (d ? d + ' д ' : '') + ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + ss).slice(-2);
+      cd.textContent = L('до открытия: ', 'launch in: ') + (d ? d + L(' д ', 'd ') : '') + ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + ss).slice(-2);
     };
     upd(); setInterval(upd, 1000);
   }

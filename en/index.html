@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matryoshka — V Rising servers</title>
+<meta name="description" content="Matryoshka — a V Rising server project: Matryoshka PVP (open world) and Matryoshka Arena (PvP arena with the Forge build editor).">
+<meta property="og:title" content="Matryoshka — V Rising servers">
+<meta property="og:description" content="Open-world PVP and an arena. Addresses, events, commands, Discord.">
+<link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ru" href="https://slaintarena.ru/">
+<link rel="alternate" hreflang="en" href="https://slaintarena.ru/en/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=20261006b">
+</head>
+<body class="home">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="doll" viewBox="0 0 64 64">
+    <path fill="currentColor" fill-rule="evenodd" d="M32 4C24.3 4 19.6 9.6 19.6 16.3c0 3.7 1.5 6.8 3.8 9C15.7 29.2 10.5 37 10.5 45.7 10.5 54.8 19.2 61 32 61s21.5-6.2 21.5-15.3c0-8.7-5.2-16.5-12.9-20.4 2.3-2.2 3.8-5.3 3.8-9C44.4 9.6 39.7 4 32 4zM25.3 16.6a6.7 6.2 0 1 1 13.4 0 6.7 6.2 0 1 1-13.4 0z"/>
+    <path style="fill:var(--doll-drop,#0a0708)" d="M32 34.5c-1.2 3.4-4.6 6.3-4.6 9.8a4.6 4.6 0 0 0 9.2 0c0-3.5-3.4-6.4-4.6-9.8z"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><svg class="brand-mark" style="color:var(--blood-lit)"><use href="#doll"/></svg><span class="brand-name">MATRYOSHKA</span></a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <nav class="nav">
+      <a href="./" class="on">Home</a>
+      <a href="pvp/" class="pvp-link">Matryoshka PVP</a>
+      <a href="arena/" class="arena-link">Matryoshka Arena</a>
+      <a href="../discord/">Discord</a>
+      <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a>
+    </nav>
+    <div class="lang-sw"><a href="../" data-lang="ru">RU</a><a href="./" data-lang="en" class="on">EN</a></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div class="lang-big" style="margin:0 0 26px"><a href="../" data-lang="ru"><b>RU</b><span>Русский</span></a><a class="on" href="./" data-lang="en"><b>EN</b><span>English</span></a></div>
+      <div class="kicker">V Rising · Russian community, everyone welcome</div>
+      <h1>Matryoshka — <span class="accent">two worlds</span><br>for one vampire</h1>
+      <p class="lead">An open world with raids, events and its own economy — and an arena where your build
+        decides the fight, not hours of farming. Pick your server.</p>
+      <div class="hero-actions">
+        <a class="btn main" href="pvp/" style="--hue:var(--blood);--hue-lit:var(--blood-lit)">Matryoshka PVP</a>
+        <a class="btn main" href="arena/">Matryoshka Arena</a>
+        <a class="btn" href="../discord/">Discord</a>
+        <a class="btn" href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a>
+      </div>
+    </section>
+
+    <section style="padding-top:20px">
+      <div class="projects">
+        <a class="project p-pvp" href="pvp/">
+          <svg class="big-mark"><use href="#doll"/></svg>
+          <div class="tag">Open world · Solo/Duo</div>
+          <h2>Matryoshka PVP</h2>
+          <p>Full V Rising with castles, scheduled raids and events every few hours.</p>
+          <ul>
+            <li>Loot ×2.6, crafting ×6, clans of up to 2 players</li>
+            <li>World boss, loot carriages, event horse</li>
+            <li>Own currency, traders, protection from “strong hunting the weak”</li>
+            <li>Launch — October 8, 2026, 20:00 MSK (UTC+3)</li>
+          </ul>
+          <div class="go">
+            <div class="addr" onclick="event.preventDefault()"><span class="label">IP</span><span class="ip">195.18.27.210:27800</span><button class="copy" data-copy="195.18.27.210:27800">Copy</button></div>
+            <span class="more">Learn more →</span>
+          </div>
+        </a>
+
+        <a class="project p-arena" href="arena/">
+          <svg class="big-mark"><use href="#doll"/></svg>
+          <div class="tag">PvP arena · builds</div>
+          <h2>Matryoshka Arena</h2>
+          <p>A ready fighter in a minute: make a build in the Forge, paste the code into chat — and fight.</p>
+          <ul>
+            <li>Everything unlocked from the start: gear, spells, passives</li>
+            <li>Duels and a castle raid arena</li>
+            <li>The Forge — a build editor right on the website</li>
+            <li>V Arena build codes work too</li>
+          </ul>
+          <div class="go">
+            <div class="addr" onclick="event.preventDefault()"><span class="label">IP</span><span class="ip">185.207.214.9:27800</span><button class="copy" data-copy="185.207.214.9:27800">Copy</button></div>
+            <span class="more">Learn more →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid g3">
+        <div class="card">
+          <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 8c3-2 7-2 10 0l1 7c-1 1-2 2-4 2l-1-2h-2l-1 2c-2 0-3-1-4-2z"/><circle cx="10" cy="12" r="1"/><circle cx="14" cy="12" r="1"/></svg>Discord</h3>
+          <p>News, rules, finding a partner, questions to the admin — all in one place.</p>
+          <p style="margin-top:14px"><a class="btn" href="../discord/">slaintarena.ru/discord</a></p>
+        </div>
+        <div class="card">
+          <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>Support us</h3>
+          <p>Servers, domain and database are paid out of pocket. Any help goes to hosting and growing Matryoshka.</p>
+          <p style="margin-top:14px"><a class="btn main" href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a></p>
+        </div>
+        <div class="card">
+          <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How to join</h3>
+          <p>V Rising → <b>Play</b> → <b>Online Play</b> → <b>Find Servers</b> → <b>Direct Connect</b> at the bottom → paste the address. Or search “Matryoshka” in the list.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© Matryoshka, 2026 · a Slaint project · V Rising is a trademark of Stunlock Studios</span>
+    <span><a href="pvp/">PVP</a> · <a href="arena/">Arena</a> · <a href="../discord/">Discord</a> · <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a></span>
+  </div>
+</footer>
+<script src="../assets/site.js?v=20261006b"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matryoshka PVP — V Rising open world</title>
+<meta name="description" content="Matryoshka PVP: a V Rising open world, Solo/Duo, loot ×2.6. Launch October 8, 2026, 20:00 MSK (UTC+3). Address, scheduled events, raids, economy, commands.">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ru" href="https://slaintarena.ru/pvp/">
+<link rel="alternate" hreflang="en" href="https://slaintarena.ru/en/pvp/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=20261006b">
+</head>
+<body class="pvp">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="doll" viewBox="0 0 64 64">
+    <path fill="currentColor" fill-rule="evenodd" d="M32 4C24.3 4 19.6 9.6 19.6 16.3c0 3.7 1.5 6.8 3.8 9C15.7 29.2 10.5 37 10.5 45.7 10.5 54.8 19.2 61 32 61s21.5-6.2 21.5-15.3c0-8.7-5.2-16.5-12.9-20.4 2.3-2.2 3.8-5.3 3.8-9C44.4 9.6 39.7 4 32 4zM25.3 16.6a6.7 6.2 0 1 1 13.4 0 6.7 6.2 0 1 1-13.4 0z"/>
+    <path style="fill:var(--doll-drop,#0a0708)" d="M32 34.5c-1.2 3.4-4.6 6.3-4.6 9.8a4.6 4.6 0 0 0 9.2 0c0-3.5-3.4-6.4-4.6-9.8z"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><svg class="brand-mark" style="color:var(--blood-lit)"><use href="#doll"/></svg><span class="brand-name">MATRYOSHKA</span><span class="brand-sub">PVP</span></a>
+    <button class="burger" aria-label="Menu">☰</button>
+    <nav class="nav">
+      <a href="#map">Map</a>
+      <a href="#start">Launch</a>
+      <a href="#events">Events</a>
+      <a href="#features">Features</a>
+      <a href="#pvp">PvP and raids</a>
+      <a href="#commands">Commands</a>
+      <a href="../arena/" class="arena-link">Arena</a>
+      <a href="../../discord/">Discord</a>
+    </nav>
+    <div class="lang-sw"><a href="../../pvp/" data-lang="ru">RU</a><a href="./" data-lang="en" class="on">EN</a></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <!--MAP-->
+  <section id="map" class="mp-sec">
+    <div class="sec-head"><div class="kicker">Server map · hover over a zone or a resource</div><h2>What we added to the <span class="accent">world</span></h2></div>
+    <div class="mp-tools">
+      <button class="mp-layer on" data-l="z"><i style="background:#ff4b55"></i>FFA zones · 15</button>
+      <button class="mp-layer on" data-l="sp"><i style="background:#6fb6ff"></i>Resources · 33 spots</button>
+      <button class="mp-layer on" data-l="gt"><i style="background:#ffb43a"></i>Closed passages · 90</button>
+      <button class="mp-layer on" data-l="ch"><i style="background:#ffc83d"></i>Gladiator chests · 2</button>
+      <button class="mp-layer on" data-l="po"><i style="background:#ff4b55;box-shadow:0 0 0 2px #ffc83d"></i>Boss, traders, cleansing · 3</button>
+      <button class="mp-open btn">Full screen ⤢</button>
+    </div>
+    <div class="mp-box"><div class="mp"><img src="../../pvp/map/vardoran-1300.jpg" srcset="../../pvp/map/vardoran-1300.jpg 1300w, ../../pvp/map/vardoran-2532.jpg 2532w" sizes="(max-width:1120px) 100vw, 1080px" width="2532" height="2400" alt="Map of Vardoran"><svg viewBox="0 0 2532 2400"><g class="z" data-t="FFA zone · Carvers Logging Outpost" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №4 — Emery ×14, Corrupted Oak ×10, Coal ×1"><path d="M168 435L174 436L179 440L183 445L186 452L186 458L186 465L183 473L181 479L174 487L172 490L172 494L173 498L176 501L177 504L176 510L173 514L168 517L159 521L149 522L144 523L142 522L138 520L136 516L135 510L134 505L133 503L130 502L124 501L114 498L109 496L107 493L104 488L103 483L104 478L105 470L106 464L105 458L106 454L108 450L112 446L116 445L119 445L125 446L128 445L132 443L136 440L139 438L142 435L146 433L151 433L161 433Z"/></g><g class="z" data-t="FFA zone · Brighthaven" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign."><path d="M141 1250L143 1255L146 1258L151 1259L222 1259L239 1259L239 1113L141 1113Z"/><path d="M328 1054L328 1075L337 1075L336 1109L326 1109L326 1123L239 1123L239 1026L248 1026L252 1029L257 1035L263 1041L270 1043L280 1044L291 1048L296 1049L300 1049L307 1046L317 1046L322 1048L326 1051Z"/><path d="M132 1044L126 1052L123 1061L121 1072L122 1080L124 1089L128 1095L134 1099L138 1105L141 1113L239 1113L239 1039L237 1036L233 1034L148 1034L141 1037Z"/><path d="M293 1241L305 1239L311 1235L314 1230L316 1222L316 1203L328 1203L328 1183L332 1183L332 1168L326 1168L326 1123L239 1123L239 1241Z"/></g><g class="z" data-t="FFA zone · Spider Cave" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №10 — Spider Cocoons (silk) ×30"><path d="M1504 380L1518 383L1535 383L1552 381L1567 374L1578 361L1583 346L1590 325L1592 307L1590 282L1581 264L1566 251L1553 246L1535 246L1516 251L1495 260L1483 271L1475 285L1469 306L1468 326L1468 340L1476 358L1487 372Z"/></g><g class="z" data-t="FFA zone · Trancendum Mine" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №8 — Sulfur ×10"><path d="M1015 465L1019 481L1021 485L1023 487L1028 488L1042 488L1054 489L1058 489L1065 487L1069 485L1075 484L1079 484L1087 485L1105 485L1111 481L1129 466L1133 459L1133 453L1132 445L1127 436L1120 428L1102 415L1087 404L1074 398L1067 396L1053 395L1043 397L1033 404L1032 405L1024 414L1018 426L1015 442Z"/></g><g class="z" data-t="FFA zone · Pools of Rebirth" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №7 — Sulfur ×12"><path d="M894 354L901 355L933 364L939 368L942 370L943 373L947 393L949 417L950 437L950 443L948 447L946 452L943 456L941 459L933 461L921 463L909 464L866 467L851 467L841 465L835 462L830 458L828 455L824 448L821 435L822 429L825 421L830 412L842 402L845 397L847 392L850 381L852 377L855 373L860 369L872 360L878 357L886 354Z"/></g><g class="z" data-t="FFA zone · Dracula’s Castle Garden" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №23 — Bleeding Heart ×23"><path d="M2148 1016L2152 1017L2152 1002L2229 1002L2229 1007L2251 1007L2254 1011L2257 1016L2258 1026L2257 1074L2252 1080L2245 1084L2238 1087L2205 1088L2204 1079L2147 1079Z"/></g><g class="z" data-t="FFA zone · Venom Blades Bastion" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №1 — Emery ×24; №2 — Emery ×4"><path d="M480 228L484 224L488 220L490 216L490 215L491 205L491 198L493 192L498 187L505 185L521 184L527 180L535 173L539 165L543 151L544 147L545 133L543 123L537 113L524 105L492 90L479 84L469 82L451 83L438 86L428 92L423 97L420 103L418 118L411 131L405 138L398 145L380 147L358 147L347 144L334 136L328 134L313 131L295 131L282 134L274 139L272 153L272 182L276 193L286 201L293 208L298 217L301 228L304 240L308 243L313 244L431 244L433 243L435 240L435 232L437 229L440 228L478 228Z"/></g><g class="z" data-t="FFA zone · Harpy Nest" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №16 — Silver Ore ×11"><path d="M482 953L474 959L467 961L458 961L453 957L452 951L451 936L447 924L438 913L428 905L421 897L419 887L418 877L421 869L429 864L440 860L459 860L476 865L484 871L489 879L501 911L503 920L503 929L500 935Z"/></g><g class="z" data-t="FFA zone · Thunderstrike Peak" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №9 — Tech Scrap ×9"><path d="M1078 270L1073 271L1068 274L1063 278L1058 283L1055 289L1054 294L1053 305L1054 334L1056 343L1059 348L1063 354L1068 358L1072 359L1078 361L1094 361L1131 360L1137 359L1140 357L1143 354L1146 350L1147 345L1148 331L1147 299L1147 293L1145 286L1143 281L1140 276L1135 272L1131 271Z"/></g><g class="z" data-t="FFA zone · Stormdrain Hills" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №6 — Tech Scrap ×9"><path d="M601 543L645 542L648 541L650 540L668 512L670 509L670 506L670 502L670 478L669 476L667 474L664 473L659 472L606 472L603 473L601 474L598 477L597 480L587 516L586 520L587 524L587 534L589 537L591 540L594 542Z"/></g><g class="z" data-t="FFA zone · Dracula's Demise" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №14 — Blood Crystal ×9"><path d="M1205 610L1192 610L1180 612L1166 619L1158 628L1151 637L1145 652L1141 665L1140 678L1141 692L1143 703L1148 710L1155 720L1164 728L1173 736L1184 739L1193 741L1209 742L1220 740L1229 738L1240 733L1251 725L1259 713L1263 704L1265 693L1266 685L1265 673L1262 659L1256 644L1249 631L1235 619L1225 614Z"/></g><g class="z" data-t="FFA zone · Sacred Silver Mine" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №15 — Silver Ore ×12"><path d="M335 977L341 972L346 965L351 955L354 935L358 929L364 923L386 907L394 896L402 880L405 864L401 849L390 836L386 818L387 798L383 781L373 765L356 750L337 740L310 739L292 742L277 750L267 765L262 776L257 792L258 811L269 937L274 952L279 961L288 972L303 979L316 981L326 980Z"/></g><g class="z" data-t="FFA zone · Cursed Village" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №12 — Ghost Crystal ×15, Ghost Shroom ×10"><path d="M1766 316L1769 306L1772 300L1773 298L1777 292L1783 288L1793 284L1802 283L1810 285L1820 292L1825 298L1831 309L1834 314L1835 321L1835 330L1831 340L1824 347L1815 354L1800 358L1790 359L1781 362L1777 365L1773 367L1766 367L1763 365L1762 343L1764 328Z"/></g><g class="z" data-t="FFA zone · Trancendum Power Plant" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №3 — Tech Scrap ×7"><path d="M1061 200L1065 207L1069 211L1076 213L1083 214L1097 214L1132 214L1138 213L1146 210L1149 205L1152 199L1153 188L1152 154L1151 121L1150 117L1147 113L1143 111L1137 107L1104 101L1098 100L1091 100L1085 100L1080 101L1076 103L1072 106L1067 113L1064 120L1063 126L1060 184L1060 190Z"/></g><g class="z" data-t="FFA zone · Iron Cave" data-d="PvP for everyone: the level rule does not protect you here. On entry — a red glow and the PVP ZONE sign.&lt;br>&lt;b>Resources:&lt;/b> №19 — Iron Ore ×9"><path d="M1118 975L1114 978L1110 980L1103 981L1098 981L1095 981L1093 980L1090 979L1087 977L1085 974L1081 969L1078 965L1072 959L1067 950L1064 944L1061 938L1061 931L1063 926L1064 923L1068 919L1071 916L1077 913L1084 913L1092 914L1099 917L1104 921L1110 928L1114 933L1117 938L1120 944L1121 950L1122 957L1122 963L1121 970Z"/></g><text class="zl" x="190" y="553">Carvers Logging Outpost</text><text class="zl" x="229" y="1289">Brighthaven</text><text class="zl" x="1530" y="413">Spider Cave</text><text class="zl" x="1074" y="519">Trancendum Mine</text><text class="zl" x="886" y="497">Pools of Rebirth</text><text class="zl" x="2203" y="1118">Dracula’s Castle Garden</text><text class="zl" x="408" y="274">Venom Blades Bastion</text><text class="zl" x="461" y="991">Harpy Nest</text><text class="zl" x="1100" y="391">Thunderstrike Peak</text><text class="zl" x="628" y="573">Stormdrain Hills</text><text class="zl" x="1203" y="772">Dracula's Demise</text><text class="zl" x="331" y="1011">Sacred Silver Mine</text><text class="zl" x="1799" y="397">Cursed Village</text><text class="zl" x="1107" y="244">Trancendum Power Plant</text><text class="zl" x="1092" y="1011">Iron Cave</text><g class="gt" transform="translate(1020 156)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1212 162)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(893 171)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1359 175)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1288 185)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(875 206)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(900 213)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(944 217)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1560 217)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1393 238)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(679 251)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(918 266)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1370 295)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(997 303)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(505 347)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(631 359)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(962 432)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(492 447)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1365 476)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1314 520)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1393 553)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(783 570)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1034 591)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(613 595)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1355 605)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(902 615)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1658 615)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(429 623)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(675 653)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(742 766)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1181 839)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1447 875)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1179 955)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(795 956)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1083 1015)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1139 1024)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1679 1064)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1233 1114)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1617 1123)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1664 1140)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(320 1351)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(345 1357)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1725 1371)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1017 1378)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1640 1373)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1995 1377)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1879 1410)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1924 1430)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1916 1481)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(454 1559)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1016 1567)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1111 1577)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(814 1590)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1463 1614)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1743 1619)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1445 1624)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(487 1632)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(625 1649)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1114 1649)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1144 1657)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(452 1667)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1012 1667)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(671 1696)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1100 1696)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1599 1734)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1342 1743)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1451 1764)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1560 1764)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1689 1788)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(710 1796)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1556 1810)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1451 1818)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1513 1819)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1215 1838)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1223 1855)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1644 1855)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1484 1874)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1519 1930)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(638 1970)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1712 1983)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1447 2046)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(971 2127)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1488 2128)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1352 2141)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1531 2167)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1848 1764)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1541 1614)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1328 1892)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(1007 1802)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><g class="gt" transform="translate(534 1868)" data-t="Closed passage" data-d="An extra approach to a castle plot is blocked with a gate or stairs: one path leads to the castle. Barriers cannot be broken or dismantled."><circle r="14"/><path d="M-8 0H8"/></g><defs><clipPath id="chc"><circle r="37"/></clipPath></defs><g class="ch" transform="translate(1119 337)" data-t="Gladiator chest" data-d="Appear at 19:00 and 23:00 (MSK, UTC+3) — one chest on every point at once. First to open it takes it.&lt;br>&lt;b>Inside:&lt;/b> 3 shattered legendary weapons (repair them at the forge), a 15% chance of an intact legendary, 40 charged batteries."><g class="chs"><circle class="chg" r="40"/><image class="chi" href="../../pvp/img/chest96.webp" x="-40" y="-40" width="80" height="80" clip-path="url(#chc)"/><circle class="chr" r="40"/></g></g><g class="ch" transform="translate(135 1075)" data-t="Gladiator chest" data-d="Appear at 19:00 and 23:00 (MSK, UTC+3) — one chest on every point at once. First to open it takes it.&lt;br>&lt;b>Inside:&lt;/b> 3 shattered legendary weapons (repair them at the forge), a 15% chance of an intact legendary, 40 charged batteries."><g class="chs"><circle class="chg" r="40"/><image class="chi" href="../../pvp/img/chest96.webp" x="-40" y="-40" width="80" height="80" clip-path="url(#chc)"/><circle class="chr" r="40"/></g></g><g class="po pb" transform="translate(1107 809)" data-t="World boss" data-d="World boss arena: 10:00–00:00 every 2 hours, none at night. A random level 90 V Blood, 12000 health, stays for 30 minutes. A cloud hangs over the arena — no sun damage.&lt;br>&lt;b>Everyone who drinks its blood gets:&lt;/b> 1000 Stygian, 500 Greater and 100 Primal shards."><g class="ps"><circle class="pd" r="30"/><path class="pk" d="M0 -19C-11 -19 -17 -11 -17 -3C-17 4 -13 8 -9 10V16H9V10C13 8 17 4 17 -3C17 -11 11 -19 0 -19Z"/><circle class="pe" cx="-7" cy="-2" r="5"/><circle class="pe" cx="7" cy="-2" r="5"/><path class="pe" d="M0 4L-3 9H3Z"/><path class="pj" d="M-5 16V11M0 16V11M5 16V11"/></g></g><g class="po pt" transform="translate(1039 807)" data-t="Traders castle" data-d="Trade town: 19 traders in one castle. The castle is permanent — it cannot be broken or raided."><g class="ps"><circle class="pd" r="30"/><ellipse class="pc" cx="-7" cy="8" rx="11" ry="5"/><ellipse class="pc" cx="-7" cy="3" rx="11" ry="5"/><ellipse class="pc" cx="-7" cy="-2" rx="11" ry="5"/><ellipse class="pc" cx="8" cy="10" rx="11" ry="5"/><ellipse class="pc" cx="8" cy="5" rx="11" ry="5"/><ellipse class="pc" cx="8" cy="0" rx="11" ry="5"/><ellipse class="pc" cx="8" cy="-5" rx="11" ry="5"/></g></g><g class="po pq" transform="translate(1020 1279)" data-t="Skull cleansing" data-d="The skull is removed here (10 vampire kills in a row). The skull bearer stands on the point for 35 s — the skull is gone, reward 250 Primal shards. Killed on the way — the killer gets the bounty (500). On the in-game map — a church icon."><g class="ps"><circle class="pd" r="30"/><path class="pf" d="M0 -26C4 -20 7 -17 5 -11C9 -13 9 -17 8 -19C13 -14 12 -6 6 -3H-6C-12 -6 -12 -14 -7 -19C-7 -16 -6 -13 -3 -12C-6 -17 -3 -22 0 -26Z"/><path class="pg" d="M0 -6L12 4L0 21L-12 4Z"/><path class="ph" d="M-12 4H12M0 -6V21"/></g></g><g class="sp" data-no="1" transform="translate(368 183)" style="color:#6fb6ff" data-t="№1 · Emery" data-d="Emery ×24&lt;br>&lt;span class=&quot;mp-dim&quot;>Venom Blades Bastion · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Emery.png" x="-31" y="-31" width="62" height="62"/><text y="-44">1</text></g></g><g class="sp" data-no="2" transform="translate(468 201)" style="color:#6fb6ff" data-t="№2 · Emery" data-d="Emery ×4&lt;br>&lt;span class=&quot;mp-dim&quot;>Venom Blades Bastion · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Emery.png" x="-31" y="-31" width="62" height="62"/><text y="-44">2</text></g></g><g class="sp" data-no="3" transform="translate(1118 179)" style="color:#6fb6ff" data-t="№3 · Tech Scrap" data-d="Tech Scrap ×7&lt;br>&lt;span class=&quot;mp-dim&quot;>Trancendum Power Plant · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/TechScrap.png" x="-31" y="-31" width="62" height="62"/><text y="-44">3</text></g></g><g class="sp" data-no="4" transform="translate(151 467)" style="color:#6fb6ff" data-t="№4 · Emery and more" data-d="Emery ×14&lt;br>Corrupted Oak ×10&lt;br>Coal ×1&lt;br>&lt;span class=&quot;mp-dim&quot;>Carvers Logging Outpost · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Emery.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/CorruptedOak.png" x="24" y="-2" width="36" height="36"/><text y="-44">4</text></g></g><g class="sp" data-no="5" transform="translate(305 459)" style="color:#7ee08a" data-t="№5 · Highland Lotus and more" data-d="Highland Lotus ×20&lt;br>Corrupted Flower ×18&lt;br>Thistle ×1&lt;br>&lt;span class=&quot;mp-dim&quot;>Venom Mixing Outpost · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/HighlandLotus.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/CorruptedFlower.png" x="24" y="-2" width="36" height="36"/><text y="-44">5</text></g></g><g class="sp" data-no="6" transform="translate(618 500)" style="color:#6fb6ff" data-t="№6 · Tech Scrap" data-d="Tech Scrap ×9&lt;br>&lt;span class=&quot;mp-dim&quot;>Stormdrain Hills · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/TechScrap.png" x="-31" y="-31" width="62" height="62"/><text y="-44">6</text></g></g><g class="sp" data-no="7" transform="translate(897 382)" style="color:#6fb6ff" data-t="№7 · Sulfur" data-d="Sulfur ×12&lt;br>&lt;span class=&quot;mp-dim&quot;>Pools of Rebirth · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Sulphur.png" x="-31" y="-31" width="62" height="62"/><text y="-44">7</text></g></g><g class="sp" data-no="8" transform="translate(1060 444)" style="color:#6fb6ff" data-t="№8 · Sulfur" data-d="Sulfur ×10&lt;br>&lt;span class=&quot;mp-dim&quot;>Trancendum Mine · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Sulphur.png" x="-31" y="-31" width="62" height="62"/><text y="-44">8</text></g></g><g class="sp" data-no="9" transform="translate(1038 335)" style="color:#6fb6ff" data-t="№9 · Tech Scrap" data-d="Tech Scrap ×9&lt;br>&lt;span class=&quot;mp-dim&quot;>Thunderstrike Peak · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/TechScrap.png" x="-31" y="-31" width="62" height="62"/><text y="-44">9</text></g></g><g class="sp" data-no="10" transform="translate(1532 289)" style="color:#c79bff" data-t="№10 · Spider Cocoons (silk)" data-d="Spider Cocoons (silk) ×30&lt;br>&lt;span class=&quot;mp-dim&quot;>Spider Cave · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Silk.png" x="-31" y="-31" width="62" height="62"/><text y="-44">10</text></g></g><g class="sp" data-no="11" transform="translate(1733 474)" style="color:#7ee08a" data-t="№11 · Ghost Shroom" data-d="Ghost Shroom ×13&lt;br>&lt;span class=&quot;mp-dim&quot;>Witch Hut · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/GhostShroom.png" x="-31" y="-31" width="62" height="62"/><text y="-44">11</text></g></g><g class="sp" data-no="12" transform="translate(1828 318)" style="color:#6fb6ff" data-t="№12 · Ghost Crystal and more" data-d="Ghost Crystal ×15&lt;br>Ghost Shroom ×10&lt;br>&lt;span class=&quot;mp-dim&quot;>Cursed Village · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/GhostCrystal.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/GhostShroom.png" x="24" y="-2" width="36" height="36"/><text y="-44">12</text></g></g><g class="sp" data-no="13" transform="translate(1932 457)" style="color:#6fb6ff" data-t="№13 · Ghost Crystal" data-d="Ghost Crystal ×12&lt;br>&lt;span class=&quot;mp-dim&quot;>Ancient Village · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/GhostCrystal.png" x="-31" y="-31" width="62" height="62"/><text y="-44">13</text></g></g><g class="sp" data-no="14" transform="translate(1205 677)" style="color:#6fb6ff" data-t="№14 · Blood Crystal" data-d="Blood Crystal ×9&lt;br>&lt;span class=&quot;mp-dim&quot;>Dracula's Demise · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/BloodCrystal.png" x="-31" y="-31" width="62" height="62"/><text y="-44">14</text></g></g><g class="sp" data-no="15" transform="translate(318 767)" style="color:#6fb6ff" data-t="№15 · Silver Ore" data-d="Silver Ore ×12&lt;br>&lt;span class=&quot;mp-dim&quot;>Sacred Silver Mine · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/SilverOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">15</text></g></g><g class="sp" data-no="16" transform="translate(467 901)" style="color:#6fb6ff" data-t="№16 · Silver Ore" data-d="Silver Ore ×11&lt;br>&lt;span class=&quot;mp-dim&quot;>Harpy Nest · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/SilverOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">16</text></g></g><g class="sp" data-no="17" transform="translate(878 792)" style="color:#6fb6ff" data-t="№17 · Quartz" data-d="Quartz ×16&lt;br>&lt;span class=&quot;mp-dim&quot;>Quartz Quarry · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Quartz.png" x="-31" y="-31" width="62" height="62"/><text y="-44">17</text></g></g><g class="sp" data-no="18" transform="translate(946 908)" style="color:#6fb6ff" data-t="№18 · Iron Ore and more" data-d="Iron Ore ×12&lt;br>Quartz ×5&lt;br>&lt;span class=&quot;mp-dim&quot;>Bedrock Pass · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/IronOre.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/Quartz.png" x="24" y="-2" width="36" height="36"/><text y="-44">18</text></g></g><g class="sp" data-no="19" transform="translate(1088 944)" style="color:#6fb6ff" data-t="№19 · Iron Ore" data-d="Iron Ore ×9&lt;br>&lt;span class=&quot;mp-dim&quot;>Iron Cave · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/IronOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">19</text></g></g><g class="sp" data-no="20" transform="translate(1377 919)" style="color:#6fb6ff" data-t="№20 · Sulfur" data-d="Sulfur ×10&lt;br>&lt;span class=&quot;mp-dim&quot;>Bastion of Dunley · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Sulphur.png" x="-31" y="-31" width="62" height="62"/><text y="-44">20</text></g></g><g class="sp" data-no="21" transform="translate(1499 881)" style="color:#7ee08a" data-t="№21 · Mourning Lily" data-d="Mourning Lily ×23&lt;br>&lt;span class=&quot;mp-dim&quot;>Farm · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/MourningLily.png" x="-31" y="-31" width="62" height="62"/><text y="-44">21</text></g></g><g class="sp" data-no="22" transform="translate(389 1104)" style="color:#7ee08a" data-t="№22 · Sacred Grapes" data-d="Sacred Grapes ×20&lt;br>&lt;span class=&quot;mp-dim&quot;>Brighthaven Vineyards · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/SacredGrapes.png" x="-31" y="-31" width="62" height="62"/><text y="-44">22</text></g></g><g class="sp" data-no="23" transform="translate(2176 1044)" style="color:#7ee08a" data-t="№23 · Bleeding Heart" data-d="Bleeding Heart ×23&lt;br>&lt;span class=&quot;mp-dim&quot;>Dracula’s Castle Garden · &lt;b class=&quot;mp-ffa&quot;>FFA zone&lt;/b> · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/BleedingHeart.png" x="-31" y="-31" width="62" height="62"/><text y="-44">23</text></g></g><g class="sp" data-no="24" transform="translate(336 1220)" style="color:#7ee08a" data-t="№24 · Sacred Grapes" data-d="Sacred Grapes ×20&lt;br>&lt;span class=&quot;mp-dim&quot;>Brighthaven Vineyards · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/SacredGrapes.png" x="-31" y="-31" width="62" height="62"/><text y="-44">24</text></g></g><g class="sp" data-no="25" transform="translate(881 1330)" style="color:#7ee08a" data-t="№25 · Snow Flower and more" data-d="Snow Flower ×18&lt;br>Fire Blossom ×18&lt;br>&lt;span class=&quot;mp-dim&quot;>Farm · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/SnowFlower.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/FireBlossom.png" x="24" y="-2" width="36" height="36"/><text y="-44">25</text></g></g><g class="sp" data-no="26" transform="translate(1223 1398)" style="color:#6fb6ff" data-t="№26 · Iron Ore" data-d="Iron Ore ×11&lt;br>&lt;span class=&quot;mp-dim&quot;>Haunted Iron Mine · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/IronOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">26</text></g></g><g class="sp" data-no="27" transform="translate(1416 1263)" style="color:#7ee08a" data-t="№27 · Hell's Clarion and more" data-d="Hell's Clarion ×35&lt;br>Blood Rose ×29&lt;br>&lt;span class=&quot;mp-dim&quot;>Farm · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/HellsClarion.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/BloodRose.png" x="24" y="-2" width="36" height="36"/><text y="-44">27</text></g></g><g class="sp" data-no="28" transform="translate(1555 1351)" style="color:#7ee08a" data-t="№28 · Cotton and more" data-d="Cotton ×33&lt;br>Sunflower ×16&lt;br>&lt;span class=&quot;mp-dim&quot;>Farm · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Cotton.png" x="-31" y="-31" width="62" height="62"/><image class="ic" href="../../pvp/map/icons/Sunflower.png" x="24" y="-2" width="36" height="36"/><text y="-44">28</text></g></g><g class="sp" data-no="29" transform="translate(1259 1538)" style="color:#6fb6ff" data-t="№29 · Sulfur" data-d="Sulfur ×12&lt;br>&lt;span class=&quot;mp-dim&quot;>Bandit Stronghold · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Sulphur.png" x="-31" y="-31" width="62" height="62"/><text y="-44">29</text></g></g><g class="sp" data-no="30" transform="translate(506 1824)" style="color:#6fb6ff" data-t="№30 · Sulfur" data-d="Sulfur ×12&lt;br>&lt;span class=&quot;mp-dim&quot;>Bandit Sulphur Quarry · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/Sulphur.png" x="-31" y="-31" width="62" height="62"/><text y="-44">30</text></g></g><g class="sp" data-no="31" transform="translate(709 1883)" style="color:#6fb6ff" data-t="№31 · Copper Ore" data-d="Copper Ore ×5&lt;br>&lt;span class=&quot;mp-dim&quot;>Bandit Copper Quarry · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/CopperOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">31</text></g></g><g class="sp" data-no="32" transform="translate(1052 1813)" style="color:#6fb6ff" data-t="№32 · Copper Ore" data-d="Copper Ore ×5&lt;br>&lt;span class=&quot;mp-dim&quot;>Bandit Copper Mine · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/CopperOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">32</text></g></g><g class="sp" data-no="33" transform="translate(1586 1863)" style="color:#6fb6ff" data-t="№33 · Copper Ore" data-d="Copper Ore ×6&lt;br>&lt;span class=&quot;mp-dim&quot;>Bandit Copper Camp · extra nodes, regrow in 30 min&lt;/span>"><g class="sc"><circle class="hit" r="34"/><image class="ic" href="../../pvp/map/icons/CopperOre.png" x="-31" y="-31" width="62" height="62"/><text y="-44">33</text></g></g></svg></div></div>
+    <p class="dim mp-note">Resource icons are <b>extra</b> nodes on top of the normal world (589 in total, regrow in 30 minutes). Red areas are FFA zones: the level rule does not protect you there. Orange circles are closed passages to castle plots. Golden chests are gladiator chests (19:00 and 23:00 MSK). The red skull is the world boss arena, the coins are the traders castle, the crystal is skull cleansing. Click the map to open it full screen.</p>
+    <details class="mp-list"><summary>All resource spots (33)</summary><ol><li data-no="1"><span class="n" style="color:#6fb6ff">1</span><span><img src="../../pvp/map/icons/Emery.png" alt="">Emery <i>×24</i><small>Venom Blades Bastion · <em>FFA</em></small></span></li><li data-no="2"><span class="n" style="color:#6fb6ff">2</span><span><img src="../../pvp/map/icons/Emery.png" alt="">Emery <i>×4</i><small>Venom Blades Bastion · <em>FFA</em></small></span></li><li data-no="3"><span class="n" style="color:#6fb6ff">3</span><span><img src="../../pvp/map/icons/TechScrap.png" alt="">Tech Scrap <i>×7</i><small>Trancendum Power Plant · <em>FFA</em></small></span></li><li data-no="4"><span class="n" style="color:#6fb6ff">4</span><span><img src="../../pvp/map/icons/Emery.png" alt="">Emery <i>×14</i>, <img src="../../pvp/map/icons/CorruptedOak.png" alt="">Corrupted Oak <i>×10</i>, Coal <i>×1</i><small>Carvers Logging Outpost · <em>FFA</em></small></span></li><li data-no="5"><span class="n" style="color:#7ee08a">5</span><span><img src="../../pvp/map/icons/HighlandLotus.png" alt="">Highland Lotus <i>×20</i>, <img src="../../pvp/map/icons/CorruptedFlower.png" alt="">Corrupted Flower <i>×18</i>, Thistle <i>×1</i><small>Venom Mixing Outpost</small></span></li><li data-no="6"><span class="n" style="color:#6fb6ff">6</span><span><img src="../../pvp/map/icons/TechScrap.png" alt="">Tech Scrap <i>×9</i><small>Stormdrain Hills · <em>FFA</em></small></span></li><li data-no="7"><span class="n" style="color:#6fb6ff">7</span><span><img src="../../pvp/map/icons/Sulphur.png" alt="">Sulfur <i>×12</i><small>Pools of Rebirth · <em>FFA</em></small></span></li><li data-no="8"><span class="n" style="color:#6fb6ff">8</span><span><img src="../../pvp/map/icons/Sulphur.png" alt="">Sulfur <i>×10</i><small>Trancendum Mine · <em>FFA</em></small></span></li><li data-no="9"><span class="n" style="color:#6fb6ff">9</span><span><img src="../../pvp/map/icons/TechScrap.png" alt="">Tech Scrap <i>×9</i><small>Thunderstrike Peak · <em>FFA</em></small></span></li><li data-no="10"><span class="n" style="color:#c79bff">10</span><span><img src="../../pvp/map/icons/Silk.png" alt="">Spider Cocoons (silk) <i>×30</i><small>Spider Cave · <em>FFA</em></small></span></li><li data-no="11"><span class="n" style="color:#7ee08a">11</span><span><img src="../../pvp/map/icons/GhostShroom.png" alt="">Ghost Shroom <i>×13</i><small>Witch Hut</small></span></li><li data-no="12"><span class="n" style="color:#6fb6ff">12</span><span><img src="../../pvp/map/icons/GhostCrystal.png" alt="">Ghost Crystal <i>×15</i>, <img src="../../pvp/map/icons/GhostShroom.png" alt="">Ghost Shroom <i>×10</i><small>Cursed Village · <em>FFA</em></small></span></li><li data-no="13"><span class="n" style="color:#6fb6ff">13</span><span><img src="../../pvp/map/icons/GhostCrystal.png" alt="">Ghost Crystal <i>×12</i><small>Ancient Village</small></span></li><li data-no="14"><span class="n" style="color:#6fb6ff">14</span><span><img src="../../pvp/map/icons/BloodCrystal.png" alt="">Blood Crystal <i>×9</i><small>Dracula's Demise · <em>FFA</em></small></span></li><li data-no="15"><span class="n" style="color:#6fb6ff">15</span><span><img src="../../pvp/map/icons/SilverOre.png" alt="">Silver Ore <i>×12</i><small>Sacred Silver Mine · <em>FFA</em></small></span></li><li data-no="16"><span class="n" style="color:#6fb6ff">16</span><span><img src="../../pvp/map/icons/SilverOre.png" alt="">Silver Ore <i>×11</i><small>Harpy Nest · <em>FFA</em></small></span></li><li data-no="17"><span class="n" style="color:#6fb6ff">17</span><span><img src="../../pvp/map/icons/Quartz.png" alt="">Quartz <i>×16</i><small>Quartz Quarry</small></span></li><li data-no="18"><span class="n" style="color:#6fb6ff">18</span><span><img src="../../pvp/map/icons/IronOre.png" alt="">Iron Ore <i>×12</i>, <img src="../../pvp/map/icons/Quartz.png" alt="">Quartz <i>×5</i><small>Bedrock Pass</small></span></li><li data-no="19"><span class="n" style="color:#6fb6ff">19</span><span><img src="../../pvp/map/icons/IronOre.png" alt="">Iron Ore <i>×9</i><small>Iron Cave · <em>FFA</em></small></span></li><li data-no="20"><span class="n" style="color:#6fb6ff">20</span><span><img src="../../pvp/map/icons/Sulphur.png" alt="">Sulfur <i>×10</i><small>Bastion of Dunley</small></span></li><li data-no="21"><span class="n" style="color:#7ee08a">21</span><span><img src="../../pvp/map/icons/MourningLily.png" alt="">Mourning Lily <i>×23</i><small>Farm</small></span></li><li data-no="22"><span class="n" style="color:#7ee08a">22</span><span><img src="../../pvp/map/icons/SacredGrapes.png" alt="">Sacred Grapes <i>×20</i><small>Brighthaven Vineyards</small></span></li><li data-no="23"><span class="n" style="color:#7ee08a">23</span><span><img src="../../pvp/map/icons/BleedingHeart.png" alt="">Bleeding Heart <i>×23</i><small>Dracula’s Castle Garden · <em>FFA</em></small></span></li><li data-no="24"><span class="n" style="color:#7ee08a">24</span><span><img src="../../pvp/map/icons/SacredGrapes.png" alt="">Sacred Grapes <i>×20</i><small>Brighthaven Vineyards</small></span></li><li data-no="25"><span class="n" style="color:#7ee08a">25</span><span><img src="../../pvp/map/icons/SnowFlower.png" alt="">Snow Flower <i>×18</i>, <img src="../../pvp/map/icons/FireBlossom.png" alt="">Fire Blossom <i>×18</i><small>Farm</small></span></li><li data-no="26"><span class="n" style="color:#6fb6ff">26</span><span><img src="../../pvp/map/icons/IronOre.png" alt="">Iron Ore <i>×11</i><small>Haunted Iron Mine</small></span></li><li data-no="27"><span class="n" style="color:#7ee08a">27</span><span><img src="../../pvp/map/icons/HellsClarion.png" alt="">Hell's Clarion <i>×35</i>, <img src="../../pvp/map/icons/BloodRose.png" alt="">Blood Rose <i>×29</i><small>Farm</small></span></li><li data-no="28"><span class="n" style="color:#7ee08a">28</span><span><img src="../../pvp/map/icons/Cotton.png" alt="">Cotton <i>×33</i>, <img src="../../pvp/map/icons/Sunflower.png" alt="">Sunflower <i>×16</i><small>Farm</small></span></li><li data-no="29"><span class="n" style="color:#6fb6ff">29</span><span><img src="../../pvp/map/icons/Sulphur.png" alt="">Sulfur <i>×12</i><small>Bandit Stronghold</small></span></li><li data-no="30"><span class="n" style="color:#6fb6ff">30</span><span><img src="../../pvp/map/icons/Sulphur.png" alt="">Sulfur <i>×12</i><small>Bandit Sulphur Quarry</small></span></li><li data-no="31"><span class="n" style="color:#6fb6ff">31</span><span><img src="../../pvp/map/icons/CopperOre.png" alt="">Copper Ore <i>×5</i><small>Bandit Copper Quarry</small></span></li><li data-no="32"><span class="n" style="color:#6fb6ff">32</span><span><img src="../../pvp/map/icons/CopperOre.png" alt="">Copper Ore <i>×5</i><small>Bandit Copper Mine</small></span></li><li data-no="33"><span class="n" style="color:#6fb6ff">33</span><span><img src="../../pvp/map/icons/CopperOre.png" alt="">Copper Ore <i>×6</i><small>Bandit Copper Camp</small></span></li></ol></details>
+  </section>
+  <div class="mp-modal" hidden><div class="mp-bar"><b>Server map</b><span class="mp-zoom"><button data-z="-1" aria-label="Zoom out">−</button><button data-z="1" aria-label="Zoom in">+</button></span><button class="mp-x" aria-label="Close">✕</button></div><div class="mp-scroll"></div></div>
+  <div class="mp-tip" hidden></div>
+  <style>
+  .mp-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .mp-layer{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 14px;font:700 13px Manrope,sans-serif;cursor:pointer}
+  .mp-layer i{width:10px;height:10px;border-radius:50%;opacity:.35}
+  .mp-layer.on{color:var(--text);border-color:var(--hue-lit)} .mp-layer.on i{opacity:1}
+  .mp-open{margin-left:auto;padding:7px 14px;font-size:13px}
+  .mp-box{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#0b0809}
+  .mp{position:relative;cursor:zoom-in;line-height:0}
+  .mp img{width:100%;height:auto;display:block;filter:saturate(.85) brightness(.8) contrast(1.08)}
+  .mp svg{position:absolute;inset:0;width:100%;height:100%}
+  .mp .z{cursor:help}
+  .mp .z path{fill:rgba(216,40,52,.22);stroke:#ff4b55;stroke-width:5;stroke-linejoin:round;transition:fill .15s}
+  .mp .z:hover path{fill:rgba(255,75,85,.45);stroke:#fff}
+  .mp .zl{font:800 22px Manrope,sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#5a0c12;stroke-width:8px;pointer-events:none;letter-spacing:.04em;text-transform:uppercase}
+  .mp .gt{cursor:help}
+  .mp .gt circle{fill:#1a1206;stroke:#ffb43a;stroke-width:4}
+  .mp .gt path{stroke:#ffb43a;stroke-width:4;stroke-linecap:round}
+  .mp .gt:hover circle{fill:#ffb43a} .mp .gt:hover path{stroke:#1a1206}
+  .mp .sp{cursor:help} .mp .sc{transition:transform .15s}
+  .mp .sp:hover .sc,.mp .sp.hl .sc{transform:scale(1.45)}
+  .mp .fr{fill:none;stroke:#ff4b55;stroke-width:6;filter:drop-shadow(0 0 8px rgba(255,60,70,.9))}
+  .mp .hit{fill:transparent}
+  .mp .ic{filter:drop-shadow(0 0 3px #000) drop-shadow(0 2px 4px rgba(0,0,0,.9))}
+  .mp .sp text{font:800 26px Manrope,sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#0b0809;stroke-width:7px}
+  .mp .ch{cursor:help} .mp .chs{transition:transform .15s}
+  .mp .ch:hover .chs{transform:scale(1.35)}
+  .mp .chg{fill:#1a1206;filter:drop-shadow(0 0 12px rgba(255,200,61,.9))}
+  .mp .chr{fill:none;stroke:#ffd25e;stroke-width:4}
+  .mp .chi{filter:brightness(1.5) saturate(1.3) contrast(1.1)}
+  .mp .po{cursor:help} .mp .ps{transition:transform .15s} .mp .po:hover .ps{transform:scale(1.3)}
+  .mp .pd{fill:#140c0e;stroke-width:4}
+  .mp .pb .pd{stroke:#ff3b47;filter:drop-shadow(0 0 12px rgba(255,40,55,.9))} .mp .pb .pk{fill:#e8232f;stroke:#ffd0d3;stroke-width:1.5} .mp .pb .pe{fill:#1a0204} .mp .pb .pj{stroke:#1a0204;stroke-width:2}
+  .mp .pt .pd{stroke:#4aa8ff;filter:drop-shadow(0 0 12px rgba(74,168,255,.8))} .mp .pt .pc{fill:#e9c45a;stroke:#7a5410;stroke-width:1.5}
+  .mp .pq .pd{stroke:#cfe8ff;filter:drop-shadow(0 0 12px rgba(160,210,255,.8))} .mp .pq .pf{fill:#fff3c4;opacity:.9} .mp .pq .pg{fill:#bfe2ff;stroke:#fff;stroke-width:2} .mp .pq .ph{stroke:#6aa0d0;stroke-width:1.5}
+  .mp.no-po .po,.mp.no-z .z,.mp.no-z .zl,.mp.no-sp .sp,.mp.no-gt .gt,.mp.no-ch .ch{display:none}
+  .mp-note{margin-top:10px;font-size:14px}
+  .mp-list{margin-top:10px}
+  .mp-list summary{cursor:pointer;font-weight:700;color:var(--muted)}
+  .mp-list ol{list-style:none;columns:2 300px;column-gap:24px;margin-top:12px;font-size:14px}
+  .mp-list li{display:flex;gap:10px;break-inside:avoid;margin-bottom:9px}
+  .mp-list li:hover{color:#fff}
+  .mp-list .n{flex:0 0 26px;height:26px;border:2px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+  .mp-list img{width:20px;height:20px;vertical-align:-5px;margin-right:3px}
+  .mp-list i{font-style:normal;color:var(--dim)}
+  .mp-list small{display:block;color:var(--dim);font-size:12.5px}
+  .mp-list em{font-style:normal;color:#ff6b72;font-weight:800}
+  .mp-tip{position:fixed;z-index:1001;max-width:320px;background:rgba(19,14,16,.97);border:1px solid #6a1d24;border-radius:6px;padding:10px 12px;font-size:13.5px;line-height:1.45;pointer-events:none;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+  .mp-tip[hidden]{display:none}
+  .mp-tip b.t{display:block;font-size:14.5px;color:#fff;margin-bottom:3px}
+  .mp-tip .mp-dim{color:#a8968f;font-size:12.5px}
+  .mp-tip .mp-ffa{color:#ff6b72}
+  .mp-modal{position:fixed;inset:0;z-index:1000;background:#080607;display:flex;flex-direction:column}
+  .mp-modal[hidden]{display:none}
+  .mp-bar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+  .mp-bar b{font-family:Cinzel,serif;font-size:18px}
+  .mp-zoom{margin-left:auto;display:flex;gap:6px}
+  .mp-bar button{background:var(--surface2);border:1px solid var(--line);color:var(--text);border-radius:4px;width:38px;height:34px;font-size:18px;cursor:pointer}
+  .mp-scroll{flex:1;overflow:auto;cursor:grab}
+  .mp-scroll.drag{cursor:grabbing}
+  .mp-scroll .mp{cursor:inherit;margin:0 auto}
+  </style>
+  <script>
+  (function(){
+    var sec=document.getElementById('map'), box=sec.querySelector('.mp-box'), mp=sec.querySelector('.mp');
+    var tip=document.querySelector('.mp-tip'), modal=document.querySelector('.mp-modal'), scr=modal.querySelector('.mp-scroll');
+    document.body.appendChild(modal); document.body.appendChild(tip);
+    var zoom=1, big=false, moved=false;
+    var touch=matchMedia('(hover:none)').matches;
+    function show(el,x,y){ tip.innerHTML='<b class="t">'+el.getAttribute('data-t')+'</b>'+el.getAttribute('data-d'); tip.hidden=false; place(x,y); }
+    function place(x,y){ var w=tip.offsetWidth,h=tip.offsetHeight; tip.style.left=Math.max(8,Math.min(x+16,innerWidth-w-8))+'px'; tip.style.top=(y+16+h>innerHeight? Math.max(8,y-h-12) : y+16)+'px'; }
+    mp.addEventListener('pointermove',function(e){ if(e.pointerType!=='mouse')return; var el=e.target.closest('[data-t]'); if(el) show(el,e.clientX,e.clientY); else tip.hidden=true; });
+    mp.addEventListener('pointerleave',function(e){ if(e.pointerType==='mouse') tip.hidden=true; });
+    sec.querySelectorAll('.mp-layer').forEach(function(b){ b.onclick=function(){ b.classList.toggle('on'); mp.classList.toggle('no-'+b.getAttribute('data-l'),!b.classList.contains('on')); }; });
+    function size(){ var w=scr.clientWidth, h=scr.clientHeight, fit=Math.min(w, h*1.0550); mp.style.width=Math.round(fit*zoom)+'px'; }
+    function open(){ big=true; zoom=1; scr.appendChild(mp); modal.hidden=false; document.body.style.overflow='hidden'; tip.hidden=true; size(); }
+    function close(){ big=false; box.appendChild(mp); mp.style.width=''; modal.hidden=true; document.body.style.overflow=''; tip.hidden=true; }
+    function setZoom(z,cx,cy){ var r=scr.getBoundingClientRect(); cx=cx==null?r.width/2:cx-r.left; cy=cy==null?r.height/2:cy-r.top;
+      var fx=(scr.scrollLeft+cx)/mp.offsetWidth, fy=(scr.scrollTop+cy)/mp.offsetHeight; zoom=Math.max(1,Math.min(5,z)); size();
+      scr.scrollLeft=fx*mp.offsetWidth-cx; scr.scrollTop=fy*mp.offsetHeight-cy; }
+    mp.addEventListener('click',function(e){
+      if(moved){ moved=false; return; }
+      var el=e.target.closest('[data-t]');
+      if(touch&&el){ show(el,e.clientX,e.clientY); return; }
+      if(touch) tip.hidden=true;
+      if(!big) open(); });
+    sec.querySelector('.mp-open').onclick=open;
+    modal.querySelector('.mp-x').onclick=close;
+    addEventListener('keydown',function(e){ if(e.key==='Escape'&&big) close(); });
+    modal.querySelectorAll('[data-z]').forEach(function(b){ b.onclick=function(){ setZoom(zoom*(b.getAttribute('data-z')>0?1.5:1/1.5)); }; });
+    scr.addEventListener('wheel',function(e){ e.preventDefault(); setZoom(zoom*(e.deltaY<0?1.2:1/1.2),e.clientX,e.clientY); },{passive:false});
+    var dr=null;
+    scr.addEventListener('pointerdown',function(e){ if(e.pointerType!=='mouse')return; dr={x:e.clientX,y:e.clientY,l:scr.scrollLeft,t:scr.scrollTop}; moved=false; scr.classList.add('drag'); });
+    addEventListener('pointermove',function(e){ if(!dr)return; if(Math.abs(e.clientX-dr.x)+Math.abs(e.clientY-dr.y)>4) moved=true; scr.scrollLeft=dr.l-(e.clientX-dr.x); scr.scrollTop=dr.t-(e.clientY-dr.y); });
+    addEventListener('pointerup',function(){ dr=null; scr.classList.remove('drag'); });
+    addEventListener('resize',function(){ if(big) size(); });
+    sec.querySelectorAll('.mp-list li').forEach(function(li){ var sp=mp.querySelector('.sp[data-no="'+li.getAttribute('data-no')+'"]');
+      li.onmouseenter=function(){ if(sp) sp.classList.add('hl'); }; li.onmouseleave=function(){ if(sp) sp.classList.remove('hl'); }; });
+  })();
+  </script>
+<!--/MAP-->
+
+  <style>
+  .hero2{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;align-items:stretch;padding-top:26px}
+  .hero2 h1{margin:6px 0 8px}
+  .mini{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+  .mini span{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line-soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .mini b{color:var(--hue-lit);font-weight:800}
+  .wipe{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:22px 24px;
+    background:radial-gradient(120% 140% at 100% 0,rgba(200,30,45,.28),transparent 60%),var(--surface);border-color:#5a1820}
+  .wipe .day{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .wipe .date{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;line-height:1}
+  .wipe .date em{font-style:normal;color:var(--blood-lit)}
+  .wipe #countdown{font:500 20px 'JetBrains Mono',monospace;color:#ff6b72;margin-top:8px}
+  .wipe .next{font-size:13px;color:var(--dim);margin-top:4px}
+
+  .road{position:relative;display:flex;flex-direction:column;gap:12px;padding-left:26px}
+  .road:before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--blood-lit),#ffc83d 55%,#8a2129)}
+  .stop{position:relative;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);padding:14px 18px}
+  .stop:before{content:"";position:absolute;left:-25px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#0b0809;border:2px solid var(--blood-lit)}
+  .stop.key{border-color:#6b5114;background:linear-gradient(90deg,rgba(255,200,61,.10),var(--surface) 55%)}
+  .stop.key:before{border-color:#ffc83d;background:#ffc83d;box-shadow:0 0 10px #ffc83d}
+  .stop .d{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .stop .t{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;line-height:1;color:#fff}
+  .stop.key .t{color:#ffc83d}
+  .stop .w{font-size:15px;line-height:1.4}
+  .stop .w b{color:#fff}
+  .bosses{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+  .boss{width:76px;text-align:center;font-size:12px;line-height:1.2;color:var(--muted)}
+  .boss img{display:block;width:68px;height:68px;margin:0 auto 5px;border-radius:50%;object-fit:cover;background:radial-gradient(circle at 50% 35%,#3a1d26,#120b0e 70%);border:2px solid #8a2129;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+  .boss.fin img{border-color:#ffc83d;box-shadow:0 0 14px rgba(255,200,61,.35)}
+  .badge{display:inline-flex;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;border:2px solid #6c3bd1;background:radial-gradient(circle,#2b1650,#120b1c 70%);font:800 20px Manrope,sans-serif;color:#c9a6ff;margin-top:6px}
+
+  .next-hot{display:grid;grid-template-columns:1fr auto;gap:10px 24px;align-items:center;margin-bottom:18px;padding:22px 26px;border-radius:var(--r);
+    border:1px solid #b02a35;background:linear-gradient(110deg,#5c0f17 0%,#2a0c10 55%,#1a0e10 100%);box-shadow:0 0 0 1px rgba(255,75,85,.15),0 10px 40px rgba(200,30,45,.25)}
+  .next-hot .k{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#ffb3b8}
+  .next-hot .n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;line-height:1.05;color:#fff;margin-top:4px}
+  .next-hot .w{font-size:14px;color:#ffc9cc;margin-top:4px}
+  .next-hot .cd{font:500 56px/1 'JetBrains Mono',monospace;color:#fff;text-shadow:0 0 18px rgba(255,90,100,.8);letter-spacing:.02em;text-align:right}
+  .next-hot .cd small{display:block;font:800 11px Manrope,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ffb3b8;text-shadow:none;margin-bottom:6px}
+  .evs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .ev2{display:flex;flex-direction:column;gap:8px;padding:18px 20px}
+  .ev2 h3{margin:0;font-size:20px}
+  .ev2 .every{font-size:13px;color:var(--hue-lit);font-weight:700;letter-spacing:.02em}
+  .ev2 .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .ev2 .loot{margin-top:auto;padding-top:10px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--muted)}
+  .ev2 .loot b{color:var(--text)}
+
+  .feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .feat .card{padding:18px 20px}
+  .feat .card h3{font-size:19px;margin:0 0 6px}
+  .feat .card p{font-size:14.5px}
+  .feat .wide{grid-column:span 2;border-color:#5a1820;background:radial-gradient(90% 120% at 0 0,rgba(200,30,45,.18),transparent 60%),var(--surface)}
+  .feat .ico{float:right;width:56px;height:56px;margin:0 0 6px 12px;border-radius:50%;object-fit:cover;border:2px solid #8a2129;background:#120b0e}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .flow span{font-size:13px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .flow span b{color:#ff6b72}
+  .pv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .pv .card h3{font-size:19px;margin:0 0 4px}
+  .pv .card p{font-size:14.5px}
+  .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-bottom:8px}
+  .tag.red{border-color:#8a2129;color:#ff6b72}
+  .tag.gold{border-color:#7a5a12;color:#ffc83d}
+  @media (max-width:860px){.hero2,.evs,.pv,.feat{grid-template-columns:1fr} .feat .wide{grid-column:auto}
+    .next-hot{grid-template-columns:1fr} .next-hot .cd{text-align:left;font-size:36px;white-space:nowrap}}
+  @media (max-width:560px){.stop{grid-template-columns:1fr;gap:8px} .stop .t{font-size:34px} .wipe .date{font-size:38px}}
+  </style>
+
+  <section class="hero2">
+    <div>
+      <div class="kicker">Open world · Solo/Duo · V Rising 1.1</div>
+      <h1>Matryoshka <span class="accent">PVP</span></h1>
+      <p class="lead" style="margin:0">Scheduled castles and raids, a world boss, carriages, gladiator chests and our own economy.
+        A new world every wipe — everyone starts from zero.</p>
+      <div class="addr" style="margin-top:18px">
+        <span class="label">IP</span><span class="ip">195.18.27.210:27800</span>
+        <button class="copy" data-copy="195.18.27.210:27800">Copy</button>
+      </div>
+      <div class="mini">
+        <span>loot <b>×2.6</b></span><span>crafting <b>×6</b></span><span>stacks <b>×2.5</b></span>
+        <span>clan <b>2</b></span><span>durability loss <b>0</b></span><span>blood drain <b>×0.25</b></span><span>sun <b>×0.5</b></span>
+      </div>
+      <p class="dim" style="margin-top:10px;font-size:13px">In the server list — <b class="mono">[RU] Matryoshka PVP | 2.6 | Solo/Duo | Mod</b>. Russian community, English speakers welcome.</p>
+    </div>
+    <div class="card wipe">
+      <div class="day">Wipe · launch · Thursday</div>
+      <div class="date">October 8 <em>20:00</em></div>
+      <div class="day" style="letter-spacing:.08em">Moscow time (UTC+3)</div>
+      <div id="countdown" data-at="2026-10-08T20:00:00+03:00"></div>
+      <div class="next">Next wipe — tentatively October 16</div>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="sec-head">
+      <div class="kicker">First three days · MSK (UTC+3)</div>
+      <h2>The world opens step by step</h2>
+      <p>A locked boss stands as a “shadow” and does not attack; locked crafting does not start.</p>
+    </div>
+    <div class="road">
+      <div class="stop key"><div><div class="d">Thu, October 8</div><div class="t">20:00</div></div>
+        <div class="w"><b>Wipe.</b> Most V Blood bosses are available right away. The journal up to the Castle Heart is already done — you can place your castle in the first minute.</div></div>
+      <div class="stop"><div><div class="d">Thu, October 8</div><div class="t">22:00</div></div>
+        <div class="w">Unlocked
+          <div class="bosses"><div class="boss"><img src="../../pvp/img/boss_quincey.webp" alt="" loading="lazy">Quincey</div><div class="boss"><img src="../../pvp/img/boss_tristan.webp" alt="" loading="lazy">Tristan</div></div></div></div>
+      <div class="stop"><div><div class="d">Thu, October 8</div><div class="t">23:30</div></div>
+        <div class="w">Unlocked
+          <div class="bosses"><div class="boss"><img src="../../pvp/img/boss_jade.webp" alt="" loading="lazy">Jade</div></div></div></div>
+      <div class="stop"><div><div class="d">Fri, October 9</div><div class="t">14:00</div></div>
+        <div class="w"><b>T1 Rifts</b> — Mortium<div><span class="badge">T1</span></div></div></div>
+      <div class="stop"><div><div class="d">Sat, October 10</div><div class="t">14:00</div></div>
+        <div class="w"><b>T2 Rifts</b> — Mortium<div><span class="badge">T2</span></div></div></div>
+      <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">20:00</div></div>
+        <div class="w"><b>First castle raid window.</b> Crafting of elixirs, coatings, T08 amulets and T09 weapons opens.</div></div>
+      <div class="stop"><div><div class="d">Sat, October 10</div><div class="t">22:15</div></div>
+        <div class="w">Unlocked
+          <div class="bosses"><div class="boss"><img src="../../pvp/img/boss_elena.webp" alt="" loading="lazy">Elena</div><div class="boss"><img src="../../pvp/img/boss_lucile.webp" alt="" loading="lazy">Lucile</div><div class="boss"><img src="../../pvp/img/boss_dantos.webp" alt="" loading="lazy">Dantos</div><div class="boss"><img src="../../pvp/img/boss_valencia.webp" alt="" loading="lazy">Valencia</div></div></div></div>
+      <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">23:00</div></div>
+        <div class="w"><b>Final bosses with shards</b>
+          <div class="bosses"><div class="boss fin"><img src="../../pvp/img/boss_solarus.webp" alt="" loading="lazy">Solarus</div><div class="boss fin"><img src="../../pvp/img/boss_talzur.webp" alt="" loading="lazy">Talzur</div><div class="boss fin"><img src="../../pvp/img/boss_adam.webp" alt="" loading="lazy">Adam</div><div class="boss fin"><img src="../../pvp/img/boss_megara.webp" alt="" loading="lazy">Megara</div><div class="boss fin"><img src="../../pvp/img/boss_dracula.webp" alt="" loading="lazy">Dracula</div></div></div></div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="sec-head">
+      <div class="kicker">Automatic events · MSK (UTC+3)</div>
+      <h2>What happens and when</h2>
+    </div>
+    <div class="next-hot">
+      <div><div class="k">Next event · Moscow time now <span class="mono" id="msk-clock">--:--</span></div>
+        <div class="n" id="next-name">—</div><div class="w" id="next-when"></div></div>
+      <div class="cd"><small>starts in</small><span id="next-cd">--:--:--</span></div>
+    </div>
+    <div class="evs">
+      <div class="card ev2" data-name="Supply carriages" data-times="21:00,23:00,01:00,03:00,05:00,07:00,09:00,11:00,13:00,15:00,17:00,19:00">
+        <h3>Supply carriages</h3>
+        <div class="every">Every 2 hours from 21:00 · all 4 tiers at once · stay for 30 minutes</div>
+        <p><b>T1</b> Farbane, lvl 1–30 · <b>T2</b> Dunley, 30–50 · <b>T3</b> Gloomrot, 50–70 · <b>T4</b> Mortium, 80+ (guards 91).
+          Break a carriage — a chest drops; the loot goes to whoever takes it.</p>
+        <div class="loot">Resources on top of normal loot by tier: from ore and planks (T1) to emery, gold, silk and <b>Onyx Tears</b> (T4)</div>
+      </div>
+      <div class="card ev2" data-name="Special horse" data-times="21:30,00:30,03:30,06:30,09:30,12:30,15:30,18:30">
+        <h3>Special horse</h3>
+        <div class="every">Every 3 hours from 21:30</div>
+        <div class="chips"><span class="chip">21:30</span><span class="chip">00:30</span><span class="chip">03:30</span><span class="chip">06:30</span><span class="chip">09:30</span><span class="chip">12:30</span><span class="chip">15:30</span><span class="chip">18:30</span></div>
+        <p>Slow, and the rider is wrapped in cursed fog. Bring it to your castle plot; others can take it from you on the way.</p>
+        <div class="loot">Power and spell potions, healing potions, brews</div>
+      </div>
+      <div class="card ev2" data-name="World boss" data-times="10:00,12:00,14:00,16:00,18:00,20:00,22:00,00:00">
+        <h3>World boss</h3>
+        <div class="every">Every 2 hours from 10:00 to 00:00 · none at night</div>
+        <div class="chips"><span class="chip">10:00</span><span class="chip">12:00</span><span class="chip">14:00</span><span class="chip">16:00</span><span class="chip">18:00</span><span class="chip">20:00</span><span class="chip">22:00</span><span class="chip">00:00</span></div>
+        <p>A random one of 38 V Blood bosses, level 90, 12,000 health. The arena is next to the traders castle; it stays for 30 minutes.</p>
+        <div class="loot"><b>Everyone who drinks its blood gets:</b> 1000 Stygian, 500 Greater and 100 Primal shards</div>
+      </div>
+      <div class="card ev2" data-name="Gladiator chests" data-times="19:00,23:00">
+        <h3>Gladiator chests</h3>
+        <div class="every">19:00 and 23:00 · two chests at once, locations on the map</div>
+        <div class="chips"><span class="chip">19:00</span><span class="chip">23:00</span></div>
+        <p>First to open it takes it.</p>
+        <div class="loot"><b>3 shattered legendary weapons</b> (repair at the forge) · 15% chance of an <b>intact legendary</b> · 40 charged batteries</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="sec-head">
+      <div class="kicker">Server features</div>
+      <h2>What the normal game doesn't have</h2>
+    </div>
+    <div class="feat">
+      <div class="card wide">
+        <span class="tag red">Loadouts</span>
+        <h3>PvE and PvP — two loadouts, one gesture</h3>
+        <p>Save two loadouts — 2 spells, ultimate and dash: <span class="mono">.lo save pve</span> and <span class="mono">.lo save pvp</span>.
+          Switch with the <b>“Surrender”</b> emote (white flag) in the emote wheel: no animation, instant. Or <span class="mono">.lo pve</span> / <span class="mono">.lo pvp</span>.
+          Weapons and passives are not touched.</p>
+        <div class="flow"><span>farming in <b>PvE</b></span><span>a vampire attacks you</span><span>the PvP loadout switches on <b>by itself</b>, even in combat</span><span>back — with the flag</span></div>
+      </div>
+      <div class="card">
+        <img class="ico" src="../../pvp/img/boss_quincey.webp" alt="">
+        <span class="tag gold">Slashers</span>
+        <h3>Slashers from Quincey</h3>
+        <p>The Slashers recipe is unlocked by the blood of Quincey the Bandit King — no need to wait for Jakira. Right after him — in your forge.</p>
+      </div>
+      <div class="card">
+        <span class="tag gold">Start</span>
+        <h3>A castle in the first minute</h3>
+        <p>The journal up to the Castle Heart is already done. The whole map and all waypoints are unlocked — straight to business.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Cursed Forest</span>
+        <h3>Ben's cloak</h3>
+        <p>Drink the blood of Ben the Old Wanderer — the cursed fog no longer affects you. <b>One clanmate's blood protects the whole clan.</b></p>
+      </div>
+      <div class="card">
+        <span class="tag">Passives</span>
+        <h3>Bound to the castle</h3>
+        <p>Your own — for the owner of the research table and for anyone who personally beat 70% of the tier's bosses. Learned on someone else's table — they work while you are in the owner's clan.</p>
+      </div>
+      <div class="card">
+        <span class="tag gold">Solo</span>
+        <h3>Solo bonus +10%</h3>
+        <p>Playing without a clanmate online — 10% more resource yield. Check with <span class="mono">.solo</span>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Logistics</span>
+        <h3>Chests work for you</h3>
+        <p><span class="mono">.stash</span> sorts your bag into chests, <span class="mono">.pull</span> takes out what you need, and with <span class="mono">.l cr</span> a right click on a recipe pulls the ingredients.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Economy</span>
+        <h3>Bank and traders</h3>
+        <p>Primal shards build up in <span class="mono">.bank</span> over play time and for V Blood. In-game traders have three times the stock and restock every 5 minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pvp">
+    <div class="sec-head">
+      <div class="kicker">PvP and raids</div>
+      <h2>Rules of combat</h2>
+    </div>
+    <div class="pv">
+      <div class="card">
+        <span class="tag gold">Raids</span>
+        <h3>Every day 20:00–22:00 MSK</h3>
+        <p>First window — <b>Sat, Oct 10 at 20:00</b>. Outside the window castles cannot be damaged. The heart — only while decaying; a siege golem's spawn is shown on the map.
+          A third player at someone else's siege is a spectator: invisible, can't touch anything.</p>
+      </div>
+      <div class="card">
+        <span class="tag gold">Offline protection</span>
+        <h3>No raids while you're away</h3>
+        <p>If by 20:00 your whole clan has been offline for <b>15 minutes or more</b>, your castle cannot be raided that evening. Someone from the clan logs in — the protection is gone.</p>
+      </div>
+      <div class="card">
+        <span class="tag red">Level rule</span>
+        <h3>Don't kill the weak</h3>
+        <p>Level gap of no more than <b>10 levels</b> (gear 80+ — <b>5</b>); the highest level in the clan counts. Hits are not blocked, but a kill that breaks the rule means a
+          <b style="color:#ff6b72">red line in chat for everyone</b> and a warning to the killer.</p>
+        <p class="dim" style="margin-top:6px">Not a violation: the lower player attacked first · revenge within 15 min · top-10 killers · a shard carrier · your own plot · an FFA zone. <span class="mono">.lvl Name</span></p>
+      </div>
+      <div class="card">
+        <span class="tag red">FFA zones</span>
+        <h3>Red areas on the map</h3>
+        <p>Around the extra resources. The level rule does not apply there. On entry — “PVP ZONE” and a red glow.
+          Fighting a V Blood — others can't reach you (40 m) unless you fought a player just before.</p>
+      </div>
+      <div class="card">
+        <span class="tag red">Skull</span>
+        <h3>Bounty</h3>
+        <p><b>10 vampire kills in a row</b> — you get the skull and are shown on the map. Kill a skull bearer — <b>500</b> Primal shards.
+          The bearer cleanses at the point (35 s) — <b>250</b>. Dies — the skull is gone. <span class="mono">.wanted</span></p>
+      </div>
+      <div class="card">
+        <span class="tag">World settings</span>
+        <h3>In short</h3>
+        <p>PvP always on · enemy chests can be looted, anyone can search a body · gear is blood-bound · no teleporting with restricted resources ·
+          the whole map and all waypoints are unlocked · sun ×0.5 · in-game traders: stock ×3, restock every 5 minutes · solo bonus +10% yield.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="commands">
+    <div class="sec-head">
+      <div class="kicker">Commands</div>
+      <h2>Player commands</h2>
+      <p>Typed into the game chat, starting with a dot. Replies are in English.</p>
+    </div>
+<!--CMDS-->
+    <div class="cmd-tools">
+      <input class="search" type="search" placeholder="Find a command: type .lo, chest, raid…" aria-label="Search commands">
+      <button class="filter on" data-g="all">All</button>
+      <button class="filter" data-g="eco">Currency</button>
+      <button class="filter" data-g="pvp">PvP</button>
+      <button class="filter" data-g="build">Build</button>
+      <button class="filter" data-g="castle">Castle</button>
+      <button class="filter" data-g="util">Useful</button>
+    </div>
+    <div class="cmds">
+      <div class="cmd-group"><h3>Currency and rewards</h3>
+        <div class="cmd" data-g="eco"><div><code>.bank</code><span class="al">.bank take [amount]</span></div><div class="d">Your bank of Primal Stygian Shards — they build up over play time and for V Blood. <span class="mono">.bank take</span> — take everything into your bag, or say how many.</div></div>
+        <div class="cmd" data-g="eco"><div><code>.points</code><span class="al">also .witchdust</span></div><div class="d">Your points: given for taking part in events and for damage to the world boss, ×3 during events.</div></div>
+        <div class="cmd" data-g="eco"><div><code>.kit</code><span class="al">once per player</span></div><div class="d">Newcomer starter kit. On the first day of the wipe — copper armor, a sword, a crossbow, a ring, potions; from the second day — iron armor and better weapons.</div></div>
+      </div>
+      <div class="cmd-group"><h3>PvP and bounty</h3>
+        <div class="cmd" data-g="pvp"><div><code>.lvl <span class="arg">[player]</span></code></div><div class="d">Without a name — your max level and below which level you must not kill. With a name — whether you may attack that player and why.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.wanted</code></div><div class="d">Your kill streak and whether the “skull” is on you. If it is — where to cleanse.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.lb <span class="arg">[page | name]</span></code><span class="al">also .kf</span></div><div class="d">Kill leaderboard: kills, deaths, streak. With a name — opens the page with that player.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.castle <span class="arg">&lt;player&gt;</span></code></div><div class="d">Puts a marker on your map at that player’s castle (a normal marker, like a right click). No castle of their own — at their clan’s castle.</div></div>
+      </div>
+      <div class="cmd-group"><h3>Loadouts and progress</h3>
+        <div class="cmd" data-g="build"><div><code>.lo</code><span class="al">also .loadout</span></div><div class="d">PvE and PvP loadouts: 2 spells, ultimate, dash. <span class="mono">.lo save pve</span> / <span class="mono">.lo save pvp</span> — save the current one, <span class="mono">.lo pve</span> / <span class="mono">.lo pvp</span> — switch. Faster — the “Surrender” emote (white flag). A vampire attacked you — the PvP loadout switches on by itself.</div></div>
+        <div class="cmd" data-g="build"><div><code>.passives</code></div><div class="d">Your boss progress for passives.</div></div>
+        <div class="cmd" data-g="build"><div><code>.solo</code></div><div class="d">Solo bonus: +10% resource yield while you play without a clanmate online.</div></div>
+      </div>
+      <div class="cmd-group"><h3>Castle logistics</h3>
+        <div class="cmd" data-g="castle"><div><code>.stash</code></div><div class="d">Sort your bag into the chests of your territory.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.pull <span class="arg">&lt;item&gt; [amount]</span></code></div><div class="d">Take an item from the chests of your territory.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.finditem <span class="arg">&lt;item&gt;</span></code><span class="al">also .fi</span></div><div class="d">Which chest holds an item.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.findchest <span class="arg">&lt;name&gt;</span></code><span class="al">also .fc</span></div><div class="d">Find a chest by name.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">ss</span></code><span class="al">sortstash</span></div><div class="d">On/off: double-clicking “Sort” spreads items across chests.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">cr</span></code><span class="al">craftpull</span></div><div class="d">On/off: right-clicking a recipe pulls the missing ingredients.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">dpl</span></code><span class="al">dontpulllast</span></div><div class="d">On/off: never take the last item out of a chest.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">asm</span></code><span class="al">autostashmissions</span></div><div class="d">On/off: servant mission loot is stashed automatically.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">co</span></code><span class="al">conveyor</span></div><div class="d">On/off: “conveyor” — sender and receiver chests.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">sal</span></code><span class="al">salvage</span></div><div class="d">On/off: salvage items put into a chest named <span class="mono">salvage</span>.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">sp / .l ssh</span></code><span class="al">silentpull / silentstash</span></div><div class="d">No messages about where items were taken from or put.</div></div>
+        <div class="cmd" data-g="castle"><div><code>.l <span class="arg">s</span></code><span class="al">settings</span></div><div class="d">Your logistics settings.</div></div>
+      </div>
+      <div class="cmd-group"><h3>Useful</h3>
+        <div class="cmd" data-g="util"><div><code>.ping</code><span class="al">also .p</span></div><div class="d">Your ping to the server.</div></div>
+        <div class="cmd" data-g="util"><div><code>.players</code></div><div class="d">How many players are online.</div></div>
+        <div class="cmd" data-g="util"><div><code>.serverfps</code><span class="al">also .sfps</span></div><div class="d">Server frames per second.</div></div>
+        <div class="cmd" data-g="util"><div><code>.help <span class="arg">[command]</span></code></div><div class="d">Help on commands.</div></div>
+      </div>
+      <div class="cmd-empty">Nothing found — try another word.</div>
+    </div>
+<!--/CMDS-->
+  </section>
+
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© Matryoshka, 2026 · <a href="../">home</a> · admin — Slaint</span>
+    <span><a href="../arena/">Matryoshka Arena</a> · <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a> · <a href="../../discord/">Discord</a></span>
+  </div>
+</footer>
+<script src="../../assets/site.js?v=20261006b"></script>
+</body>
+</html>
