@@ -26,32 +26,39 @@
   function mins(hhmm) { var p = hhmm.split(':'); return (+p[0]) * 60 + (+p[1]); }
   function fmtLeft(m) { var h = Math.floor(m / 60), r = m % 60; return (h ? h + ' ч ' : '') + r + ' мин'; }
 
-  // Ближайший ивент: строки таблицы с data-times="15:00,21:00".
+  // Ближайший ивент: блоки с data-times="15:00,21:00" (МСК). До открытия (#countdown data-at)
+  // счёт ведётся от момента открытия. #next-cd — крупный отсчёт ЧЧ:ММ:СС.
   var rows = document.querySelectorAll('[data-times]');
   if (rows.length) {
+    var cdEl = document.getElementById('countdown');
+    var openAt = cdEl ? new Date(cdEl.getAttribute('data-at')).getTime() : 0;
+    var two = function (n) { return ('0' + n).slice(-2); };
     var tick = function () {
-      var now = mskNow(), cur = now.getHours() * 60 + now.getMinutes();
+      var now = mskNow(), clock = document.getElementById('msk-clock');
+      if (clock) clock.textContent = two(now.getHours()) + ':' + two(now.getMinutes());
+      var wait = Math.max(0, Math.ceil((openAt - Date.now()) / 1000));
+      var base = new Date(now.getTime() + wait * 1000);
+      var cur = base.getHours() * 3600 + base.getMinutes() * 60 + base.getSeconds();
       var best = null;
       rows.forEach(function (row) {
-        var times = row.getAttribute('data-times').split(',');
         row.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('next'); });
-        times.forEach(function (t, i) {
-          var left = (mins(t) - cur + 1440) % 1440;
-          if (left === 0) left = 1440;
+        row.getAttribute('data-times').split(',').forEach(function (t, i) {
+          var left = (mins(t) * 60 - cur + 86400) % 86400;
+          if (left === 0) left = 86400;
           if (!best || left < best.left) best = { left: left, row: row, i: i, t: t };
         });
       });
-      var clock = document.getElementById('msk-clock');
-      if (clock) clock.textContent = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
-      if (best) {
-        var chips = best.row.querySelectorAll('.chip');
-        if (chips[best.i]) chips[best.i].classList.add('next');
-        var nm = document.getElementById('next-name'), nw = document.getElementById('next-when');
-        if (nm) nm.textContent = best.row.getAttribute('data-name');
-        if (nw) nw.textContent = best.t + ' МСК — через ' + fmtLeft(best.left);
-      }
+      if (!best) return;
+      var chips = best.row.querySelectorAll('.chip');
+      if (chips[best.i]) chips[best.i].classList.add('next');
+      var all = best.left + wait;
+      var nm = document.getElementById('next-name'), nw = document.getElementById('next-when'), nc = document.getElementById('next-cd');
+      if (nm) nm.textContent = best.row.getAttribute('data-name');
+      if (nw) nw.textContent = (wait ? 'первый после открытия · ' : '') + 'в ' + best.t + ' МСК';
+      if (nc) { var d = Math.floor(all / 86400), h = Math.floor(all % 86400 / 3600);
+        nc.textContent = (d ? d + 'д ' : '') + two(h) + ':' + two(Math.floor(all % 3600 / 60)) + ':' + two(all % 60); }
     };
-    tick(); setInterval(tick, 20000);
+    tick(); setInterval(tick, 1000);
   }
 
   // Отсчёт до открытия: <div id="countdown" data-at="2026-10-09T19:00:00+03:00">.
