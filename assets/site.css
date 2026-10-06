@@ -402,3 +402,5 @@ body.arena .btn.main, .p-arena .btn.main{color:#1a1206}
 /* Значок события на карте игры (06.10) */
 .mapic{display:inline-flex; align-self:flex-start; align-items:center; gap:6px; font-size:12.5px; color:var(--muted); background:rgba(0,0,0,.3); border:1px solid var(--edge); border-radius:999px; padding:3px 11px}
 .mapic b{color:var(--text)}
+/* Правила (06.10): пункты в две колонки на широком экране */
+@media (min-width: 901px){ .rule-list{grid-template-columns:repeat(2, minmax(0,1fr))} }
