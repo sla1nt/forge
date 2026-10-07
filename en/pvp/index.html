@@ -27,6 +27,7 @@
     <nav class="nav">
       <a href="#map">Map</a>
       <a href="#start">Launch</a>
+      <a href="#economy">Economy</a>
       <a href="#events">Events</a>
       <a href="#features">Features</a>
       <a href="#pvp">PvP and raids</a>
@@ -227,6 +228,31 @@
   @media (max-width:860px){.hero2,.evs,.pv,.feat{grid-template-columns:1fr} .feat .wide{grid-column:auto}
     .next-hot{grid-template-columns:1fr} .next-hot .cd{text-align:left;font-size:36px;white-space:nowrap}}
   @media (max-width:560px){.stop{grid-template-columns:1fr;gap:8px} .stop .t{font-size:34px} .wipe .date{font-size:38px}}
+    .econ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px}
+  .econ .card{padding:20px 22px}
+  .econ h3{font-size:21px;margin:0 0 4px}
+  .econ .sub{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .er{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line-soft)}
+  .er:first-of-type{border-top:0}
+  .er .v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;line-height:1;color:#ffc83d;white-space:nowrap}
+  .er .v.sm{font-size:21px}
+  .er .v small{display:block;font-family:Manrope,sans-serif;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .er .x{font-size:14.5px;line-height:1.45;color:var(--muted)}
+  .er .x b{color:#fff}
+  .spend{border-color:#6b5114;background:radial-gradient(90% 110% at 100% 0,rgba(255,200,61,.12),transparent 60%),var(--surface)}
+  .spend .when{display:flex;align-items:baseline;gap:12px;margin:6px 0 12px}
+  .spend .when .t{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;line-height:1;color:#ffc83d}
+  .spend .when .d{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .spend p{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+  .spend p b{color:#fff}
+  .goods{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+  .goods span{font-size:13px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .art-deal{display:flex;gap:12px;align-items:center;border:1px solid #6b5114;border-radius:var(--r);padding:12px 14px;background:rgba(255,200,61,.06);font-size:14.5px}
+  .art-deal .n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#ffc83d;line-height:1}
+  .econ-note{margin-top:14px;font-size:14px;color:var(--muted)}
+  .econ-note .mono{color:var(--text)}
+  @media (max-width:860px){.econ{grid-template-columns:1fr}}
+  @media (max-width:560px){.er{grid-template-columns:1fr;gap:6px}}
   </style>
 
   <section class="hero2">
@@ -276,13 +302,48 @@
         <div class="w"><b>T2 Rifts</b> — Mortium<div><span class="badge">T2</span></div></div></div>
       <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">20:00</div></div>
         <div class="w"><b>First castle raid window.</b> Crafting of elixirs, coatings, T08 amulets and T09 weapons opens.</div></div>
-      <div class="stop"><div><div class="d">Sat, October 10</div><div class="t">22:15</div></div>
-        <div class="w">Unlocked
+      <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">22:15</div></div>
+        <div class="w"><b>Traders' City</b> — teleport from any waypoint. Unlocked
           <div class="bosses"><div class="boss"><img src="../../pvp/img/boss_elena.webp" alt="" loading="lazy">Elena</div><div class="boss"><img src="../../pvp/img/boss_lucile.webp" alt="" loading="lazy">Lucile</div><div class="boss"><img src="../../pvp/img/boss_dantos.webp" alt="" loading="lazy">Dantos</div><div class="boss"><img src="../../pvp/img/boss_valencia.webp" alt="" loading="lazy">Valencia</div></div></div></div>
       <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">23:00</div></div>
         <div class="w"><b>Final bosses with shards</b>
           <div class="bosses"><div class="boss fin"><img src="../../pvp/img/boss_solarus.webp" alt="" loading="lazy">Solarus</div><div class="boss fin"><img src="../../pvp/img/boss_talzur.webp" alt="" loading="lazy">Talzur</div><div class="boss fin"><img src="../../pvp/img/boss_adam.webp" alt="" loading="lazy">Adam</div><div class="boss fin"><img src="../../pvp/img/boss_megara.webp" alt="" loading="lazy">Megara</div><div class="boss fin"><img src="../../pvp/img/boss_dracula.webp" alt="" loading="lazy">Dracula</div></div></div></div>
     </div>
+  </section>
+
+  <section id="economy">
+    <div class="sec-head">
+      <div class="kicker">Economy · Primal Stygian Shards</div>
+      <h2>Play — earn — <span class="accent">spend</span></h2>
+      <p>The server currency is Primal Stygian Shards. They go to your personal account; take them whenever you like:
+        <span class="mono">.bank</span> — balance, <span class="mono">.bank take</span> — to your inventory.</p>
+    </div>
+    <div class="econ">
+      <div class="card">
+        <span class="tag gold">Earn</span>
+        <h3>What gives shards</h3>
+        <p class="sub">Everything below lands on your account or in your hands — no extra commands.</p>
+        <div class="er"><div class="v">+2<small>per minute</small></div><div class="x"><b>Time online.</b> 120 shards per hour while you are on the server.</div></div>
+        <div class="er"><div class="v">10–500<small>per V Blood</small></div><div class="x"><b>V Blood boss blood</b> — for everyone who drank it. Stronger boss, bigger reward.</div></div>
+        <div class="er"><div class="v">up to 2000<small>server first</small></div><div class="x"><b>First kill on the server</b> — a bonus for whoever drank the blood first.</div></div>
+        <div class="er"><div class="v sm">1000 · 500 · 100<small>world boss</small></div><div class="x"><b>World boss:</b> Stygian, Greater and Primal shards for its blood.</div></div>
+        <div class="er"><div class="v">1<small>fibre a day</small></div><div class="x"><b>Radiant Fibre</b> for your first login each day (from midnight MSK), <span class="mono">.daily</span> — time to the next one.
+          Blood-bound: <b>not dropped on death</b>, can be stored in a chest.</div></div>
+        <div class="er"><div class="v">exchange<small>at the bank</small></div><div class="x"><b>Coins and lesser shards</b> → Primal: 100 copper → 5, 100 silver → 50, 100 royal → 100,
+          100 Stygian → 10, 100 Greater → 50.</div></div>
+      </div>
+      <div class="card spend">
+        <span class="tag gold">Spend</span>
+        <h3>Traders' City</h3>
+        <div class="when"><span class="t">22:15</span><span class="d">Sat, October 10 · with Valencia</span></div>
+        <p>Teleport <b>from any waypoint</b>: on the map — the waypoint icon above the world boss arena.
+          Inside the city is a <b>safe zone</b> — nobody can attack.</p>
+        <div class="goods"><span>ingots and planks</span><span>textiles and leather</span><span>gems</span><span>Gloomrot parts</span><span>fish</span><span>seeds</span><span>potions</span><span>elixirs</span><span>coatings</span><span>T08 books: weapons, armor, amulets</span><span>cloaks</span><span>hats and masks</span><span>outfits</span><span>bank</span></div>
+        <div class="art-deal"><span class="n">7</span><div><b>Artifact trader:</b> legendary weapons (shattered) for 7 Radiant Fibre.
+          Fibre is also sold at the bank — 1 for 1000 Primal shards.</div></div>
+      </div>
+    </div>
+    <p class="econ-note">More loot: supply carriages and gladiator chests — see “Events” below.</p>
   </section>
 
   <section id="events">

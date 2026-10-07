@@ -27,6 +27,7 @@
     <nav class="nav">
       <a href="#map">Карта</a>
       <a href="#start">Старт</a>
+      <a href="#economy">Экономика</a>
       <a href="#events">Ивенты</a>
       <a href="#features">Механики</a>
       <a href="#pvp">PvP и рейды</a>
@@ -227,6 +228,31 @@
   @media (max-width:860px){.hero2,.evs,.pv,.feat{grid-template-columns:1fr} .feat .wide{grid-column:auto}
     .next-hot{grid-template-columns:1fr} .next-hot .cd{text-align:left;font-size:36px;white-space:nowrap}}
   @media (max-width:560px){.stop{grid-template-columns:1fr;gap:8px} .stop .t{font-size:34px} .wipe .date{font-size:38px}}
+    .econ{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px}
+  .econ .card{padding:20px 22px}
+  .econ h3{font-size:21px;margin:0 0 4px}
+  .econ .sub{font-size:14px;color:var(--muted);margin:0 0 14px}
+  .er{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line-soft)}
+  .er:first-of-type{border-top:0}
+  .er .v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;line-height:1;color:#ffc83d;white-space:nowrap}
+  .er .v.sm{font-size:21px}
+  .er .v small{display:block;font-family:Manrope,sans-serif;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+  .er .x{font-size:14.5px;line-height:1.45;color:var(--muted)}
+  .er .x b{color:#fff}
+  .spend{border-color:#6b5114;background:radial-gradient(90% 110% at 100% 0,rgba(255,200,61,.12),transparent 60%),var(--surface)}
+  .spend .when{display:flex;align-items:baseline;gap:12px;margin:6px 0 12px}
+  .spend .when .t{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;line-height:1;color:#ffc83d}
+  .spend .when .d{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .spend p{font-size:14.5px;color:var(--muted);margin:0 0 12px}
+  .spend p b{color:#fff}
+  .goods{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+  .goods span{font-size:13px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+  .art-deal{display:flex;gap:12px;align-items:center;border:1px solid #6b5114;border-radius:var(--r);padding:12px 14px;background:rgba(255,200,61,.06);font-size:14.5px}
+  .art-deal .n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#ffc83d;line-height:1}
+  .econ-note{margin-top:14px;font-size:14px;color:var(--muted)}
+  .econ-note .mono{color:var(--text)}
+  @media (max-width:860px){.econ{grid-template-columns:1fr}}
+  @media (max-width:560px){.er{grid-template-columns:1fr;gap:6px}}
   </style>
 
   <section class="hero2">
@@ -276,13 +302,48 @@
         <div class="w"><b>Разломы T2</b> — Мортиум<div><span class="badge">T2</span></div></div></div>
       <div class="stop key"><div><div class="d">сб 10 октября</div><div class="t">20:00</div></div>
         <div class="w"><b>Первое окно рейдов замков.</b> Открывается крафт эликсиров, покрытий, амулетов T08 и оружия T09.</div></div>
-      <div class="stop"><div><div class="d">сб 10 октября</div><div class="t">22:15</div></div>
-        <div class="w">Открываются
+      <div class="stop key"><div><div class="d">сб 10 октября</div><div class="t">22:15</div></div>
+        <div class="w"><b>Город торговцев</b> — телепорт с любой путевой точки. Открываются
           <div class="bosses"><div class="boss"><img src="img/boss_elena.webp" alt="" loading="lazy">Елена</div><div class="boss"><img src="img/boss_lucile.webp" alt="" loading="lazy">Люсиль</div><div class="boss"><img src="img/boss_dantos.webp" alt="" loading="lazy">Дантос</div><div class="boss"><img src="img/boss_valencia.webp" alt="" loading="lazy">Валенсия</div></div></div></div>
       <div class="stop key"><div><div class="d">сб 10 октября</div><div class="t">23:00</div></div>
         <div class="w"><b>Финальные боссы с осколками</b>
           <div class="bosses"><div class="boss fin"><img src="img/boss_solarus.webp" alt="" loading="lazy">Солярус</div><div class="boss fin"><img src="img/boss_talzur.webp" alt="" loading="lazy">Талзур</div><div class="boss fin"><img src="img/boss_adam.webp" alt="" loading="lazy">Адам</div><div class="boss fin"><img src="img/boss_megara.webp" alt="" loading="lazy">Мегара</div><div class="boss fin"><img src="img/boss_dracula.webp" alt="" loading="lazy">Дракула</div></div></div></div>
     </div>
+  </section>
+
+  <section id="economy">
+    <div class="sec-head">
+      <div class="kicker">Экономика · первородные стигийские осколки</div>
+      <h2>Играешь — копишь — <span class="accent">тратишь</span></h2>
+      <p>Валюта сервера — первородные стигийские осколки. Они капают на личный счёт, забираешь когда удобно:
+        <span class="mono">.bank</span> — сколько на счёте, <span class="mono">.bank take</span> — в инвентарь.</p>
+    </div>
+    <div class="econ">
+      <div class="card">
+        <span class="tag gold">Заработать</span>
+        <h3>За что дают осколки</h3>
+        <p class="sub">Всё ниже — на счёт или в руки, без лишних команд.</p>
+        <div class="er"><div class="v">+2<small>в минуту</small></div><div class="x"><b>Время в игре.</b> 120 осколков в час, пока ты на сервере.</div></div>
+        <div class="er"><div class="v">10–500<small>за V Blood</small></div><div class="x"><b>Кровь босса V Blood</b> — каждому, кто её выпил. Чем сильнее босс, тем больше.</div></div>
+        <div class="er"><div class="v">до 2000<small>первое убийство</small></div><div class="x"><b>Первым на сервере</b> убил босса — бонус тому, кто выпил кровь первым.</div></div>
+        <div class="er"><div class="v sm">1000 · 500 · 100<small>мировой босс</small></div><div class="x"><b>Мировой босс:</b> стигийские, великие и первородные осколки за его кровь.</div></div>
+        <div class="er"><div class="v">1<small>волокно в день</small></div><div class="x"><b>Лучистое волокно</b> за первый вход в сутки (с полуночи МСК), <span class="mono">.daily</span> — когда следующее.
+          Привязано к крови: <b>не выпадает при смерти</b>, можно хранить в сундуке.</div></div>
+        <div class="er"><div class="v">обмен<small>в банке</small></div><div class="x"><b>Монеты и младшие осколки</b> → первородные: 100 медных → 5, 100 серебряных → 50, 100 королевских → 100,
+          100 стигийских → 10, 100 великих → 50.</div></div>
+      </div>
+      <div class="card spend">
+        <span class="tag gold">Потратить</span>
+        <h3>Город торговцев</h3>
+        <div class="when"><span class="t">22:15</span><span class="d">сб 10 октября · вместе с Валенсией</span></div>
+        <p>Телепорт <b>с любой путевой точки</b>: на карте — значок путевой точки над площадкой мирового босса.
+          Внутри города — <b>зона защиты</b>, там никто не атакует.</p>
+        <div class="goods"><span>слитки и доски</span><span>ткани и кожа</span><span>камни</span><span>детали Gloomrot</span><span>рыба</span><span>семена</span><span>зелья</span><span>эликсиры</span><span>покрытия</span><span>книги T08: оружие, броня, амулеты</span><span>плащи</span><span>шапки и маски</span><span>костюмы</span><span>банк</span></div>
+        <div class="art-deal"><span class="n">7</span><div><b>Торговец артефактов:</b> легендарное оружие (разбитое) за 7 лучистых волокон.
+          Волокно можно и купить в банке — 1 за 1000 первородных осколков.</div></div>
+      </div>
+    </div>
+    <p class="econ-note">Ещё добыча: повозки снабжения и гладиаторские сундуки — в разделе «Ивенты» ниже.</p>
   </section>
 
   <section id="events">
