@@ -44,6 +44,10 @@
 <div class="wrap">
 
   <!--MAP-->
+  <section class="open-top">
+      <div class="open-start"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span><b>The whole map is revealed</b>from the first minute — no exploring needed</span></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span><b>All waypoints are unlocked</b>teleport across the map right away</span></div></div>
+  </section>
+
   <section id="map" class="mp-sec">
     <div class="sec-head"><div class="kicker">Server map · hover over a zone or a resource</div><h2>What we added to the <span class="accent">world</span></h2></div>
     <div class="mp-tools">
@@ -253,6 +257,12 @@
   .econ-note .mono{color:var(--text)}
   @media (max-width:860px){.econ{grid-template-columns:1fr}}
   @media (max-width:560px){.er{grid-template-columns:1fr;gap:6px}}
+    .open-top{padding:26px 0 0;border-top:0}
+  .open-start{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .open-start div{display:flex;gap:10px;align-items:center;padding:12px 14px;border:1px solid #6b5114;border-radius:var(--r);background:linear-gradient(90deg,rgba(255,200,61,.14),rgba(255,200,61,.03));font-size:14.5px;line-height:1.3}
+  .open-start svg{flex:none;width:30px;height:30px;color:#ffc83d}
+  .open-start b{display:block;color:#fff;font-size:16px}
+  @media (max-width:560px){.open-start{grid-template-columns:1fr}}
   </style>
 
   <section class="hero2">
