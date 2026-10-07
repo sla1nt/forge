@@ -143,7 +143,11 @@
       var s = Math.floor((at - Date.now()) / 1000);
       if (s <= 0) { cd.textContent = L('Сервер открыт — заходи!', 'The server is open — join now!'); return; }
       var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60;
-      cd.textContent = L('до открытия: ', 'launch in: ') + (d ? d + L(' д ', 'd ') : '') + ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + ss).slice(-2);
+      // Подпись и цифры — отдельными узлами (07.10): цифры крупно. Текст тот же.
+      var lab = L('до открытия:', 'launch in:'), time = (d ? d + L(' д ', 'd ') : '') + ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + ss).slice(-2);
+      if (!cd.cdT) { cd.textContent = ''; var a = document.createElement('span'); a.className = 'cd-l'; a.textContent = lab;
+        cd.cdT = document.createElement('span'); cd.cdT.className = 'cd-t'; cd.appendChild(a); cd.appendChild(document.createTextNode(' ')); cd.appendChild(cd.cdT); }
+      cd.cdT.textContent = time;
     };
     upd(); setInterval(upd, 1000);
   }
