@@ -10,7 +10,7 @@
 <link rel="alternate" hreflang="en" href="https://slaintarena.ru/en/pvp/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=20261006g">
+<link rel="stylesheet" href="../assets/site.css?v=20261007a">
 </head>
 <body class="pvp">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -263,6 +263,9 @@
   .open-start svg{flex:none;width:30px;height:30px;color:#ffc83d}
   .open-start b{display:block;color:#fff;font-size:16px}
   @media (max-width:560px){.open-start{grid-template-columns:1fr}}
+    .stop.kit{border-color:#2f5a3a;background:linear-gradient(90deg,rgba(80,200,120,.10),var(--surface) 55%)}
+  .stop.kit:before{border-color:#5fd38a}
+  .stop.kit .t{color:#8fe3ad}
   </style>
 
   <section class="hero2">
@@ -306,8 +309,12 @@
       <div class="stop"><div><div class="d">чт 8 октября</div><div class="t">23:30</div></div>
         <div class="w">Открывается
           <div class="bosses"><div class="boss"><img src="img/boss_jade.webp" alt="" loading="lazy">Джейд</div></div></div></div>
+      <div class="stop kit"><div><div class="d">пт 9 октября</div><div class="t">10:00</div></div>
+        <div class="w"><b>Опоздал к старту?</b> Новичкам открывается <span class="mono">.kit</span> — медный комплект T04, меч, арбалет, кольцо и зелья.</div></div>
       <div class="stop"><div><div class="d">пт 9 октября</div><div class="t">14:00</div></div>
         <div class="w"><b>Разломы T1</b> — Мортиум<div><span class="badge">T1</span></div></div></div>
+      <div class="stop kit"><div><div class="d">сб 10 октября</div><div class="t">10:00</div></div>
+        <div class="w"><span class="mono">.kit</span> для новичков становится <b>железным</b>: комплект T06, меч, топор, арбалет, кулон и зелья. Так и дальше — каждый следующий день.</div></div>
       <div class="stop"><div><div class="d">сб 10 октября</div><div class="t">14:00</div></div>
         <div class="w"><b>Разломы T2</b> — Мортиум<div><span class="badge">T2</span></div></div></div>
       <div class="stop key"><div><div class="d">сб 10 октября</div><div class="t">20:00</div></div>
@@ -522,7 +529,7 @@
         <div class="cmd" data-g="eco"><div><code>.bank</code><span class="al">.bank take [кол-во]</span></div><div class="d">Твой банк Primal Stygian Shards — копятся за время в игре и за кровь V Blood. <span class="mono">.bank take</span> — забрать всё в сумку, или указать сколько.</div></div>
         <div class="cmd" data-g="eco"><div><code>.points</code><span class="al">он же .witchdust</span></div><div class="d">Твои очки: дают за участие в ивентах и урон по мировому боссу, во время ивентов — ×3.</div></div>
         <div class="cmd" data-g="eco"><div><code>.daily</code></div><div class="d">Ежедневная награда: за первый вход в день — Лучистое волокно (новый день — в полночь по МСК). Команда показывает, сколько ждать до следующей.</div></div>
-        <div class="cmd" data-g="eco"><div><code>.kit</code><span class="al">один раз на игрока</span></div><div class="d">Стартовый набор новичка. В первый день вайпа — медная броня, меч, арбалет, кольцо, зелья; со второго — железная броня и оружие получше.</div></div>
+        <div class="cmd" data-g="eco"><div><code>.kit</code><span class="al">один раз, только новичкам</span></div><div class="d">Стартовый набор для тех, кто впервые зашёл после старта. С 10:00 второго дня — медный комплект T04, меч, арбалет, кольцо, зелья; с 10:00 третьего дня и дальше — железный T06, меч, топор, арбалет, кулон, зелья.</div></div>
       </div>
       <div class="cmd-group"><h3>PvP и розыск</h3>
         <div class="cmd" data-g="pvp"><div><code>.lvl <span class="arg">[игрок]</span></code></div><div class="d">Без имени — твой максимальный уровень и ниже какого уровня тебе нельзя бить. С именем — можно ли атаковать этого игрока и почему.</div></div>
@@ -569,6 +576,6 @@
     <span><a href="../arena/">Матрёшка Arena</a> · <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Поддержать проект</a> · <a href="../discord/">Discord</a></span>
   </div>
 </footer>
-<script src="../assets/site.js?v=20261006g"></script>
+<script src="../assets/site.js?v=20261007a"></script>
 </body>
 </html>

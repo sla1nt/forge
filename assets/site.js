@@ -24,6 +24,62 @@
   var nav = document.querySelector('.nav');
   if (burger && nav) burger.addEventListener('click', function () { nav.classList.toggle('open'); });
 
+  // Шапка (07.10): пункты меню не влезли в строку (длинные подписи, крупный шрифт) — прячем
+  // их в «бургер», как на узком экране; при прокрутке шапка плотнее.
+  var top = document.querySelector('.top');
+  if (top && nav) {
+    var wide = window.matchMedia('(min-width: 1081px)');
+    var bar = top.querySelector('.wrap');
+    var fit = function () {
+      top.classList.remove('compact');
+      if (wide.matches && (bar.scrollWidth > bar.clientWidth + 1 || nav.scrollWidth > nav.clientWidth + 1)) top.classList.add('compact');
+    };
+    var fitQueued = false;
+    window.addEventListener('resize', function () {
+      if (fitQueued) return; fitQueued = true;
+      requestAnimationFrame(function () { fitQueued = false; fit(); });
+    });
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    var onScroll = function () { top.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Появление разделов при прокрутке (07.10). Без JS и при «меньше движения» всё видно сразу:
+  // прячем только то, что ниже экрана, и только после того, как поставили html.rv.
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!still && 'IntersectionObserver' in window) {
+    var BOX = '.evs, .feat, .pv, .econ, .road, .projects, .grid, .rule-list, .facts, .steps, .yn';
+    var items = [];
+    document.querySelectorAll('main section:not(.hero):not(.hero2):not(.open-top)').forEach(function (sec) {
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (/^(STYLE|SCRIPT)$/.test(el.tagName)) return;
+        if (el.matches(BOX)) Array.prototype.push.apply(items, el.children);
+        else items.push(el);
+      });
+    });
+    var vh = window.innerHeight;
+    items = items.filter(function (el) { return el.getBoundingClientRect().top > vh; });
+    if (items.length) {
+      document.documentElement.classList.add('rv');
+      var done = function (el) { el.classList.remove('rv-i', 'in'); el.style.removeProperty('--i'); };
+      var io = new IntersectionObserver(function (entries) {
+        var n = 0;
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var el = e.target; io.unobserve(el);
+          el.style.setProperty('--i', Math.min(n++, 5));
+          el.classList.add('in');
+          var end = function (ev) { if (!ev || ev.propertyName === 'opacity') { el.removeEventListener('transitionend', end); done(el); } };
+          el.addEventListener('transitionend', end);
+          setTimeout(end, 1600);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+      items.forEach(function (el) { el.classList.add('rv-i'); io.observe(el); });
+    }
+  }
+
   // скопировать адрес сервера
   document.querySelectorAll('.copy[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {

@@ -10,7 +10,7 @@
 <link rel="alternate" hreflang="en" href="https://slaintarena.ru/en/pvp/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="../../assets/site.css?v=20261006g">
+<link rel="stylesheet" href="../../assets/site.css?v=20261007a">
 </head>
 <body class="pvp">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -263,6 +263,9 @@
   .open-start svg{flex:none;width:30px;height:30px;color:#ffc83d}
   .open-start b{display:block;color:#fff;font-size:16px}
   @media (max-width:560px){.open-start{grid-template-columns:1fr}}
+    .stop.kit{border-color:#2f5a3a;background:linear-gradient(90deg,rgba(80,200,120,.10),var(--surface) 55%)}
+  .stop.kit:before{border-color:#5fd38a}
+  .stop.kit .t{color:#8fe3ad}
   </style>
 
   <section class="hero2">
@@ -306,8 +309,12 @@
       <div class="stop"><div><div class="d">Thu, October 8</div><div class="t">23:30</div></div>
         <div class="w">Unlocked
           <div class="bosses"><div class="boss"><img src="../../pvp/img/boss_jade.webp" alt="" loading="lazy">Jade</div></div></div></div>
+      <div class="stop kit"><div><div class="d">Fri, October 9</div><div class="t">10:00</div></div>
+        <div class="w"><b>Late to the launch?</b> Newcomers get <span class="mono">.kit</span> — copper T04 set, sword, crossbow, ring and potions.</div></div>
       <div class="stop"><div><div class="d">Fri, October 9</div><div class="t">14:00</div></div>
         <div class="w"><b>T1 Rifts</b> — Mortium<div><span class="badge">T1</span></div></div></div>
+      <div class="stop kit"><div><div class="d">Sat, October 10</div><div class="t">10:00</div></div>
+        <div class="w">The newcomer <span class="mono">.kit</span> turns <b>iron</b>: T06 set, sword, axe, crossbow, pendant and potions. Same on every later day.</div></div>
       <div class="stop"><div><div class="d">Sat, October 10</div><div class="t">14:00</div></div>
         <div class="w"><b>T2 Rifts</b> — Mortium<div><span class="badge">T2</span></div></div></div>
       <div class="stop key"><div><div class="d">Sat, October 10</div><div class="t">20:00</div></div>
@@ -522,7 +529,7 @@
         <div class="cmd" data-g="eco"><div><code>.bank</code><span class="al">.bank take [amount]</span></div><div class="d">Your bank of Primal Stygian Shards — they build up over play time and for V Blood. <span class="mono">.bank take</span> — take everything into your bag, or say how many.</div></div>
         <div class="cmd" data-g="eco"><div><code>.points</code><span class="al">also .witchdust</span></div><div class="d">Your points: given for taking part in events and for damage to the world boss, ×3 during events.</div></div>
         <div class="cmd" data-g="eco"><div><code>.daily</code></div><div class="d">Daily reward: your first login of the day gives Radiant Fibre (a new day starts at midnight MSK). The command shows how long until the next one.</div></div>
-        <div class="cmd" data-g="eco"><div><code>.kit</code><span class="al">once per player</span></div><div class="d">Newcomer starter kit. On the first day of the wipe — copper armor, a sword, a crossbow, a ring, potions; from the second day — iron armor and better weapons.</div></div>
+        <div class="cmd" data-g="eco"><div><code>.kit</code><span class="al">once, newcomers only</span></div><div class="d">Starter kit for players who join after the launch. From 10:00 MSK on day 2 — copper T04 set, sword, crossbow, ring, potions; from 10:00 MSK on day 3 and later — iron T06 set, sword, axe, crossbow, pendant, potions.</div></div>
       </div>
       <div class="cmd-group"><h3>PvP and bounty</h3>
         <div class="cmd" data-g="pvp"><div><code>.lvl <span class="arg">[player]</span></code></div><div class="d">Without a name — your max level and below which level you must not kill. With a name — whether you may attack that player and why.</div></div>
@@ -569,6 +576,6 @@
     <span><a href="../arena/">Matryoshka Arena</a> · <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support us</a> · <a href="../../discord/">Discord</a></span>
   </div>
 </footer>
-<script src="../../assets/site.js?v=20261006g"></script>
+<script src="../../assets/site.js?v=20261007a"></script>
 </body>
 </html>

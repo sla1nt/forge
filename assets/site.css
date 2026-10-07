@@ -404,3 +404,164 @@ body.arena .btn.main, .p-arena .btn.main{color:#1a1206}
 .mapic b{color:var(--text)}
 /* Правила (06.10): пункты в две колонки на широком экране */
 @media (min-width: 901px){ .rule-list{grid-template-columns:repeat(2, minmax(0,1fr))} }
+
+/* ===========================================================================
+   Облик v3 (07.10.2026, Алексей: «дорого, эффектно, стильно — но не перегружено»).
+   Спокойнее иерархия, одинаковые карточки, тонкие линии вместо громких цветов,
+   мягкая глубина (зерно, верхний блик карточек), числа — прописными цифрами.
+   Движение — только при prefers-reduced-motion: no-preference; без JS всё видно сразу.
+=========================================================================== */
+:root{
+  --hair:linear-gradient(90deg, transparent, rgba(255,255,255,.09) 18%, color-mix(in srgb, var(--hue-lit) 45%, transparent) 50%, rgba(255,255,255,.09) 82%, transparent);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+::selection{background:color-mix(in srgb, var(--hue) 70%, transparent); color:#fff}
+
+/* зерно поверх фона: одна плитка SVG, без размытия и смешивания слоёв */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* числа: прописные цифры вместо «старинных» — ровнее в отсчётах и столбцах */
+h1, h2, h3, .fact .v, .step::before, .stop .t, .er .v, .wipe .date, .spend .when .t, .art-deal .n{font-variant-numeric:lining-nums}
+.chip, .ip, #countdown, .next-hot .cd, .sched td.t{font-variant-numeric:tabular-nums}
+
+/* --- шапка: шире содержимого, в одну строку, тонкая светящаяся черта снизу --- */
+.top{border-bottom:0; transition:background .3s}
+.top::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--hair); opacity:.7; pointer-events:none}
+.top.scrolled{background:rgba(8,6,7,.9)}
+.top .wrap{max-width:1320px}
+.nav{flex-wrap:nowrap; gap:2px}
+.nav a{white-space:nowrap}
+@media (min-width: 1081px) and (max-width: 1320px){
+  .nav a{padding:8px 10px; font-size:13.5px}
+}
+.brand-name{background:linear-gradient(180deg, #fff 10%, #d6c4ad 95%); -webkit-background-clip:text; background-clip:text; color:transparent}
+.burger{border-color:var(--edge); border-radius:999px; padding:6px 13px; background:var(--glass)}
+/* пункты не влезли в строку (класс ставит site.js) — то же меню, что на узком экране */
+.top.compact .burger{display:block}
+.top.compact .nav{display:none; position:absolute; top:64px; left:0; right:0; flex-direction:column; gap:0;
+  background:rgba(10,7,8,.98); border-bottom:1px solid var(--line); padding:8px 16px 14px}
+.top.compact .nav.open{display:flex}
+.top.compact .nav a{padding:12px 8px; font-size:14px}
+.top.compact .nav.open, .nav.open{background:linear-gradient(180deg, #0e0a0b, #080607); box-shadow:0 24px 50px rgba(0,0,0,.55)}
+
+/* --- разделы: тонкая линия-разделитель, спокойные заголовки --- */
+main section{position:relative}
+main section + section::before{content:""; position:absolute; top:0; left:8%; right:8%; height:1px; background:var(--hair); opacity:.5; pointer-events:none}
+main section.hero2::before{display:none}
+.sec-head h2{margin-top:10px; text-wrap:balance}
+.sec-head p{line-height:1.65}
+.kicker{letter-spacing:.3em; font-size:11.5px}
+.kicker::before{width:28px; height:1px; box-shadow:0 0 8px var(--hue-lit)}
+.lead{text-wrap:pretty}
+
+h1 .accent, h2 .accent{color:var(--hue-lit); text-shadow:0 0 28px color-mix(in srgb, var(--hue) 55%, transparent)}
+
+/* --- карточки: верхний блик, мягкий подъём при наведении --- */
+.card, .fact, .cmd{box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.card{transition:border-color .25s, transform .3s var(--ease), box-shadow .25s}
+@media (hover:hover){
+  .card:hover{transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 16px 40px rgba(0,0,0,.4)}
+  .cmd{transition:border-color .2s}
+  .cmd:hover{border-color:color-mix(in srgb, var(--hue) 40%, transparent)}
+}
+
+/* --- кнопки: внутренний блик, тень тише --- */
+.btn{transition:border-color .2s, background .2s, transform .2s var(--ease), box-shadow .2s, filter .2s}
+.btn.main{box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 8px 26px color-mix(in srgb, var(--hue) 38%, transparent)}
+.btn.main:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.32), 0 12px 34px color-mix(in srgb, var(--hue) 55%, transparent)}
+@media (hover:hover){ .btn:hover{transform:translateY(-1px)} }
+.copy{transition:border-color .2s, background .2s}
+.addr{box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+
+/* --- подвал --- */
+.foot{border-top:0}
+.foot::before{content:""; position:absolute; top:0; left:0; right:0; height:1px; background:var(--hair); opacity:.6}
+
+/* --- проекты на главной: светящаяся кромка сверху --- */
+.project{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.project::after{content:""; position:absolute; top:0; left:12%; right:12%; height:1px; pointer-events:none;
+  background:linear-gradient(90deg, transparent, var(--hue-lit), transparent); opacity:.5; transition:opacity .3s}
+.project:hover::after{opacity:1}
+
+/* ---------------------------------------------------------------------------
+   PVP. Селекторы через body.pvp / #map — сильнее встроенных стилей страницы,
+   поэтому правки одни на обе версии языка и переживают пересборку карты.
+--------------------------------------------------------------------------- */
+/* полосы «вся карта / путевые точки» — стекло с золотой кромкой */
+body.pvp .open-start div{background:linear-gradient(90deg, rgba(255,200,61,.09), rgba(255,255,255,.02) 70%);
+  border-color:rgba(255,200,61,.28); box-shadow:inset 0 1px 0 rgba(255,236,180,.07); padding:14px 16px}
+body.pvp .open-start svg{filter:drop-shadow(0 0 8px rgba(255,200,61,.35))}
+
+/* карта — в той же рамке, что карточки */
+#map .mp-box{border-radius:var(--r); border-color:var(--edge); box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 24px 60px rgba(0,0,0,.45)}
+#map .mp-layer{background:var(--glass); border-color:var(--edge); transition:border-color .2s, color .2s}
+#map .mp-layer.on{border-color:color-mix(in srgb, var(--hue-lit) 60%, transparent)}
+#map .mp-list summary:hover{color:var(--text)}
+
+/* карточка вайпа: дышащая кромка и «живая» точка у отсчёта */
+body.pvp .wipe{border-color:rgba(216,50,60,.32); padding:26px 28px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px rgba(120,10,20,.22)}
+body.pvp .wipe .date{font-size:50px}
+body.pvp .wipe .date em{text-shadow:0 0 24px rgba(216,50,60,.55)}
+body.pvp .wipe #countdown{display:flex; align-items:center; gap:10px}
+body.pvp .wipe #countdown::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:#ff4b55; box-shadow:0 0 8px rgba(255,75,85,.8)}
+body.pvp .wipe .next{border-top:1px solid var(--edge); padding-top:12px; margin-top:14px}
+
+/* дорога открытия: остановки — стеклянные, как карточки */
+body.pvp .road{gap:10px}
+body.pvp .road:before{width:1px; left:7.5px; opacity:.85}
+body.pvp .stop{background:linear-gradient(180deg, var(--glass2), var(--glass)); border-color:var(--edge); padding:16px 20px; box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+body.pvp .stop:before{box-shadow:0 0 0 4px var(--ground)}
+body.pvp .stop.key{border-color:rgba(255,200,61,.3); background:linear-gradient(90deg, rgba(255,200,61,.09), rgba(255,255,255,.02) 55%)}
+body.pvp .stop.key:before{box-shadow:0 0 0 4px var(--ground), 0 0 12px #ffc83d}
+body.pvp .stop.kit{border-color:rgba(95,211,138,.26); background:linear-gradient(90deg, rgba(80,200,120,.08), rgba(255,255,255,.02) 55%)}
+body.pvp .boss img{transition:transform .25s var(--ease)}
+@media (hover:hover){ body.pvp .boss:hover img{transform:translateY(-2px) scale(1.04)} }
+
+/* экономика и механики: те же кромки, без лишней яркости */
+body.pvp .er{border-top-color:var(--edge)}
+body.pvp .spend{border-color:rgba(255,200,61,.26)}
+body.pvp .art-deal{border-color:rgba(255,200,61,.3); background:linear-gradient(90deg, rgba(255,200,61,.08), rgba(255,200,61,.02))}
+body.pvp .goods span, body.pvp .flow span{background:var(--glass); border-color:var(--edge)}
+body.pvp .tag{background:rgba(0,0,0,.25)}
+body.pvp .ev2 .loot{border-top-color:var(--edge)}
+body.pvp .feat .wide{border-color:rgba(216,50,60,.3); background:radial-gradient(90% 120% at 0 0, rgba(200,30,45,.16), transparent 60%), linear-gradient(180deg, var(--glass2), var(--glass))}
+body.pvp .feat .card h3, body.pvp .pv .card h3, body.pvp .ev2 h3, body.pvp .econ h3{font-size:22px}
+body.pvp .feat .ico{border-color:rgba(216,50,60,.55); box-shadow:0 6px 18px rgba(0,0,0,.45)}
+
+/* ближайший ивент: глубже и спокойнее, светящаяся кромка сверху */
+body.pvp .next-hot{position:relative; overflow:hidden; padding:26px 30px; border-color:rgba(216,50,60,.45);
+  background:radial-gradient(80% 140% at 0% 0%, rgba(168,32,42,.42), transparent 60%), linear-gradient(110deg, #2a0b10, #170c0f 60%, #120d0f);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 18px 50px rgba(120,10,20,.26)}
+body.pvp .next-hot::after{content:""; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg, transparent, #ff6b72, transparent); opacity:.75}
+body.pvp .next-hot .cd{text-shadow:0 0 22px rgba(255,90,100,.55)}
+
+/* мягкое движение — только тем, кто его не отключал */
+@media (prefers-reduced-motion: no-preference){
+  body.pvp .wipe #countdown::before{animation:live 2.4s ease-out infinite}
+  body.pvp .wipe{animation:glow 6s ease-in-out infinite}
+  body.pvp .next-hot .cd span{animation:breathe 4.5s ease-in-out infinite}
+}
+@keyframes live{ 0%{box-shadow:0 0 0 0 rgba(255,75,85,.6)} 70%,100%{box-shadow:0 0 0 9px rgba(255,75,85,0)} }
+@keyframes glow{ 0%,100%{border-color:rgba(216,50,60,.28)} 50%{border-color:rgba(216,50,60,.6)} }
+@keyframes breathe{ 0%,100%{opacity:1} 50%{opacity:.8} }
+
+/* --- появление при прокрутке: прячем, только если site.js поставил html.rv
+   (translate, а не transform — не мешает подъёму карточек при наведении) --- */
+@media (prefers-reduced-motion: no-preference){
+  html.rv .rv-i{opacity:0; translate:0 18px; transition:opacity .7s var(--ease), translate .7s var(--ease); transition-delay:calc(var(--i, 0) * 70ms)}
+  html.rv .rv-i.in{opacity:1; translate:none}
+}
+@media print{ html.rv .rv-i{opacity:1; translate:none} body::after{display:none} }
+
+@media (max-width: 760px){
+  main section + section::before{left:0; right:0}
+  body.pvp .wipe{padding:22px}
+  body.pvp .wipe .date{font-size:40px}
+  body.pvp .wipe #countdown{font-size:17px}
+  body.pvp .next-hot{padding:22px}
+  .kicker{letter-spacing:.2em}
+}
