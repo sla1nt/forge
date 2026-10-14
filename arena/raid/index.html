@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Рейды замков — Матрёшка Arena</title>
+<meta name="description" content="Рейды замков на Матрёшке Arena: как записаться, как позвать соперника, слуги защиты, что делать в бою и все команды рейда.">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../assets/site.css?v=20261007c">
+<style>
+/* Конструкторы рейда — перенесены из вкладки «Рейд замка» Кузницы (14.10). */
+.rb{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px; margin-top:18px}
+.rb h3{margin:0 0 6px}
+.rb .hint{color:var(--muted); font-size:14px; margin:4px 0 12px}
+.rb label.lbl{display:block; font-weight:700; margin:16px 0 8px; font-size:14px; color:var(--text)}
+.rb input.field{width:100%; max-width:420px; background:var(--ground); border:1px solid var(--line); color:var(--text);
+  padding:10px 12px; border-radius:var(--r); font:inherit}
+.rb input.field:focus{outline:none; border-color:var(--hue)}
+.picks{display:flex; flex-wrap:wrap; gap:8px}
+.pick{background:var(--ground); border:1px solid var(--line); color:var(--text); padding:8px 14px; border-radius:var(--r);
+  font:inherit; font-weight:600; cursor:pointer}
+.pick .en{display:block; font-size:11px; color:var(--dim); font-weight:500}
+.pick[aria-pressed="true"]{border-color:var(--hue); background:var(--raised); color:var(--hue-lit)}
+.pick:hover{border-color:var(--hue)}
+.out{margin-top:20px; padding-top:16px; border-top:1px solid var(--line-soft)}
+.out .say{color:var(--muted); font-size:14px; margin:0 0 8px}
+.cmdline{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.cmdline code{flex:1 1 280px; background:var(--ground); border:1px solid var(--line); padding:12px 14px; border-radius:var(--r);
+  font-family:"JetBrains Mono",monospace; font-size:15px; color:var(--gold-lit); word-break:break-all}
+.cmdline code.empty{color:var(--dim); font-family:inherit; font-size:14px}
+.cmdline .copy[disabled]{opacity:.4; cursor:default}
+.out .next{color:var(--muted); font-size:14px; margin:10px 0 0}
+.coffins{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:6px 0 14px}
+.coffin{background:var(--ground); border:1px dashed var(--line); color:var(--dim); padding:10px 8px; border-radius:var(--r);
+  font:inherit; font-size:13px; text-align:center; cursor:pointer; min-height:52px}
+.coffin.full{border-style:solid; border-color:var(--hue); color:var(--text); background:var(--raised)}
+.coffin .n{display:block; font-size:11px; color:var(--dim)}
+.sv-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px}
+.sv-bar .ghost{margin-left:auto; background:none; border:1px solid var(--line); color:var(--muted); padding:6px 12px;
+  border-radius:var(--r); font:inherit; cursor:pointer}
+.sv-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:6px; margin-top:10px; max-height:360px; overflow:auto}
+.sv{background:var(--ground); border:1px solid var(--line); color:var(--text); padding:8px 10px; border-radius:var(--r);
+  font:inherit; font-size:13px; text-align:left; cursor:pointer}
+.sv .en{display:block; font-size:11px; color:var(--dim)}
+.sv[aria-pressed="true"]{border-color:var(--hue)}
+.sv .x{float:right; color:var(--hue-lit); font-weight:800}
+.sv[disabled]{opacity:.45; cursor:default}
+.side-tag{display:inline-block; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+  padding:3px 8px; border-radius:var(--r); margin-bottom:8px}
+.side-tag.atk{background:rgba(168,32,42,.18); color:#ef8a8f; border:1px solid rgba(168,32,42,.5)}
+.side-tag.def{background:rgba(70,110,200,.16); color:#9fb8f0; border:1px solid rgba(70,110,200,.45)}
+.card ul{margin:8px 0 0; padding-left:18px}
+.card li{margin:6px 0}
+@media (max-width:560px){ .coffins{grid-template-columns:repeat(2,1fr)} .rb{padding:16px} }
+</style>
+</head>
+<body class="arena">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="doll" viewBox="0 0 64 64">
+    <path fill="currentColor" fill-rule="evenodd" d="M32 4C24.3 4 19.6 9.6 19.6 16.3c0 3.7 1.5 6.8 3.8 9C15.7 29.2 10.5 37 10.5 45.7 10.5 54.8 19.2 61 32 61s21.5-6.2 21.5-15.3c0-8.7-5.2-16.5-12.9-20.4 2.3-2.2 3.8-5.3 3.8-9C44.4 9.6 39.7 4 32 4zM25.3 16.6a6.7 6.2 0 1 1 13.4 0 6.7 6.2 0 1 1-13.4 0z"/>
+    <path style="fill:var(--doll-drop,#0a0708)" d="M32 34.5c-1.2 3.4-4.6 6.3-4.6 9.8a4.6 4.6 0 0 0 9.2 0c0-3.5-3.4-6.4-4.6-9.8z"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><svg class="brand-mark" style="color:var(--gold)"><use href="#doll"/></svg><span class="brand-name">MATRYOSHKA</span><span class="brand-sub">Arena</span></a>
+    <button class="burger" aria-label="Меню">☰</button>
+    <nav class="nav">
+      <a href="#join">Как попасть</a>
+      <a href="#call">Позвать</a>
+      <a href="#servants">Слуги</a>
+      <a href="#fight">В бою</a>
+      <a href="#commands">Команды</a>
+      <a href="../">Арена</a>
+      <a href="../../forge/">Сборки вампиров</a>
+      <a href="../../discord/">Discord</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="kicker">Матрёшка Arena · режим</div>
+    <h1>Рейды <span class="accent">замков</span></h1>
+    <p class="lead">Матч на замке: одни ломают, другие держат. От 10 до 30 минут — потом таблица:
+      кто сколько нанёс по замку и по бойцам. Дерёшься своей сборкой, а после матча всё вернётся
+      как было — сборка, кровь, клан и сам замок.</p>
+    <div class="hero-actions">
+      <a class="btn main" href="#join">Как попасть в рейд</a>
+      <a class="btn" href="#call">Позвать соперника</a>
+      <a class="btn" href="#servants">Слуги для защиты</a>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="sec-head">
+      <div class="kicker">Шаг первый</div>
+      <h2>Как попасть в рейд</h2>
+      <p>Два способа. Все команды — в игровой чат, с точкой в начале.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Записаться и ждать соперников</h3>
+        <div class="steps">
+          <div class="step"><div><b>Выбери сторону</b><span><span class="mono">.raid j a</span> — нападение,
+            <span class="mono">.raid j d</span> — защита. Передумал — <span class="mono">.raid leave</span>.</span></div></div>
+          <div class="step"><div><b>Выбери время</b><span><span class="mono">.raid time 20</span> — 10, 15, 20, 25 или 30 минут.
+            Никто не выбрал за минуту — будет 10.</span></div></div>
+          <div class="step"><div><b>Жди равных составов</b><span>Как только с обеих сторон поровну — отсчёт 20 секунд и старт.
+            Кто записан — <span class="mono">.raid status</span>.</span></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Позвать соперника на рейд</h3>
+        <div class="steps">
+          <div class="step"><div><b>Собери команду ниже</b><span>Кого зовёшь, на сколько минут и с каким осколком —
+            нажатием, без набора.</span></div></div>
+          <div class="step"><div><b>Вставь её в чат</b><span>Ты — нападение, тот, кого зовёшь, защищает.
+            Идёте кланами: с каждым — его соклановцы в сети.</span></div></div>
+          <div class="step"><div><b>Соперник отвечает</b><span><span class="mono">.raid accept</span> — согласен,
+            <span class="mono">.raid decline</span> — отказ.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="call">
+    <div class="sec-head">
+      <div class="kicker">Нападение</div>
+      <h2>Позвать на рейд</h2>
+    </div>
+    <div class="rb">
+      <span class="side-tag atk">нападение</span>
+      <label class="lbl" for="r-foe">Кого зовём</label>
+      <input id="r-foe" class="field" type="text" placeholder="Имя соперника, как в игре" autocomplete="off" spellcheck="false">
+
+      <label class="lbl">Сколько минут</label>
+      <div class="picks" id="r-time"></div>
+
+      <label class="lbl">Осколок</label>
+      <div class="picks" id="r-shard"></div>
+
+      <div class="out">
+        <p class="say" id="r-plain">впиши имя соперника — и команда соберётся</p>
+        <div class="cmdline">
+          <code id="r-code" class="empty">впиши имя соперника</code>
+          <button class="copy" id="r-copy" data-copy="" disabled>Копировать</button>
+        </div>
+        <p class="next">Вставь в игровой чат. Согласится соперник — мод перенесёт обе стороны к замку,
+          тебя — к сундуку с осадными големами.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="servants">
+    <div class="sec-head">
+      <div class="kicker">Защита</div>
+      <h2>Слуги замка</h2>
+      <p>Восемь гробов. Выбери, кто в них встанет, — команду напиши один раз заранее.
+        Когда начнётся рейд, слуги поднимутся у своих гробов.</p>
+    </div>
+    <div class="rb">
+      <span class="side-tag def">защита</span>
+      <p class="hint">Нажми на слугу — сядет в первый свободный гроб. Нажми на гроб — освободится. Набрано: <b id="r-count">0</b> из 8.</p>
+      <div class="coffins" id="r-coffins"></div>
+
+      <div class="sv-bar">
+        <div class="picks" id="r-groups"></div>
+        <button type="button" class="ghost" id="r-clear">Освободить все</button>
+      </div>
+      <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
+      <div class="sv-grid" id="r-servants"></div>
+
+      <div class="out">
+        <p class="say" id="s-plain">посади хотя бы одного слугу — и команда соберётся</p>
+        <div class="cmdline">
+          <code id="s-code" class="empty">посади хотя бы одного слугу</code>
+          <button class="copy" id="s-copy" data-copy="" disabled>Копировать</button>
+        </div>
+        <p class="next">Вставь в игровой чат заранее, один раз — набор запомнится.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="fight">
+    <div class="sec-head">
+      <div class="kicker">Шаг второй</div>
+      <h2>Что делать в бою</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <span class="side-tag atk">нападение</span>
+        <h3>Ломай замок</h3>
+        <ul>
+          <li>Появляешься у сундука — в нём <b>осадные големы и взрывчатка</b>.</li>
+          <li>Голем ставится только у замка и не вплотную к другому голему.</li>
+          <li>Ломай стены, проходи внутрь. Урон по замку идёт в таблицу.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="side-tag def">защита</span>
+        <h3>Держи замок</h3>
+        <ul>
+          <li>На время матча <b>замок твой</b>, слуги встают у гробов.</li>
+          <li>В сундуке — ресурсы для <b>стигийского круга</b>: скрафти босса, он встанет на защиту.</li>
+          <li>Строить во время боя нельзя — замок такой, каким его построили.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Для всех</h3>
+        <ul>
+          <li><b>Облики</b>: волк, крыса, жаба, летучая мышь — как в обычной игре: превращение с задержкой, обычная скорость.</li>
+          <li><b>Кровь не меняется</b> весь бой — даже если выпил чужую или умер.</li>
+          <li>Вещи <b>не падают</b> и не ломаются.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h3>Если тебя убили</h3>
+        <ul>
+          <li>30 секунд смотришь бой глазами живого товарища (умираешь часто — 90).</li>
+          <li><span class="mono">.spec</span> — следующий товарищ, <span class="mono">.spec имя</span> — конкретный.</li>
+          <li>Над головой — отсчёт до возвращения. Потом ты снова у своей точки.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Конец матча</h3>
+        <ul>
+          <li>Время вышло — или кто-то написал <span class="mono">.gg</span> (работает, когда бой уже идёт).</li>
+          <li>Всех переносит на арену. Сборка, кровь и твой клан — как до матча.</li>
+          <li>Замок восстанавливается сам. Итоги — урон и убийства — придут тебе в чат.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="commands">
+    <div class="sec-head">
+      <div class="kicker">Шпаргалка</div>
+      <h2>Все команды рейда</h2>
+    </div>
+    <div class="cmds">
+      <div class="cmd-group"><h3>Запись</h3>
+        <div class="cmd"><div><code>.raid j a</code><span class="al">он же .raid join attack</span></div><div class="d">Записаться в нападение.</div></div>
+        <div class="cmd"><div><code>.raid j d</code><span class="al">он же .raid join defend</span></div><div class="d">Записаться в защиту.</div></div>
+        <div class="cmd"><div><code>.raid time <span class="arg">&lt;минуты&gt;</span></code></div><div class="d">Длительность матча: 10, 15, 20, 25 или 30.</div></div>
+        <div class="cmd"><div><code>.raid leave</code></div><div class="d">Выйти из записи.</div></div>
+        <div class="cmd"><div><code>.raid status</code></div><div class="d">Кто записан и что сейчас идёт.</div></div>
+      </div>
+      <div class="cmd-group"><h3>Позвать</h3>
+        <div class="cmd"><div><code>.raid invite <span class="arg">&lt;игрок&gt; &lt;замок&gt; &lt;минуты&gt; &lt;осколок&gt;</span></code></div><div class="d">Позвать соперника — проще собрать команду выше.</div></div>
+        <div class="cmd"><div><code>.raid accept</code><span class="al">.raid decline</span></div><div class="d">Ответить на зов.</div></div>
+      </div>
+      <div class="cmd-group"><h3>Защита и бой</h3>
+        <div class="cmd"><div><code>.servants <span class="arg">&lt;код из 8 знаков&gt;</span></code></div><div class="d">Набор слуг для гробов — собери выше.</div></div>
+        <div class="cmd"><div><code>.spec <span class="arg">[имя]</span></code></div><div class="d">Павший: смотреть за следующим товарищем или за названным.</div></div>
+        <div class="cmd"><div><code>.gg</code></div><div class="d">Закончить матч досрочно (когда бой уже идёт).</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© Матрёшка, 2026 · <a href="../">Матрёшка Arena</a> · админ — Slaint</span>
+    <span><a href="../../forge/">Сборки вампиров</a> · <a href="../../discord/">Discord</a></span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js?v=20261007c"></script>
+<script>
+/* Две команды, как было во вкладке Кузницы: «.raid invite имя замок минуты
+   осколок» и «.servants» с восемью знаками (по знаку на гроб, «0» — пусто).
+   Страница ничего не знает о сервере — только собирает строку для чата. */
+const R_PLOT   = '95';
+const R_TIMES  = [15, 30, 45, 60, 90, 120];
+const R_SHARDS = [
+  {k:'None',    n:'нет'},
+  {k:'Dracula', n:'Дракула'},
+  {k:'Winged',  n:'Крылатый'},
+  {k:'Monster', n:'Чудовище'},
+  {k:'Serpent', n:'Змей'},
+  {k:'Solarus', n:'Солярус'},
+];
+const R_SERVANTS = [
+{c:"1",n:"Alchemist",g:"A",p:"CHAR_Blackfang_Alchemist_Servant"},
+{c:"2",n:"Militia Veteran",g:"A",p:"CHAR_Militia_Heavy_Servant"},
+{c:"3",n:"Striker",g:"A",p:"CHAR_Blackfang_Striker_Servant"},
+{c:"4",n:"Cleric",g:"A",p:"CHAR_ChurchOfLight_Cleric_Servant"},
+{c:"5",n:"Nun",g:"A",p:"CHAR_Farmlands_Nun_Servant"},
+{c:"6",n:"Sentinel",g:"A",p:"CHAR_Blackfang_Sentinel_Servant"},
+{c:"7",n:"Viper",g:"A",p:"CHAR_Blackfang_Viper_Servant"},
+{c:"8",n:"Priest",g:"B",p:"CHAR_ChurchOfLight_Priest_Servant"},
+{c:"9",n:"Paladin",g:"B",p:"CHAR_ChurchOfLight_Paladin_Servant"},
+{c:"a",n:"Lightweaver",g:"B",p:"CHAR_ChurchOfLight_Lightweaver_Servant"},
+{c:"b",n:"Dark Temptress",g:"C",p:"CHAR_Legion_NightMaiden_Servant"},
+{c:"c",n:"Night Maiden",g:"C",p:"CHAR_Legion_NightMaiden_Lesser_Servant"},
+{c:"d",n:"Tractor Beamer",g:"C",p:"CHAR_Gloomrot_TractorBeamer_Servant"},
+{c:"e",n:"Exsanguinator",g:"C",p:"CHAR_Legion_Assassin_Servant"},
+{c:"f",n:"Rifleman",g:"C",p:"CHAR_ChurchOfLight_Rifleman_Servant"},
+{c:"g",n:"Dreadcleaver",g:"D",p:"CHAR_Blackfang_Venomblade_Servant"},
+{c:"h",n:"Knight",g:"D",p:"CHAR_ChurchOfLight_Knight_2H_Servant"},
+{c:"i",n:"Knight",g:"D",p:"CHAR_ChurchOfLight_Knight_Shield_Servant"},
+{c:"j",n:"Militia Guard",g:"D",p:"CHAR_Militia_Guard_Servant"},
+{c:"k",n:"Devoted",g:"D",p:"CHAR_Militia_Devoted_Servant"},
+{c:"l",n:"Slave Master",g:"D",p:"CHAR_ChurchOfLight_SlaveMaster_Enforcer_Servant"},
+{c:"m",n:"Slave Master",g:"D",p:"CHAR_ChurchOfLight_SlaveMaster_Sentry_Servant"},
+{c:"n",n:"Sentry Officer",g:"D",p:"CHAR_Gloomrot_SentryOfficer_Servant"},
+{c:"o",n:"Railgunner",g:"D",p:"CHAR_Gloomrot_Railgunner_Servant"},
+{c:"p",n:"Tazer",g:"D",p:"CHAR_Gloomrot_Tazer_Servant"},
+{c:"q",n:"Pyro",g:"D",p:"CHAR_Gloomrot_Pyro_Servant"},
+{c:"r",n:"Mugger",g:"D",p:"CHAR_Bandit_Mugger_Servant"},
+{c:"s",n:"Thief",g:"D",p:"CHAR_Bandit_Thief_Servant"},
+{c:"t",n:"Trapper",g:"D",p:"CHAR_Bandit_Trapper_Servant"},
+{c:"u",n:"Ace Incinerator",g:"",p:"CHAR_Gloomrot_AceIncinerator_Servant"},
+{c:"v",n:"Stalker",g:"E",p:"CHAR_Bandit_Stalker_Servant"},
+{c:"w",n:"Militia Torchbearer",g:"E",p:"CHAR_Militia_Torchbearer_Servant"},
+{c:"x",n:"Bomber",g:"E",p:"CHAR_Bandit_Bomber_Servant"},
+{c:"y",n:"Militia Demolisher",g:"E",p:"CHAR_Militia_Bomber_Servant"},
+{c:"z",n:"Militia Crossbow",g:"E",p:"CHAR_Militia_Crossbow_Servant"},
+{c:"A",n:"Archer",g:"E",p:"CHAR_ChurchOfLight_Archer_Servant"},
+{c:"B",n:"Dartflinger",g:"E",p:"CHAR_Blackfang_DartFlinger_Servant"},
+{c:"C",n:"Militia Archer",g:"E",p:"CHAR_Militia_Longbowman_Servant"},
+{c:"D",n:"Deadeye",g:"E",p:"CHAR_Bandit_Deadeye_Servant"},
+{c:"E",n:"Lurker",g:"E",p:"CHAR_Blackfang_Lurker_Servant"},
+{c:"F",n:"Poacher",g:"E",p:"CHAR_Bandit_Hunter_Servant"},
+{c:"G",n:"Ruffian",g:"E",p:"CHAR_ChurchOfLight_SlaveRuffian_Servant"},
+{c:"H",n:"Miner",g:"E",p:"CHAR_ChurchOfLight_Miner_Standard_Servant"},
+{c:"I",n:"Militia Skirmisher",g:"E",p:"CHAR_Militia_Light_Servant"},
+{c:"J",n:"Thug",g:"E",p:"CHAR_Bandit_Thug_Servant"},
+{c:"K",n:"Scout",g:"E",p:"CHAR_Bandit_Scout_Servant"},
+{c:"L",n:"Footman",g:"E",p:"CHAR_ChurchOfLight_Footman_Servant"},
+{c:"M",n:"Peon",g:"E",p:"CHAR_Blackfang_Peon_Servant"},
+{c:"N",n:"Batoon",g:"E",p:"CHAR_Gloomrot_Batoon_Servant"},
+{c:"O",n:"Woodcutter",g:"E",p:"CHAR_Farmlands_Woodcutter_Standard_Servant"},
+{c:"P",n:"Farmer",g:"E",p:"CHAR_Farmlands_Farmer_Servant"},
+{c:"Q",n:"Carver",g:"E",p:"CHAR_Blackfang_WoodCarver_Servant"},
+{c:"R",n:"Rascal",g:"E",p:"CHAR_Bandit_Rascal_Servant"},
+{c:"S",n:"Vampire Cultist",g:"E",p:"CHAR_Vampire_Cultist_Male_Servant"},
+{c:"T",n:"Vampire Cultist",g:"E",p:"CHAR_Vampire_Cultist_Female_Servant"},
+{c:"U",n:"Gatherer",g:"E",p:"CHAR_Bandit_Worker_Gatherer_Servant"},
+{c:"V",n:"Miner",g:"E",p:"CHAR_Bandit_Miner_Standard_Servant"},
+{c:"W",n:"Woodcutter",g:"E",p:"CHAR_Bandit_Woodcutter_Standard_Servant"},
+{c:"X",n:"Labworker",g:"E",p:"CHAR_Gloomrot_Technician_Labworker_Servant"},
+{c:"Y",n:"Technician",g:"E",p:"CHAR_Gloomrot_Technician_Servant"},
+{c:"Z",n:"Villager",g:"E",p:"CHAR_Gloomrot_Villager_Female_Servant"},
+{c:"!",n:"Villager",g:"E",p:"CHAR_Gloomrot_Villager_Male_Servant"},
+{c:"#",n:"Miner",g:"E",p:"CHAR_Militia_Miner_Standard_Servant"},
+{c:"$",n:"Villager",g:"E",p:"CHAR_ChurchOfLight_Villager_Female_Servant"},
+{c:"%",n:"Villager",g:"E",p:"CHAR_ChurchOfLight_Villager_Male_Servant"},
+{c:"&",n:"Villager",g:"E",p:"CHAR_Farmlands_Villager_Female_Servant"},
+{c:"(",n:"Villager",g:"E",p:"CHAR_Farmlands_Villager_Female_Sister_Servant"},
+{c:")",n:"Villager",g:"E",p:"CHAR_Farmlands_Villager_Male_Servant"},
+{c:"*",n:"Bell Ringer",g:"E",p:"CHAR_Militia_BellRinger_Servant"},
+];
+const R_SLOTS  = 8;
+const R_GROUPS = ['A', 'B', 'C', 'D', 'E'];
+const R_STORE  = 'slaint.raid.v1';   // то же хранилище, что во вкладке Кузницы — набор не пропадёт
+
+let rTime    = 30;
+let rShard   = 'None';
+let rCoffins = Array(R_SLOTS).fill(null);
+let rGroup   = 'all';
+
+const $ = id => document.getElementById(id);
+
+function load(){
+  try {
+    const s = JSON.parse(localStorage.getItem(R_STORE) || '{}');
+    if (R_TIMES.includes(s.time)) rTime = s.time;
+    if (R_SHARDS.some(x => x.k === s.shard)) rShard = s.shard;
+    if (Array.isArray(s.coffins))
+      rCoffins = Array.from({length: R_SLOTS}, (_, i) => R_SERVANTS.some(x => x.c === s.coffins[i]) ? s.coffins[i] : null);
+    if (typeof s.foe === 'string') $('r-foe').value = s.foe;
+  } catch {}
+}
+function save(){
+  try { localStorage.setItem(R_STORE, JSON.stringify({ time: rTime, shard: rShard, coffins: rCoffins, foe: $('r-foe').value })); } catch {}
+}
+
+function pick(label, sub, on, click){
+  const b = document.createElement('button');
+  b.className = 'pick'; b.type = 'button';
+  b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  b.innerHTML = label + (sub ? `<span class="en">${sub}</span>` : '');
+  b.addEventListener('click', click);
+  return b;
+}
+function setCmd(codeId, copyId, sayId, cmd, empty, say){
+  const code = $(codeId), copy = $(copyId);
+  code.textContent = cmd || empty;
+  code.classList.toggle('empty', !cmd);
+  copy.disabled = !cmd;
+  copy.setAttribute('data-copy', cmd || '');
+  $(sayId).textContent = say;
+}
+
+function drawAttack(){
+  const t = $('r-time'); t.textContent = '';
+  R_TIMES.forEach(m => t.append(pick(`${m} мин`, null, rTime === m, () => { rTime = m; draw(); })));
+  const s = $('r-shard'); s.textContent = '';
+  R_SHARDS.forEach(x => s.append(pick(x.n, x.k, rShard === x.k, () => { rShard = x.k; draw(); })));
+
+  const foe = $('r-foe').value.trim();
+  const shard = R_SHARDS.find(x => x.k === rShard);
+  setCmd('r-code', 'r-copy', 'r-plain',
+    foe ? `.raid invite ${foe} ${R_PLOT} ${rTime} ${rShard}` : '',
+    'впиши имя соперника',
+    foe ? `Позовёшь ${foe} на рейд: бой ${rTime} мин, осколок — ${shard ? shard.n.toLowerCase() : rShard}.`
+        : 'впиши имя соперника — и команда соберётся');
+}
+
+const short = p => p.replace('CHAR_', '').replace('_Servant', '').replace(/_/g, ' ');
+
+function drawDefend(){
+  const box = $('r-coffins'); box.textContent = '';
+  rCoffins.forEach((c, i) => {
+    const who = c ? R_SERVANTS.find(x => x.c === c) : null;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'coffin' + (who ? ' full' : '');
+    b.innerHTML = (who ? who.n : 'пусто') + `<span class="n">гроб ${i + 1}</span>`;
+    b.addEventListener('click', () => { rCoffins[i] = null; draw(); });
+    box.append(b);
+  });
+
+  const g = $('r-groups'); g.textContent = '';
+  [['all', 'Все'], ...R_GROUPS.map(x => [x, `Группа ${x}`])].forEach(([k, n]) =>
+    g.append(pick(n, null, rGroup === k, () => { rGroup = k; draw(); })));
+
+  const find = $('r-find').value.trim().toLowerCase();
+  const full = rCoffins.every(Boolean);
+  const list = $('r-servants'); list.textContent = '';
+  R_SERVANTS
+    .filter(x => rGroup === 'all' || x.g === rGroup)
+    .filter(x => !find || x.n.toLowerCase().includes(find) || x.p.toLowerCase().includes(find))
+    .forEach(x => {
+      const taken = rCoffins.filter(c => c === x.c).length;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'sv'; b.disabled = full;
+      b.setAttribute('aria-pressed', taken ? 'true' : 'false');
+      b.innerHTML = `${taken ? `<span class="x">×${taken}</span>` : ''}${x.n}<span class="en">${short(x.p)}</span>`;
+      b.addEventListener('click', () => { const f = rCoffins.indexOf(null); if (f < 0) return; rCoffins[f] = x.c; draw(); });
+      list.append(b);
+    });
+
+  const n = rCoffins.filter(Boolean).length;
+  $('r-count').textContent = n;
+  $('r-clear').disabled = n === 0;
+  setCmd('s-code', 's-copy', 's-plain',
+    n ? `.servants ${rCoffins.map(c => c || '0').join('')}` : '',
+    'посади хотя бы одного слугу',
+    n ? `${n} ${n === 1 ? 'слуга' : (n < 5 ? 'слуги' : 'слуг')} из 8 — встанут у своих гробов, когда начнётся рейд.`
+      : 'посади хотя бы одного слугу — и команда соберётся');
+}
+
+function draw(){ drawAttack(); drawDefend(); save(); }
+
+$('r-foe').addEventListener('input', draw);
+$('r-find').addEventListener('input', draw);
+$('r-clear').addEventListener('click', () => { rCoffins = Array(R_SLOTS).fill(null); draw(); });
+load();
+draw();
+</script>
+</body>
+</html>

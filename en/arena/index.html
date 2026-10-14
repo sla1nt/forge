@@ -53,7 +53,8 @@
     </div>
     <p class="dim" style="margin-top:8px">In the server list — <b class="mono">[RU] Arena Matryoshka</b></p>
     <div class="hero-actions">
-      <a class="btn main" href="../forge/">Build a fighter in the Forge</a>
+      <a class="btn main" href="../forge/">Vampire builds</a>
+      <a class="btn main" href="../../arena/raid/">Castle raids (RU)</a>
       <a class="btn" href="#start">How to start</a>
       <a class="btn" href="../../discord/">Discord</a>
     </div>
@@ -190,11 +191,12 @@
         <div class="cmd" data-g="build"><div><code>.reset</code><span class="al">also .r</span></div><div class="d">Full health and all cooldowns reset. Works even in combat.</div></div>
       </div>
       <div class="cmd-group"><h3>Raids and duels</h3>
-        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">join attack|defend</span></code><span class="al">by command only</span></div><div class="d">Sign up for the raid arena as an attacker or a defender. <span class="mono">.raid leave</span> — leave, <span class="mono">.raid status</span> — what is going on.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">j a | .raid j d</span></code><span class="al">also .raid join attack|defend</span></div><div class="d">Sign up for a castle raid: a — attack, d — defend. <span class="mono">.raid leave</span> — leave, <span class="mono">.raid status</span> — who is signed up.</div></div>
         <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">invite &lt;player&gt; &lt;plot&gt; &lt;minutes&gt; &lt;shard&gt;</span></code><span class="al">.raid accept / .raid decline</span></div><div class="d">Invite a player to a raid: you attack, they defend their castle. They answer accept or decline.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">time &lt;min&gt;</span></code><span class="al">.raid loc <N></span></div><div class="d">Choose the match length (10–30 min) and the location.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.servants <span class="arg">[8-character code]</span></code><span class="al">also .set-servants</span></div><div class="d">Servants for the coffins of your castle — one character per coffin, 0 — empty. Easiest to make in the Forge, “Castle raid” tab.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.gg</code></div><div class="d">Surrender and end the raid early.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">time &lt;min&gt;</span></code></div><div class="d">Match length: 10, 15, 20, 25 or 30 minutes.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.servants <span class="arg">[8-character code]</span></code><span class="al">also .set-servants</span></div><div class="d">Servants for the coffins — one character per coffin, 0 — empty. Easiest to make on the <a href="../../arena/raid/#servants">Castle raids</a> page.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.spec <span class="arg">[name]</span></code></div><div class="d">Fallen in a raid: watch the fight through a teammate’s eyes — next one, or the one named.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.gg</code></div><div class="d">End the raid early (once the fight is on).</div></div>
         <div class="cmd" data-g="pvp"><div><code>.duel <span class="arg">&lt;name&gt; | accept | deny | ff</span></code><span class="al">also .d · <span class="badge soon">soon</span></span></div><div class="d">1v1 duel: challenge, accept, decline, surrender. Duels are switched off for now.</div></div>
         <div class="cmd" data-g="pvp"><div><code>.top</code><span class="al"><span class="badge soon">soon</span></span></div><div class="d">Duel rating.</div></div>
         <div class="cmd" data-g="pvp"><div><code>.stats</code><span class="al">also .st · <span class="badge soon">soon</span></span></div><div class="d">Your duel statistics.</div></div>

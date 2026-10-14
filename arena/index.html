@@ -29,7 +29,8 @@
       <a href="#build">Сборка</a>
       <a href="#modes">Режимы</a>
       <a href="#commands">Команды</a>
-      <a href="../forge/">Кузница</a>
+      <a href="raid/">Рейды замков</a>
+      <a href="../forge/">Сборки вампиров</a>
       <a href="../pvp/" class="pvp-link">PVP</a>
       <a href="../discord/">Discord</a>
       <a href="../rules/" class="rules-link">Правила</a>
@@ -53,7 +54,8 @@
     </div>
     <p class="dim" style="margin-top:8px">В списке серверов — <b class="mono">[RU] Arena Matryoshka</b></p>
     <div class="hero-actions">
-      <a class="btn main" href="../forge/">Собрать бойца в Кузнице</a>
+      <a class="btn main" href="../forge/">Сборки вампиров</a>
+      <a class="btn main" href="raid/">Рейды замков</a>
       <a class="btn" href="#start">Как начать</a>
       <a class="btn" href="../discord/">Discord</a>
     </div>
@@ -149,10 +151,11 @@
           тренировочных манекена по 25 000 здоровья.</p>
       </div>
       <div class="card">
-        <h3>Рейд-арена замков <span class="badge">бета</span></h3>
-        <p>Записываешься командой <span class="mono">.raid join attack</span> или <span class="mono">defend</span> — за нападающих или защитников. Дальше мод сам разводит по кланам, переносит к
-          замку, выдаёт баффы, лечилки и осадные предметы нападающим. Время матча — от 10 до 30 минут,
-          слуги защитника ставятся по набору из Кузницы.</p>
+        <h3>Рейды замков <span class="badge">бета</span></h3>
+        <p>Одни ломают замок, другие держат. Записываешься командой <span class="mono">.raid j a</span>
+          (нападение) или <span class="mono">.raid j d</span> (защита) — или зовёшь соперника. Матч 10–30 минут,
+          после него всё возвращается как было.</p>
+        <p style="margin-top:10px"><a class="btn" href="raid/">Как играть и все команды →</a></p>
         <p class="dim" style="margin-top:8px">Матч ещё обкатывается: возможны шероховатости.</p>
       </div>
       <div class="card">
@@ -190,11 +193,12 @@
         <div class="cmd" data-g="build"><div><code>.reset</code><span class="al">он же .r</span></div><div class="d">Полное здоровье и сброс всех откатов. Работает даже в бою.</div></div>
       </div>
       <div class="cmd-group"><h3>Рейды и дуэли</h3>
-        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">join attack|defend</span></code><span class="al">только командой</span></div><div class="d">Записаться в рейд-арену за нападающих или защитников. <span class="mono">.raid leave</span> — выйти, <span class="mono">.raid status</span> — что сейчас.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">invite &lt;игрок&gt; &lt;участок&gt; &lt;минуты&gt; &lt;осколок&gt;</span></code><span class="al">.raid accept / .raid decline</span></div><div class="d">Позвать игрока на рейд: ты нападаешь, он защищает свой замок. Он отвечает accept или decline.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">time &lt;мин&gt;</span></code><span class="al">.raid loc <N></span></div><div class="d">Выбрать длительность матча (10–30 мин) и локацию.</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.servants <span class="arg">[код из 8 знаков]</span></code><span class="al">он же .set-servants</span></div><div class="d">Набор слуг для гробов твоего замка — по знаку на гроб, 0 — пусто. Код удобно собрать в Кузнице, вкладка «Рейд замка».</div></div>
-        <div class="cmd" data-g="pvp"><div><code>.gg</code></div><div class="d">Сдаться и закончить рейд досрочно.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">j a | .raid j d</span></code><span class="al">он же .raid join attack|defend</span></div><div class="d">Записаться в рейд замков: a — нападение, d — защита. <span class="mono">.raid leave</span> — выйти, <span class="mono">.raid status</span> — кто записан. Подробно — <a href="raid/">Рейды замков</a>.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">invite &lt;игрок&gt; &lt;участок&gt; &lt;минуты&gt; &lt;осколок&gt;</span></code><span class="al">.raid accept / .raid decline</span></div><div class="d">Позвать соперника на рейд: ты нападаешь, он защищает. Команду проще собрать на странице <a href="raid/#call">Рейды замков</a>.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.raid <span class="arg">time &lt;мин&gt;</span></code></div><div class="d">Длительность матча: 10, 15, 20, 25 или 30 минут.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.servants <span class="arg">[код из 8 знаков]</span></code><span class="al">он же .set-servants</span></div><div class="d">Набор слуг для гробов — по знаку на гроб, 0 — пусто. Код удобно собрать на странице <a href="raid/#servants">Рейды замков</a>.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.spec <span class="arg">[имя]</span></code></div><div class="d">Павший в рейде смотрит бой глазами товарища: без имени — следующий, с именем — названный.</div></div>
+        <div class="cmd" data-g="pvp"><div><code>.gg</code></div><div class="d">Закончить рейд досрочно (когда бой уже идёт).</div></div>
         <div class="cmd" data-g="pvp"><div><code>.duel <span class="arg">&lt;ник&gt; | accept | deny | ff</span></code><span class="al">он же .d · <span class="badge soon">скоро</span></span></div><div class="d">Дуэль 1×1: вызвать, принять, отказаться, сдаться. Сейчас дуэли выключены.</div></div>
         <div class="cmd" data-g="pvp"><div><code>.top</code><span class="al"><span class="badge soon">скоро</span></span></div><div class="d">Рейтинг дуэлей.</div></div>
         <div class="cmd" data-g="pvp"><div><code>.stats</code><span class="al">он же .st · <span class="badge soon">скоро</span></span></div><div class="d">Своя статистика дуэлей.</div></div>
