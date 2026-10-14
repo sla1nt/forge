@@ -53,6 +53,35 @@
 .side-tag.def{background:rgba(70,110,200,.16); color:#9fb8f0; border:1px solid rgba(70,110,200,.45)}
 .card ul{margin:8px 0 0; padding-left:18px}
 .card li{margin:6px 0}
+/* Компактно (14.10, Алексей: «слишком много листать»). */
+section{padding:26px 0}
+.hero{padding:34px 0 8px}
+h2.h-sm{font-size:clamp(24px,3vw,32px); margin:0 0 14px}
+.card{padding:16px 18px}
+.card h3{margin:0 0 6px; font-size:18px}
+ol.short{margin:0; padding-left:20px} ol.short li{margin:4px 0}
+.small{font-size:13px; margin:8px 0 0}
+.tools{align-items:start}
+.rb{margin-top:0; padding:16px 18px}
+.rb h3{margin:4px 0 2px}
+.rb label.lbl{margin:10px 0 6px}
+.pick{padding:6px 10px}
+.out{margin-top:12px; padding-top:10px}
+.coffin{min-height:40px; padding:6px}
+.sv-grid{max-height:220px}
+.fight{grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px}
+.fight ul{margin:4px 0 0; font-size:14px}
+.cmds{margin-top:0}
+.cheat{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; border:1px solid var(--line);
+  border-radius:var(--r); background:var(--surface)}
+.ch-grp{padding:14px 18px} .ch-grp + .ch-grp{border-left:1px solid var(--line-soft)}
+.ch-h{font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px}
+.ch-row{display:grid; grid-template-columns:118px 1fr; gap:10px; align-items:baseline; padding:5px 0; border-top:1px solid var(--line-soft)}
+.ch-row:first-of-type{border-top:0}
+.ch-row code{font-family:'JetBrains Mono',monospace; font-size:13.5px; color:var(--gold-lit); white-space:nowrap}
+.ch-row span{font-size:14px; color:var(--muted)}
+@media (max-width:860px){ .cheat{grid-template-columns:1fr} .ch-grp + .ch-grp{border-left:0; border-top:1px solid var(--line-soft)} }
+@media (max-width:860px){ .tools{grid-template-columns:1fr} }
 @media (max-width:560px){ .coffins{grid-template-columns:repeat(2,1fr)} .rb{padding:16px} }
 </style>
 </head>
@@ -70,8 +99,7 @@
     <button class="burger" aria-label="Меню">☰</button>
     <nav class="nav">
       <a href="#join">Как попасть</a>
-      <a href="#call">Позвать</a>
-      <a href="#servants">Слуги</a>
+      <a href="#tools">Позвать и слуги</a>
       <a href="#fight">В бою</a>
       <a href="#commands">Команды</a>
       <a href="../">Арена</a>
@@ -87,180 +115,144 @@
   <section class="hero">
     <div class="kicker">Матрёшка Arena · режим</div>
     <h1>Рейды <span class="accent">замков</span></h1>
-    <p class="lead">Матч на замке: одни ломают, другие держат. От 10 до 30 минут — потом таблица:
-      кто сколько нанёс по замку и по бойцам. Дерёшься своей сборкой, а после матча всё вернётся
-      как было — сборка, кровь, клан и сам замок.</p>
-    <div class="hero-actions">
-      <a class="btn main" href="#join">Как попасть в рейд</a>
-      <a class="btn" href="#call">Позвать соперника</a>
-      <a class="btn" href="#servants">Слуги для защиты</a>
-    </div>
+    <p class="lead">Одни ломают замок, другие держат. Матч 10–30 минут, в конце — таблица урона.
+      Дерёшься своей сборкой, после матча всё вернётся как было.</p>
   </section>
 
   <section id="join">
-    <div class="sec-head">
-      <div class="kicker">Шаг первый</div>
-      <h2>Как попасть в рейд</h2>
-      <p>Два способа. Все команды — в игровой чат, с точкой в начале.</p>
-    </div>
+    <h2 class="h-sm">Как попасть в рейд</h2>
     <div class="grid g2">
       <div class="card">
-        <h3>Записаться и ждать соперников</h3>
-        <div class="steps">
-          <div class="step"><div><b>Выбери сторону</b><span><span class="mono">.raid j a</span> — нападение,
-            <span class="mono">.raid j d</span> — защита. Передумал — <span class="mono">.raid leave</span>.</span></div></div>
-          <div class="step"><div><b>Выбери время</b><span><span class="mono">.raid time 20</span> — 10, 15, 20, 25 или 30 минут.
-            Никто не выбрал за минуту — будет 10.</span></div></div>
-          <div class="step"><div><b>Жди равных составов</b><span>Как только с обеих сторон поровну — отсчёт 20 секунд и старт.
-            Кто записан — <span class="mono">.raid status</span>.</span></div></div>
-        </div>
+        <h3>Записаться</h3>
+        <ol class="short">
+          <li><span class="mono">.raid j a</span> — нападение, <span class="mono">.raid j d</span> — защита.</li>
+          <li><span class="mono">.raid time 20</span> — 10, 15, 20, 25 или 30 мин (не выбрали за минуту — 10).</li>
+          <li>Составы равны — 20 секунд отсчёта и старт.</li>
+        </ol>
+        <p class="dim small">Выйти — <span class="mono">.raid leave</span>, кто записан — <span class="mono">.raid status</span>.</p>
       </div>
       <div class="card">
-        <h3>Позвать соперника на рейд</h3>
-        <div class="steps">
-          <div class="step"><div><b>Собери команду ниже</b><span>Кого зовёшь, на сколько минут и с каким осколком —
-            нажатием, без набора.</span></div></div>
-          <div class="step"><div><b>Вставь её в чат</b><span>Ты — нападение, тот, кого зовёшь, защищает.
-            Идёте кланами: с каждым — его соклановцы в сети.</span></div></div>
-          <div class="step"><div><b>Соперник отвечает</b><span><span class="mono">.raid accept</span> — согласен,
-            <span class="mono">.raid decline</span> — отказ.</span></div></div>
-        </div>
+        <h3>Позвать соперника</h3>
+        <ol class="short">
+          <li>Собери команду ниже и вставь в чат.</li>
+          <li>Ты нападаешь, он защищает. С каждым — его соклановцы в сети.</li>
+          <li>Он отвечает <span class="mono">.raid accept</span> или <span class="mono">.raid decline</span>.</li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <section id="call">
-    <div class="sec-head">
-      <div class="kicker">Нападение</div>
-      <h2>Позвать на рейд</h2>
-    </div>
-    <div class="rb">
-      <span class="side-tag atk">нападение</span>
-      <label class="lbl" for="r-foe">Кого зовём</label>
-      <input id="r-foe" class="field" type="text" placeholder="Имя соперника, как в игре" autocomplete="off" spellcheck="false">
-
-      <label class="lbl">Сколько минут</label>
-      <div class="picks" id="r-time"></div>
-
-      <label class="lbl">Осколок</label>
-      <div class="picks" id="r-shard"></div>
-
-      <div class="out">
-        <p class="say" id="r-plain">впиши имя соперника — и команда соберётся</p>
-        <div class="cmdline">
-          <code id="r-code" class="empty">впиши имя соперника</code>
-          <button class="copy" id="r-copy" data-copy="" disabled>Копировать</button>
+  <section id="tools">
+    <h2 class="h-sm">Команды для чата</h2>
+    <div class="grid g2 tools">
+      <div class="rb" id="call">
+        <span class="side-tag atk">нападение</span>
+        <h3>Позвать на рейд</h3>
+        <label class="lbl" for="r-foe">Кого зовём</label>
+        <input id="r-foe" class="field" type="text" placeholder="Имя соперника, как в игре" autocomplete="off" spellcheck="false">
+        <label class="lbl">Сколько минут</label>
+        <div class="picks" id="r-time"></div>
+        <label class="lbl">Осколок</label>
+        <div class="picks" id="r-shard"></div>
+        <div class="out">
+          <p class="say" id="r-plain">впиши имя соперника — и команда соберётся</p>
+          <div class="cmdline">
+            <code id="r-code" class="empty">впиши имя соперника</code>
+            <button class="copy" id="r-copy" data-copy="" disabled>Копировать</button>
+          </div>
         </div>
-        <p class="next">Вставь в игровой чат. Согласится соперник — мод перенесёт обе стороны к замку,
-          тебя — к сундуку с осадными големами.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="servants">
-    <div class="sec-head">
-      <div class="kicker">Защита</div>
-      <h2>Слуги замка</h2>
-      <p>Восемь гробов. Выбери, кто в них встанет, — команду напиши один раз заранее.
-        Когда начнётся рейд, слуги поднимутся у своих гробов.</p>
-    </div>
-    <div class="rb">
-      <span class="side-tag def">защита</span>
-      <p class="hint">Нажми на слугу — сядет в первый свободный гроб. Нажми на гроб — освободится. Набрано: <b id="r-count">0</b> из 8.</p>
-      <div class="coffins" id="r-coffins"></div>
-
-      <div class="sv-bar">
-        <div class="picks" id="r-groups"></div>
-        <button type="button" class="ghost" id="r-clear">Освободить все</button>
-      </div>
-      <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
-      <div class="sv-grid" id="r-servants"></div>
-
-      <div class="out">
-        <p class="say" id="s-plain">посади хотя бы одного слугу — и команда соберётся</p>
-        <div class="cmdline">
-          <code id="s-code" class="empty">посади хотя бы одного слугу</code>
-          <button class="copy" id="s-copy" data-copy="" disabled>Копировать</button>
+      <div class="rb" id="servants">
+        <span class="side-tag def">защита</span>
+        <h3>Слуги замка</h3>
+        <p class="hint">Нажми на слугу — сядет в свободный гроб, на гроб — освободится. Набрано <b id="r-count">0</b> из 8. Пишется один раз заранее.</p>
+        <div class="coffins" id="r-coffins"></div>
+        <div class="sv-bar">
+          <div class="picks" id="r-groups"></div>
+          <button type="button" class="ghost" id="r-clear">Очистить</button>
         </div>
-        <p class="next">Вставь в игровой чат заранее, один раз — набор запомнится.</p>
+        <input id="r-find" class="field" type="text" placeholder="Поиск по имени" autocomplete="off" spellcheck="false">
+        <div class="sv-grid" id="r-servants"></div>
+        <div class="out">
+          <p class="say" id="s-plain">посади хотя бы одного слугу — и команда соберётся</p>
+          <div class="cmdline">
+            <code id="s-code" class="empty">посади хотя бы одного слугу</code>
+            <button class="copy" id="s-copy" data-copy="" disabled>Копировать</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="fight">
-    <div class="sec-head">
-      <div class="kicker">Шаг второй</div>
-      <h2>Что делать в бою</h2>
-    </div>
-    <div class="grid g3">
+    <h2 class="h-sm">Что в бою</h2>
+    <div class="grid fight">
       <div class="card">
         <span class="side-tag atk">нападение</span>
-        <h3>Ломай замок</h3>
         <ul>
-          <li>Появляешься у сундука — в нём <b>осадные големы и взрывчатка</b>.</li>
-          <li>Голем ставится только у замка и не вплотную к другому голему.</li>
-          <li>Ломай стены, проходи внутрь. Урон по замку идёт в таблицу.</li>
+          <li>Старт у сундука: <b>осадные големы и взрывчатка</b>.</li>
+          <li>Голем — только у замка и не вплотную к другому.</li>
+          <li>Урон по замку идёт в таблицу.</li>
         </ul>
       </div>
       <div class="card">
         <span class="side-tag def">защита</span>
-        <h3>Держи замок</h3>
         <ul>
-          <li>На время матча <b>замок твой</b>, слуги встают у гробов.</li>
-          <li>В сундуке — ресурсы для <b>стигийского круга</b>: скрафти босса, он встанет на защиту.</li>
-          <li>Строить во время боя нельзя — замок такой, каким его построили.</li>
+          <li>На матч <b>замок твой</b>, слуги встают у гробов.</li>
+          <li>В сундуке — ресурсы на босса в <b>стигийском круге</b>.</li>
+          <li>Строить во время боя нельзя.</li>
         </ul>
       </div>
       <div class="card">
         <h3>Для всех</h3>
         <ul>
-          <li><b>Облики</b>: волк, крыса, жаба, летучая мышь — как в обычной игре: превращение с задержкой, обычная скорость.</li>
-          <li><b>Кровь не меняется</b> весь бой — даже если выпил чужую или умер.</li>
+          <li>Волк, крыса, жаба, мышь — как в обычной игре.</li>
+          <li><b>Кровь не меняется</b> весь бой.</li>
           <li>Вещи <b>не падают</b> и не ломаются.</li>
         </ul>
       </div>
-    </div>
-    <div class="grid g2" style="margin-top:18px">
       <div class="card">
-        <h3>Если тебя убили</h3>
+        <h3>Если убили</h3>
         <ul>
-          <li>30 секунд смотришь бой глазами живого товарища (умираешь часто — 90).</li>
-          <li><span class="mono">.spec</span> — следующий товарищ, <span class="mono">.spec имя</span> — конкретный.</li>
-          <li>Над головой — отсчёт до возвращения. Потом ты снова у своей точки.</li>
+          <li>30 с смотришь глазами товарища (часто умираешь — 90).</li>
+          <li><span class="mono">.spec</span> — следующий, <span class="mono">.spec имя</span> — нужный.</li>
+          <li>Отсчёт — над головой.</li>
         </ul>
       </div>
       <div class="card">
         <h3>Конец матча</h3>
         <ul>
-          <li>Время вышло — или кто-то написал <span class="mono">.gg</span> (работает, когда бой уже идёт).</li>
-          <li>Всех переносит на арену. Сборка, кровь и твой клан — как до матча.</li>
-          <li>Замок восстанавливается сам. Итоги — урон и убийства — придут тебе в чат.</li>
+          <li>Время вышло или <span class="mono">.gg</span> (когда бой идёт).</li>
+          <li>Все на арене: сборка, кровь, клан — как были.</li>
+          <li>Замок чинится сам, итоги — в чат.</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section id="commands">
-    <div class="sec-head">
-      <div class="kicker">Шпаргалка</div>
-      <h2>Все команды рейда</h2>
-    </div>
-    <div class="cmds">
-      <div class="cmd-group"><h3>Запись</h3>
-        <div class="cmd"><div><code>.raid j a</code><span class="al">он же .raid join attack</span></div><div class="d">Записаться в нападение.</div></div>
-        <div class="cmd"><div><code>.raid j d</code><span class="al">он же .raid join defend</span></div><div class="d">Записаться в защиту.</div></div>
-        <div class="cmd"><div><code>.raid time <span class="arg">&lt;минуты&gt;</span></code></div><div class="d">Длительность матча: 10, 15, 20, 25 или 30.</div></div>
-        <div class="cmd"><div><code>.raid leave</code></div><div class="d">Выйти из записи.</div></div>
-        <div class="cmd"><div><code>.raid status</code></div><div class="d">Кто записан и что сейчас идёт.</div></div>
+    <h2 class="h-sm">Все команды рейда</h2>
+    <div class="cheat">
+      <div class="ch-grp">
+        <div class="ch-h">Запись</div>
+        <div class="ch-row"><code>.raid j a</code><span>записаться в нападение</span></div>
+        <div class="ch-row"><code>.raid j d</code><span>записаться в защиту</span></div>
+        <div class="ch-row"><code>.raid time 20</code><span>длительность: 10, 15, 20, 25 или 30 мин</span></div>
+        <div class="ch-row"><code>.raid leave</code><span>выйти из записи</span></div>
+        <div class="ch-row"><code>.raid status</code><span>кто записан, что идёт</span></div>
       </div>
-      <div class="cmd-group"><h3>Позвать</h3>
-        <div class="cmd"><div><code>.raid invite <span class="arg">&lt;игрок&gt; &lt;замок&gt; &lt;минуты&gt; &lt;осколок&gt;</span></code></div><div class="d">Позвать соперника — проще собрать команду выше.</div></div>
-        <div class="cmd"><div><code>.raid accept</code><span class="al">.raid decline</span></div><div class="d">Ответить на зов.</div></div>
+      <div class="ch-grp">
+        <div class="ch-h">Позвать</div>
+        <div class="ch-row"><code>.raid invite …</code><span>позвать соперника — собери выше</span></div>
+        <div class="ch-row"><code>.raid accept</code><span>принять зов</span></div>
+        <div class="ch-row"><code>.raid decline</code><span>отказаться</span></div>
       </div>
-      <div class="cmd-group"><h3>Защита и бой</h3>
-        <div class="cmd"><div><code>.servants <span class="arg">&lt;код из 8 знаков&gt;</span></code></div><div class="d">Набор слуг для гробов — собери выше.</div></div>
-        <div class="cmd"><div><code>.spec <span class="arg">[имя]</span></code></div><div class="d">Павший: смотреть за следующим товарищем или за названным.</div></div>
-        <div class="cmd"><div><code>.gg</code></div><div class="d">Закончить матч досрочно (когда бой уже идёт).</div></div>
+      <div class="ch-grp">
+        <div class="ch-h">Бой</div>
+        <div class="ch-row"><code>.servants код</code><span>слуги для гробов — собери выше</span></div>
+        <div class="ch-row"><code>.spec</code><span>павший: следующий товарищ</span></div>
+        <div class="ch-row"><code>.spec имя</code><span>павший: смотреть за ним</span></div>
+        <div class="ch-row"><code>.gg</code><span>закончить матч досрочно</span></div>
       </div>
     </div>
   </section>
