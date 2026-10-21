@@ -25,15 +25,11 @@
     <a class="brand" href="../"><svg class="brand-mark" style="color:var(--blood-lit)"><use href="#doll"/></svg><span class="brand-name">MATRYOSHKA</span><span class="brand-sub">PVP</span></a>
     <button class="burger" aria-label="Меню">☰</button>
     <nav class="nav">
-      <a href="#map">Карта</a>
-      <a href="#start">Старт</a>
-      <a href="#economy">Экономика</a>
-      <a href="#events">Ивенты</a>
-      <a href="#features">Механики</a>
-      <a href="#pvp">PvP и рейды</a>
-      <a href="#commands">Команды</a>
-      <a href="../arena/" class="arena-link">Arena</a>
+      <a href="../">Главная</a>
+      <a href="./" class="pvp-link on">Матрёшка PVP</a>
+      <a href="../arena/" class="arena-link">Матрёшка Arena</a>
       <a href="../discord/">Discord</a>
+      <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Поддержать проект</a>
       <a href="../rules/" class="rules-link">Правила</a>
     </nav>
     <div class="lang-sw"><a href="./" data-lang="ru" class="on">RU</a><a href="../en/pvp/" data-lang="en">EN</a></div>
@@ -279,17 +275,17 @@
     <h2 class="start-h">Старт вайпа</h2>
     <p class="start-sub">По Москве. Дата и отсчёт — справа вверху.</p>
     <div class="plan">
-      <div class="pl key"><span class="pd">Вайп</span><span class="pt">19:00</span><span class="px">Открыто всё: <b>боссы, разломы, крафт</b>. Замок — с первой минуты.</span></div>
-      <div class="pl"><span class="pd">Вайп</span><span class="pt">20:00</span><span class="px">Повозки снабжения — дальше каждые 2 часа.</span></div>
-      <div class="pl"><span class="pd">2-й день</span><span class="pt">10:00</span><span class="px">Набор новичка <span class="mono">.kit</span> — медный.</span></div>
-      <div class="pl key"><span class="pd">2-й день</span><span class="pt">18:00</span><span class="px"><b>Город торговцев</b> — телепорт с любой точки.</span></div>
-      <div class="pl key"><span class="pd">2-й день</span><span class="pt">19:00</span><span class="px"><b>Первые рейды.</b> Дальше — каждые сб и вс 19:00–22:00.</span></div>
-      <div class="pl"><span class="pd">3-й день</span><span class="pt">10:00</span><span class="px"><span class="mono">.kit</span> — железный.</span></div>
+      <div class="pl key"><span class="pd">День 1</span><span class="pt">19:00</span><span class="px">Вайп. Открыто всё: <b>боссы, разломы, крафт</b>. Замок — с первой минуты.</span></div>
+      <div class="pl"><span class="pd">День 1</span><span class="pt">20:00</span><span class="px">Повозки снабжения — дальше каждые 2 часа.</span></div>
+      <div class="pl"><span class="pd">День 2</span><span class="pt">10:00</span><span class="px">Набор новичка <span class="mono">.kit</span> — медный.</span></div>
+      <div class="pl key"><span class="pd">День 2</span><span class="pt">18:00</span><span class="px"><b>Город торговцев</b> — телепорт с любой точки.</span></div>
+      <div class="pl key"><span class="pd">День 2</span><span class="pt">19:00</span><span class="px"><b>Первые рейды.</b> Дальше — каждые сб и вс 19:00–22:00.</span></div>
+      <div class="pl"><span class="pd">День 3</span><span class="pt">10:00</span><span class="px"><span class="mono">.kit</span> — железный.</span></div>
     </div>
   </section>
   </div>
 
-  <div class="ptabs" role="tablist"><button data-t="economy">Экономика</button><button data-t="events">Ивенты</button><button data-t="features">Механики</button><button data-t="pvp">PvP и рейды</button><button data-t="commands">Команды</button></div>
+  <div class="ptabs" role="tablist"><button data-t="economy">Экономика</button><button data-t="events">Ивенты</button><button data-t="features">Механики</button><button data-t="pvp">PvP и рейды</button><button data-t="rules">Правила</button><button data-t="commands">Команды</button></div>
   <style>
   /* 21.10: шапка → карта + старт рядом → вкладки */
   .pv-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;margin-top:8px}
@@ -360,18 +356,19 @@
     <div class="s2">
       <div class="card"><span class="tag gold">Заработать</span>
         <ul class="ln">
-          <li><b>+2 в минуту</b> — за время в игре</li>
-          <li><b>10–500</b> — за кровь каждого V Blood</li>
-          <li><b>1000 · 500 · 100</b> — за кровь мирового босса</li>
-          <li><b>Лучистое волокно</b> — раз в день, <span class="mono">.daily</span></li>
+          <li><b>+2 первородных осколка</b> в минуту — за время в игре</li>
+          <li><b>10–500 первородных</b> — за кровь каждого V Blood</li>
+          <li><b>1000 стигийских · 500 великих · 100 первородных</b> — за кровь мирового босса</li>
+          <li><b>1 Лучистое волокно</b> — раз в день, <span class="mono">.daily</span></li>
         </ul>
-        <p class="dim">Монеты и младшие осколки меняются на первородные в банке.</p></div>
+        <p class="dim">Монеты и младшие осколки меняются на первородные в банке города.</p></div>
       <div class="card"><span class="tag gold">Потратить · город торговцев</span>
         <p><b>Со 2-го дня, 18:00.</b> Телепорт с любой путевой точки — туда и обратно с любыми вещами. Внутри никто не атакует.</p>
-        <p class="dim">Слитки, ткани, камни, зелья, эликсиры, покрытия, книги T08, плащи и шапки, банк.</p>
         <ul class="ln">
-          <li><b>Артефакты</b> — разбитое легендарное оружие за 7 волокон</li>
-          <li><b>Пленники 100 %</b> — 1000 осколков</li>
+          <li><b>За первородные осколки</b> — товары торговцев: слитки, ткани, камни, зелья, эликсиры, покрытия, книги T08, плащи, банк</li>
+          <li><b>За монеты</b> — шапки и плащи</li>
+          <li><b>За 7 Лучистых волокон</b> — разбитое легендарное (артефактное) оружие</li>
+          <li><b>За 1000 первородных</b> — пленник со 100 % кровью</li>
         </ul></div>
     </div>
   </section>
@@ -433,12 +430,53 @@
 
   <section id="pvp">
     <div class="s3">
-      <div class="card"><span class="tag gold">Рейды</span><h3>Сб и вс, 19:00–22:00</h3><p>В будни рейдов нет. Клан не в сети 15 минут к 19:00 — замок в этот вечер не ломают.</p></div>
-      <div class="card"><span class="tag red">Уровень</span><h3>Не бей слабых</h3><p>Разница — до 10 уровней (80+ — до 5). Можно: в FFA-зоне, на ивенте, носителя осколка, если напали первым. <span class="mono">.lvl Имя</span> — зелёным можно, красным нельзя.</p></div>
-      <div class="card"><span class="tag red">Осколки</span><h3>Один на клан</h3><p>Выбил нужный, а свой есть — свой брось на землю. Носитель и клан с осколком в замке — цель для всех.</p></div>
-      <div class="card"><span class="tag red">FFA-зоны</span><h3>Красное на карте</h3><p>Там бей любого — уровень не важен.</p></div>
-      <div class="card"><span class="tag red">Череп</span><h3>Награда за голову</h3><p>10 убийств подряд — тебя видно на карте. Убил носителя — 500 осколков. <span class="mono">.wanted</span></p></div>
-      <div class="card"><span class="tag">Снаряжение</span><h3>Тиры — соседние</h3><p>Броня и амулет — разница не больше 1 тира, иначе не наденется.</p></div>
+      <div class="card"><span class="tag gold">Рейды</span><h3>Сб и вс, 19:00–22:00</h3><p>В будни рейдов нет. Вне окна замки не ломаются. Клан не в сети 15 минут к 19:00 — замок в этот вечер не ломают.</p></div>
+      <div class="card"><span class="tag red">FFA-зоны</span><h3>Красное на карте</h3><p>Вокруг дополнительных ресурсов. При входе — «PVP ZONE». Бей любого — уровень не важен.</p></div>
+      <div class="card"><span class="tag red">Череп</span><h3>Награда за голову</h3><p>10 убийств подряд — тебя видно на карте. Убил носителя — 500 первородных осколков. <span class="mono">.wanted</span></p></div>
+      <div class="card"><span class="tag">Бой с боссом</span><h3>Защита 40 м</h3><p>Дерёшься с V Blood — другие игроки тебя не достанут, пока не начнёшь пить кровь.</p></div>
+      <div class="card"><span class="tag">Снаряжение</span><h3>Тиры — соседние</h3><p>Броня и амулет — разница не больше 1 тира, иначе вещь не наденется.</p></div>
+      <div class="card"><span class="tag red">Правила</span><h3>Кого можно бить</h3><p>Уровни, ивенты, осколки — <a href="#rules">во вкладке «Правила»</a>.</p></div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <p class="tab-lead">Главное о PvP. Полные правила — общение, гриферство, жалобы — <a href="../rules/">на отдельной странице</a>.</p>
+    <div class="s2">
+      <div class="card"><span class="tag red">Правило уровня</span><h3>Не бей слабых</h3>
+        <p>Нельзя убивать того, кто <b>ниже тебя больше чем на 10 уровней</b> (если у тебя 80+ — больше чем на 5). Считается наибольший уровень в клане и максимальный достигнутый — снять вещи не поможет.</p>
+        <p class="dim">Нарушение — красная строка в чате для всех. Проверить игрока — <span class="mono">.lvl Имя</span>: зелёным можно, красным нельзя.</p></div>
+      <div class="card"><span class="tag gold">Можно бить любого</span><h3>Уровень не важен, если</h3>
+        <ul class="ln">
+          <li><b>На ивенте</b> — все ивенты PvP: повозки, мировой босс, разломы, лошадь, сундуки</li>
+          <li><b>В FFA-зоне</b> — красные области на карте</li>
+          <li><b>Носитель осколка</b> и весь клан, у кого осколок в замке</li>
+          <li>Младший <b>напал первым</b> · <b>месть</b> за 15 минут</li>
+          <li>Игрок из <b>топ-10</b> ленты убийств · на <b>участке твоего замка</b></li>
+        </ul></div>
+      <div class="card"><span class="tag red">Осколки финальных боссов</span><h3>Один на клан</h3>
+        <p>Солярус, Талзур, Адам, Мегара, Дракула — у клана <b>только один осколок</b>. Выбил нужный у игрока или в рейде, а свой уже есть — <b>свой бросаешь на землю</b>, нужный забираешь.</p>
+        <p class="dim">Осколок можно поставить в пьедестал в замке — но тогда весь клан законная цель для всех.</p></div>
+      <div class="card"><span class="tag gold">Рейды</span><h3>Сб и вс, 19:00–22:00</h3>
+        <ul class="ln">
+          <li>В будни рейдов нет</li>
+          <li>Клан не в сети 15 минут к 19:00 — замок в этот вечер не ломают</li>
+          <li>Клан — до 2 игроков, один замок; союзы кланов запрещены</li>
+          <li>Рейд — дело двух кланов: остальным не вмешиваться</li>
+          <li>Не менять состав клана перед рейдом и во время него</li>
+        </ul></div>
+      <div class="card"><span class="tag red">Нельзя</span><h3>За это — наказание</h3>
+        <ul class="ln">
+          <li>Нападать на того, кто бьёт V Blood (защита 40 м)</li>
+          <li>Уходить от PvP через «застрял», баги и закрытые места</li>
+          <li>Набивать убийства с напарником — вечный бан</li>
+          <li>Читы, макросы, игра через баги — вечный бан</li>
+        </ul></div>
+      <div class="card"><span class="tag">Ещё</span><h3>Полезно знать</h3>
+        <ul class="ln">
+          <li><b>Снаряжение:</b> броня и амулет — разница не больше 1 тира</li>
+          <li><b>Череп:</b> 10 убийств подряд — тебя видно на карте; убийца носителя получает 500 осколков</li>
+          <li><b>Жалоба</b> — в тикет в Discord, по PvP — только с видео</li>
+        </ul></div>
     </div>
     <p style="margin-top:18px"><a class="more-link" href="../rules/">Все правила сервера →</a></p>
   </section>

@@ -25,15 +25,11 @@
     <a class="brand" href="../"><svg class="brand-mark" style="color:var(--blood-lit)"><use href="#doll"/></svg><span class="brand-name">MATRYOSHKA</span><span class="brand-sub">PVP</span></a>
     <button class="burger" aria-label="Menu">☰</button>
     <nav class="nav">
-      <a href="#map">Map</a>
-      <a href="#start">Launch</a>
-      <a href="#economy">Economy</a>
-      <a href="#events">Events</a>
-      <a href="#features">Features</a>
-      <a href="#pvp">PvP and raids</a>
-      <a href="#commands">Commands</a>
-      <a href="../arena/" class="arena-link">Arena</a>
+      <a href="../">Home</a>
+      <a href="./" class="pvp-link on">Matryoshka PVP</a>
+      <a href="../arena/" class="arena-link">Matryoshka Arena</a>
       <a href="../../discord/">Discord</a>
+      <a href="https://www.donationalerts.com/r/sla1nt" target="_blank" rel="noopener">Support the project</a>
       <a href="../rules/" class="rules-link">Rules</a>
     </nav>
     <div class="lang-sw"><a href="../../pvp/" data-lang="ru">RU</a><a href="./" data-lang="en" class="on">EN</a></div>
@@ -279,8 +275,8 @@
     <h2 class="start-h">Wipe start</h2>
     <p class="start-sub">Moscow time (UTC+3). Date and countdown — top right.</p>
     <div class="plan">
-      <div class="pl key"><span class="pd">Wipe</span><span class="pt">19:00</span><span class="px">Everything is open: <b>bosses, rifts, crafting</b>. Castle from minute one.</span></div>
-      <div class="pl"><span class="pd">Wipe</span><span class="pt">20:00</span><span class="px">Supply carriages — then every 2 hours.</span></div>
+      <div class="pl key"><span class="pd">Day 1</span><span class="pt">19:00</span><span class="px">Wipe. Everything is open: <b>bosses, rifts, crafting</b>. Castle from minute one.</span></div>
+      <div class="pl"><span class="pd">Day 1</span><span class="pt">20:00</span><span class="px">Supply carriages — then every 2 hours.</span></div>
       <div class="pl"><span class="pd">Day 2</span><span class="pt">10:00</span><span class="px">Newcomer <span class="mono">.kit</span> — copper.</span></div>
       <div class="pl key"><span class="pd">Day 2</span><span class="pt">18:00</span><span class="px"><b>Traders’ City</b> — teleport from any waypoint.</span></div>
       <div class="pl key"><span class="pd">Day 2</span><span class="pt">19:00</span><span class="px"><b>First raids.</b> Then every Sat and Sun 19:00–22:00.</span></div>
@@ -289,7 +285,7 @@
   </section>
   </div>
 
-  <div class="ptabs" role="tablist"><button data-t="economy">Economy</button><button data-t="events">Events</button><button data-t="features">Mechanics</button><button data-t="pvp">PvP & raids</button><button data-t="commands">Commands</button></div>
+  <div class="ptabs" role="tablist"><button data-t="economy">Economy</button><button data-t="events">Events</button><button data-t="features">Mechanics</button><button data-t="pvp">PvP & raids</button><button data-t="rules">Rules</button><button data-t="commands">Commands</button></div>
   <style>
   /* 21.10: шапка → карта + старт рядом → вкладки */
   .pv-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:start;margin-top:8px}
@@ -360,18 +356,19 @@
     <div class="s2">
       <div class="card"><span class="tag gold">Earn</span>
         <ul class="ln">
-          <li><b>+2 per minute</b> — time online</li>
-          <li><b>10–500</b> — for every V Blood’s blood</li>
-          <li><b>1000 · 500 · 100</b> — for the world boss’s blood</li>
-          <li><b>Radiant Fibre</b> — once a day, <span class="mono">.daily</span></li>
+          <li><b>+2 Primal shards</b> per minute — time online</li>
+          <li><b>10–500 Primal</b> — for every V Blood’s blood</li>
+          <li><b>1000 Stygian · 500 Greater · 100 Primal</b> — for the world boss’s blood</li>
+          <li><b>1 Radiant Fibre</b> — once a day, <span class="mono">.daily</span></li>
         </ul>
-        <p class="dim">Coins and lesser shards are exchanged for Primal at the bank.</p></div>
+        <p class="dim">Coins and lesser shards are exchanged for Primal at the city bank.</p></div>
       <div class="card"><span class="tag gold">Spend · Traders’ City</span>
         <p><b>From day 2, 18:00.</b> Teleport from any waypoint — there and back with any items. Nobody can attack inside.</p>
-        <p class="dim">Ingots, textiles, gems, potions, elixirs, coatings, T08 books, cloaks and hats, bank.</p>
         <ul class="ln">
-          <li><b>Artifacts</b> — shattered legendary weapons for 7 Fibre</li>
-          <li><b>100% prisoners</b> — 1000 shards</li>
+          <li><b>For Primal shards</b> — traders’ goods: ingots, textiles, gems, potions, elixirs, coatings, T08 books, cloaks, bank</li>
+          <li><b>For coins</b> — hats and cloaks</li>
+          <li><b>For 7 Radiant Fibre</b> — a shattered legendary (artifact) weapon</li>
+          <li><b>For 1000 Primal</b> — a prisoner with 100% blood</li>
         </ul></div>
     </div>
   </section>
@@ -433,12 +430,53 @@
 
   <section id="pvp">
     <div class="s3">
-      <div class="card"><span class="tag gold">Raids</span><h3>Sat and Sun, 19:00–22:00</h3><p>No raids on weekdays. Clan offline 15 minutes by 19:00 — the castle is safe that evening.</p></div>
-      <div class="card"><span class="tag red">Level</span><h3>Don’t hunt the weak</h3><p>Gap up to 10 levels (80+ — up to 5). Allowed: FFA zones, events, shard carriers, if they hit first. <span class="mono">.lvl Name</span> — green yes, red no.</p></div>
-      <div class="card"><span class="tag red">Shards</span><h3>One per clan</h3><p>Took one while you have yours — drop yours. A carrier and a clan with a shard in its castle are fair game.</p></div>
-      <div class="card"><span class="tag red">FFA zones</span><h3>Red on the map</h3><p>Hit anyone there — level doesn’t matter.</p></div>
-      <div class="card"><span class="tag red">Skull</span><h3>Bounty</h3><p>10 kills in a row — you’re on the map. Kill the bearer — 500 shards. <span class="mono">.wanted</span></p></div>
+      <div class="card"><span class="tag gold">Raids</span><h3>Sat and Sun, 19:00–22:00</h3><p>No raids on weekdays. Outside the window castles can’t be damaged. Clan offline 15 minutes by 19:00 — the castle is safe that evening.</p></div>
+      <div class="card"><span class="tag red">FFA zones</span><h3>Red on the map</h3><p>Around extra resources. On entry — “PVP ZONE”. Hit anyone — level doesn’t matter.</p></div>
+      <div class="card"><span class="tag red">Skull</span><h3>Bounty</h3><p>10 kills in a row — you’re on the map. Kill the bearer — 500 Primal shards. <span class="mono">.wanted</span></p></div>
+      <div class="card"><span class="tag">Boss fight</span><h3>40 m protection</h3><p>Fighting a V Blood — other players can’t reach you until you start drinking.</p></div>
       <div class="card"><span class="tag">Gear</span><h3>Neighbouring tiers</h3><p>Armor and amulet — at most 1 tier apart, otherwise it won’t equip.</p></div>
+      <div class="card"><span class="tag red">Rules</span><h3>Who you can hit</h3><p>Levels, events, shards — <a href="#rules">in the “Rules” tab</a>.</p></div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <p class="tab-lead">The PvP essentials. Full rules — conduct, griefing, reports — <a href="../rules/">on a separate page</a>.</p>
+    <div class="s2">
+      <div class="card"><span class="tag red">Level rule</span><h3>Don’t hunt the weak</h3>
+        <p>Don’t kill players <b>more than 10 levels below you</b> (if you are 80+ — more than 5). The highest level in the clan and the maximum ever reached count — taking gear off won’t help.</p>
+        <p class="dim">A violation — a red line in chat for everyone. Check a player with <span class="mono">.lvl Name</span>: green — yes, red — no.</p></div>
+      <div class="card"><span class="tag gold">Hit anyone</span><h3>Level doesn’t matter when</h3>
+        <ul class="ln">
+          <li><b>At an event</b> — all events are PvP: carriages, world boss, rifts, horse, chests</li>
+          <li><b>In an FFA zone</b> — red areas on the map</li>
+          <li><b>A shard carrier</b> and a whole clan with a shard in its castle</li>
+          <li>The lower player <b>attacked first</b> · <b>revenge</b> within 15 minutes</li>
+          <li>A <b>top-10</b> killer · on <b>your castle plot</b></li>
+        </ul></div>
+      <div class="card"><span class="tag red">Final boss shards</span><h3>One per clan</h3>
+        <p>Solarus, Talzur, Adam, Megara, Dracula — a clan keeps <b>only one shard</b>. Took the one you need from a player or in a raid while you have yours — <b>drop yours on the ground</b> and take the new one.</p>
+        <p class="dim">You can put a shard on a pedestal in your castle — but then your whole clan is fair game.</p></div>
+      <div class="card"><span class="tag gold">Raids</span><h3>Sat and Sun, 19:00–22:00</h3>
+        <ul class="ln">
+          <li>No raids on weekdays</li>
+          <li>Clan offline 15 minutes by 19:00 — the castle is safe that evening</li>
+          <li>Clans of up to 2, one castle; clan alliances are forbidden</li>
+          <li>A raid is between two clans: others don’t interfere</li>
+          <li>Don’t change the clan roster before or during a raid</li>
+        </ul></div>
+      <div class="card"><span class="tag red">Forbidden</span><h3>Punished</h3>
+        <ul class="ln">
+          <li>Attacking someone fighting a V Blood (40 m protection)</li>
+          <li>Escaping PvP via unstuck, bugs or closed areas</li>
+          <li>Boosting kills with a clanmate — permanent ban</li>
+          <li>Cheats, macros, bug abuse — permanent ban</li>
+        </ul></div>
+      <div class="card"><span class="tag">Also</span><h3>Good to know</h3>
+        <ul class="ln">
+          <li><b>Gear:</b> armor and amulet — at most 1 tier apart</li>
+          <li><b>Skull:</b> 10 kills in a row — you’re on the map; whoever kills the bearer gets 500 shards</li>
+          <li><b>Reports</b> — a Discord ticket, PvP only with video</li>
+        </ul></div>
     </div>
     <p style="margin-top:18px"><a class="more-link" href="../rules/">All server rules →</a></p>
   </section>
